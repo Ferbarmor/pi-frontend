@@ -1,0 +1,41 @@
+.draggable {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn-custom {
+    background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
+}
+
+.btn-customd {
+    background: linear-gradient(135deg, #ff4d4d 0%, #ff66b2 100%);
+}
+
+.btn-customd:hover {
+    filter: brightness(1.1);
+    /* Aumenta el brillo */
+    box-shadow: 0 0 15px #ff4d4d;
+    /* Un poco de glow */
+    cursor: pointer;
+}
+
+.btn-custom:hover {
+    filter: brightness(1.1);
+    /* Aumenta el brillo */
+    box-shadow: 0 0 15px #1d4ed8;
+    /* Un poco de glow */
+    cursor: pointer;
+}
+
+.cursor-move {
+    cursor: move;
+  }
+
+  .wrapper {
+    padding-top: 100px;
+    position: relative;
+    min-height: calc(100vh - 100px);
+    /* Altura total menos navbar */
+}

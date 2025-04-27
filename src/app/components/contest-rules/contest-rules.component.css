@@ -1,0 +1,25 @@
+.btn-custom{
+    background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
+    color: white;
+}
+
+.contest-rules-wrapper {
+    padding-top: 100px;  /* Igual a la altura del navbar */
+    /*margin-top: -100px;  /* Compensación mágica */
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 992px) {
+     .contest-rules-wrapper {
+      margin-top: 80px;
+      padding-top: 200px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .contest-rules-wrapper {
+      margin-top: 60px;
+      padding-top: 200px;
+    }
+  }

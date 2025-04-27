@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Roboto+Slab:wght@100;300;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Holtwood+One+SC&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Holtwood+One+SC&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&family=Sixtyfour&display=swap');
+/*.foto-uniforme {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}*/
+* {
+  font-family: 'Roboto Slab', serif !important;
+}
+.navbar-logo{
+  border-radius: 50%;
+}
+
+.wrapper {
+  padding-top: 100px;
+  position: relative;
+  min-height: calc(100vh - 100px); /* Altura total menos navbar */
+}
+
+.username-special {
+  font-size: 2rem;
+  color: #37576c;
+  font-weight: bold;
+}
+
+.btn-custom{
+  background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
+}
+
+/*@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animated-logo {
+  animation: bounceIn 0.8s ease;
+}*/
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Aumenta el tamaño */
+  }
+  100% {
+    transform: scale(1); /* Vuelve al tamaño normal */
+  }
+}
+
+/* Clase que aplica la animación */
+.animated-pulse {
+  animation: pulse 5s infinite ease-in-out;
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  padding: 6px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none; /* Para que no bloquee el click */
+}
+
+.position-relative:hover .overlay-text {
+  opacity: 1;
+}
+
+.custom-card{
+  border: 2px solid #f39c12; /* naranja bonito */
+     /* opcional, bordes redondeados */
+}
+

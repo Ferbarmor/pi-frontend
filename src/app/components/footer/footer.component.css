@@ -1,0 +1,27 @@
+
+
+/* Contenedor principal con margen inferior para evitar que el contenido quede tapado */
+.content-container {
+  padding-bottom: 60px;  /* Ajusta este valor dependiendo del tamaño de tu footer */
+}
+
+/* Footer fijo al fondo */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background: linear-gradient(135deg,#9dcbd8 0%, #1d4ed8 100%);
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  z-index: 1000; /* Asegura que el footer esté por encima de otros elementos */
+}
+
+.social-icons a {
+    color: #50C9CE; /* Iconos sociales en tono turquesa */
+    font-size: 24px;
+    margin-right: 15px;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }

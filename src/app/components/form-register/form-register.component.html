@@ -1,0 +1,124 @@
+<div class="login-wrapper">
+    <div class="container mt-5 ">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow" #dragTarget style="position: absolute;">
+                    <div class="card-header bg-light cursor-move text-center" #dragHandle>
+                        <h1 class="card-title mb-0"><strong>
+                                {{ usuario.id === undefined || usuario.id === -1 ? 'REGISTRARSE' : 'EDITAR' }}</strong>
+                        </h1>
+                    </div>
+                    <div class="card-body p-4">
+
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                            <!-- Selector de Rol -->
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" formControlName="nombre" [ngClass]="{
+                                    'is-invalid': form.controls['nombre'].invalid && 
+                                                (form.controls['nombre'].dirty || form.controls['nombre'].touched)
+                                }" placeholder="nombre completo">
+
+                                @if(form.controls["nombre"].invalid && (form.controls["nombre"].dirty ||
+                                form.controls["nombre"].touched)){
+                                @if(form.controls["nombre"].errors?.["required"]){
+                                <div class="invalid-feedback">El nombre es obligatorio</div>
+                                }
+                                @if(form.controls["nombre"].errors?.["minLength"]){
+                                <div class="invalid-feedback">El nombre debe tener al menos dos caracteres</div>
+                                }
+                                }
+                            </div>
+
+
+                            <!-- Campo Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" formControlName="email" [ngClass]="{
+                                    'is-invalid': form.controls['email'].invalid && 
+                                                (form.controls['email'].dirty || form.controls['email'].touched)
+                                }" placeholder="tu@email.com">
+
+                                @if(form.controls["email"].invalid && (form.controls["email"].dirty ||
+                                form.controls["email"].touched)){
+                                @if(form.controls["email"].errors?.["required"]){
+                                <div class="invalid-feedback">El email es obligatorio</div>
+                                }
+                                @if(form.controls["email"].errors?.["email"]){
+                                <div class="invalid-feedback">Debe ser un email válido</div>
+                                }
+                                @if(form.controls["email"].errors?.["pattern"]){
+                                    <div class="invalid-feedback">No puede haber espacios</div>
+                                    }
+                                }
+                            </div>
+                            @if(usuario.id === undefined || -1){
+                            <!-- Campo Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" formControlName="password"
+                                    [ngClass]="{
+                                    'is-invalid': form.controls['password'].invalid && 
+                                                (form.controls['password'].dirty || form.controls['password'].touched)
+                                }" placeholder="contraseña">
+
+                                @if(form.controls["password"].invalid && (form.controls["password"].dirty ||
+                                form.controls["password"].touched)){
+                                @if(form.controls["password"].errors?.["required"]){
+                                <div class="invalid-feedback">La contraseña es obligatoria</div>
+                                }
+                                @if(form.controls["password"].errors?.["minlength"]){
+                                <div class="invalid-feedback">La contraseña debe tener al menos 6 caracteres</div>
+                                }
+                                @if(form.controls["password"].errors?.["pattern"]){
+                                <div class="invalid-feedback">La contraseña no puede contener espacios</div>
+                                }
+                                }
+                            </div>
+                            }
+                            <!-- Campo Rally (solo visible para participantes) -->
+                            <div class="mb-3">
+                                <label for="rally" class="form-label">Rally</label>
+                                <select class="form-control" id="rally" formControlName="id_rally" [ngClass]="{
+                            'is-invalid': form.controls['id_rally'].invalid && 
+                                        (form.controls['id_rally'].dirty || form.controls['id_rally'].touched)
+                        }">
+                                    <option value="" disabled selected>Selecciona un rally</option>
+                                    @for (rally of rallies; track $index) {
+                                    <option [value]="rally.id">
+                                        {{ rally.nombre }}
+                                    </option>
+                                    }
+                                </select>
+
+                                @if(form.controls["id_rally"].invalid && (form.controls["id_rally"].dirty ||
+                                form.controls["id_rally"].touched)){
+                                @if(form.controls["id_rally"].errors?.["required"]){
+                                <div class="invalid-feedback">Debes seleccionar un rally</div>
+                                }
+                                }
+                            </div>
+                            <!-- Mensaje de error -->
+                            @if (message) {
+                            <div class="alert alert-dismissible"
+                                [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+                                {{ message }}
+                                <button type="button" class="btn-close" (click)="message = ''"></button>
+                            </div>
+                            }
+
+                            <!-- Botón de Login -->
+                            <div class="d-flex justify-content-between gap-2 mt-3 flex-wrap">
+                                <button type="submit" class="btn btn-custom btn-sm" [disabled]="!form.valid">
+                                    <i class="bi bi-check-circle"></i> {{textBottom}}
+                                </button>
+                                <button type="button" class="btn btn-customd btn-sm" (click)="onCancel()">
+                                    <i class="bi bi-x-circle"></i> Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

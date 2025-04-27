@@ -1,0 +1,122 @@
+<app-carrusel></app-carrusel>
+<div class="content-container "> <!-- NUEVO CONTENEDOR AÑADIDO AQUÍ -->
+
+  <div class="container mt-4">
+    <h1 class="mb-4 text-center fw-bold"
+      style="font-family:'Holtwood One SC', serif !important; color: #ff9900 !important;">BIENVENIDOS A NUETRO RALLY DE
+      PRIMAVERA</h1>
+    <p class="lead text-center mb-5 " style="max-width: 800px; margin: 0 auto;">
+      Prepárate para sumergirte en un evento lleno de creatividad, naturaleza y pasión por la fotografía.
+      El <strong><span class="letter letter-s">R</span>
+        <span class="letter letter-n">a</span>
+        <span class="letter letter-a">l</span>
+        <span class="letter letter-p1">l</span>
+        <span class="letter letter-t">y</span>
+        &nbsp;
+        <span class="letter letter-a2">F</span>
+        <span class="letter letter-p2">o</span>
+        <span class="letter letter-s">t</span>
+        <span class="letter letter-n">o</span>
+        <span class="letter letter-a">g</span>
+        <span class="letter letter-p1">r</span>
+        <span class="letter letter-t">á</span>
+        <span class="letter letter-a2">f</span>
+        <span class="letter letter-p2">i</span>
+        <span class="letter letter-s">c</span>
+        <span class="letter letter-n">o</span>
+        &nbsp;
+        <span class="letter letter-a">d</span>
+        <span class="letter letter-p1">e</span>
+        &nbsp;
+        <span class="letter letter-t">P</span>
+        <span class="letter letter-a2">r</span>
+        <span class="letter letter-p2">i</span>
+        <span class="letter letter-s">m</span>
+        <span class="letter letter-n">a</span>
+        <span class="letter letter-a">v</span>
+        <span class="letter letter-p1">e</span>
+        <span class="letter letter-t">r</span>
+        <span class="letter letter-a2">a</span></strong> reúne a amantes de la imagen de todas las edades en una
+      competición donde cada disparo cuenta.
+      Participantes de todas partes capturan la esencia de la estación más vibrante, compitiendo por el voto del público
+      y un lugar destacado en nuestro ranking.
+      🌼📸
+    </p>
+    <h2 class="mb-4 text-center text-primary fw-bold">PUEDES VOTAR LAS FOTOS DE NUESTROS PARTICIPANTES UN MÁXIMO DE
+      <strong class="num-votos">
+        <h1>2</h1>
+      </strong> VECES</h2>
+    <p class="text-center">Si quieres votar muchas veces...  <a routerLink="/register" class="fw-bold fs-5 text-decoration-none ms-2"> REGÍSTRATE</a> </p>
+    <div class="row g-4">
+      @if(fotos.length === 0) {
+      <div class="d-flex justify-content-center align-items-center w-100">
+        <div class="text-center">
+          <h2 class="mt-1">Aún no hay fotos disponibles</h2>
+          <img src="assets/images/Logo.png" alt="Logo Rally Fotográfico" class="mt-5 me-2 navbar-logo animated-pulse"
+            style="width: 500px; height: auto;">
+        </div>
+      </div>
+      }
+
+      @for (foto of fotos; track $index) {
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow-sm custom-card d-flex flex-column">
+          <div class="overflow-hidden position-relative" style="height: 200px;">
+            <img [src]="getUrl(foto.ruta_archivo)" loading="lazy" class="w-100 h-100 object-fit-cover" alt="Foto"
+              (click)="verFotoGrande(getUrl(foto.ruta_archivo))" />
+            <div class="overlay-text">Haz clic para ampliar la foto</div>
+          </div>
+
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text fw-bold mb-1" style="color: #3399ff;">{{ foto.titulo }}</h5>
+            <p class="card-text text-muted small flex-grow-1">{{ foto.descripcion }}</p>
+
+            <div class="d-flex flex-column small mt-2 mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-hand-thumbs-up-fill text-success"></i>
+                <span>Votos: {{ getVotosPorFoto(foto) }}</span>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-star-fill text-warning"></i>
+                <span>Ranking: {{ getRankingPorFoto(foto) }}</span>
+              </div>
+            </div>
+            @if(!isLoggedIn){
+            <div class="d-flex justify-content-between mt-auto">
+              <!-- <button class="btn btn-sm" [ngClass]="{
+                    'btn-outline-primary': !haVotado(foto.id),
+                    'btn-outline-danger': haVotado(foto.id)
+                  }" (click)="votarAnularFoto(foto.id)">
+                    <i class="pi pi-pencil me-1"></i> {{ haVotado(foto.id) ? 'Anular voto' : 'Vota esta foto' }}
+                  </button>-->
+              <button class="btn btn-sm btn-outline-primary" (click)="votarAnularFoto(foto.id)">
+                <i class="bi bi-pencil"></i> Vota esta foto
+              </button>
+            </div>}
+          </div>
+        </div>
+      </div>
+      }
+
+      <!-- Modal para ver imagen en grande -->
+      <div class="modal fade show" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': isFotoModalOpen }"
+        style="background-color: rgba(0, 0, 0, 0.7);" *ngIf="isFotoModalOpen" (click)="cerrarModal()">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" (click)="$event.stopPropagation()">
+          <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+              <img [src]="selectedFotoUrl" alt="Foto grande" class="img-fluid rounded shadow"
+                style="width: 1000px; height: 1000px; object-fit: contain;" />
+            </div>
+            <div class="text-end me-3 mt-2">
+              <button type="button" class="btn btn-light" (click)="cerrarModal()">
+                <i class="bi bi-x-lg"></i> Cerrar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div> <!-- FIN DE content-container -->

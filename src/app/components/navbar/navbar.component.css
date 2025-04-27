@@ -1,0 +1,249 @@
+/* ===== ESTILOS GENERALES ===== */
+.navbar-container {
+  background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: static !important;
+  height: 100px;
+  width: 100%;
+  transition: background 0.5s ease;
+  /* Transición para el fondo */
+  position: fixed !important;
+  z-index: 1050;
+}
+
+.navbar {
+  padding: 0.5rem 1rem;
+  overflow: visible !important;
+  transition: padding 0.3s ease;
+}
+
+.logo-container {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.navbar-logo {
+  height: 80px;
+  width: auto;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+/* Animación personalizada para el submenú */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .prime-menu-container {
+    width: 100%;
+    margin-top: 1rem;
+    transition: margin 0.3s ease;
+  }
+
+
+  .custom-menubar {
+    .p-menubar-root-list {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 1200 !important;
+      transition: all 0.4s ease;
+    }
+
+    .p-menubar-mobile-active {
+      z-index: 1201 !important;
+      transition: all 0.3s ease;
+    }
+
+    .p-submenu-list {
+      transition:
+        opacity 0.25s ease,
+        height 0.3s ease !important;
+      height: 0;
+      overflow: hidden;
+      transform: none !important;
+    }
+
+    .p-menuitem-active>.p-submenu-list {
+      height: auto;
+      transform: none !important;
+    }
+  }
+
+  .navbar-brand-container.ms-5 {
+    width: 100%;
+    order: 2;
+    /* Lo movemos después del logo */
+    margin-top: 1rem;
+    margin-left: 0 !important;
+    background: rgba(30, 58, 138, 0.9);
+    border-radius: 8px;
+    padding: 0.5rem;
+  }
+
+  /* Enlaces apilados */
+  .navbar-brand-container.ms-5>a.navbar-brand {
+    display: block !important;
+    width: 100%;
+    padding: 0.75rem 1rem !important;
+    margin: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1rem !important;
+  }
+
+  /* Eliminar borde del último elemento */
+  .navbar-brand-container.ms-5>a.navbar-brand:last-child {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 767px) {
+
+  /* NAVBAR GENERAL */
+  .navbar-container {
+    height: auto;
+    padding: 0.5rem 0;
+  }
+
+  /* LOGO Y MARCA */
+  .navbar-logo {
+    height: 40px !important;
+  }
+
+  .snap-logo .letter {
+    font-size: 24px !important;
+  }
+
+  small.text-white {
+    font-size: 0.75rem !important;
+  }
+
+  /* CONTENEDOR DE ENLACES BOOTSTRAP */
+  .navbar-brand-container.ms-5 {
+    padding: 0.25rem;
+    margin-top: 0.5rem;
+    background: rgba(30, 58, 138, 0.95);
+    /* Fondo más oscuro */
+  }
+
+  .navbar-brand-container.ms-5>a.navbar-brand {
+    padding: 0.6rem 0.75rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* MENÚ PRIMENG */
+  .prime-menu-container {
+    margin-top: 0.5rem !important;
+  }
+
+  .custom-menubar {
+    .p-menubar-root-list {
+      width: 100vw;
+      right: -1rem;
+      border-radius: 0;
+      background: rgba(20, 40, 100, 0.98) !important;
+    }
+
+    .p-menuitem-link {
+      padding: 0.8rem 1rem !important;
+    }
+
+    .p-submenu-list {
+      background: rgba(10, 20, 50, 0.98) !important;
+    }
+  }
+
+  /* BOTÓN HAMBURGUESA */
+  .p-menubar-button {
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+  }
+}
+
+/* ===== AJUSTES EXTRA PARA PANTALLAS MUY PEQUEÑAS (menos de 576px) ===== */
+@media (max-width: 575px) {
+  .navbar-brand-container.ms-5>a.navbar-brand {
+    padding: 0.5rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .custom-menubar .p-menuitem-link {
+    font-size: 0.9rem !important;
+  }
+
+  .p-menubar-button {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ===== CORRECCIONES DE APILAMIENTO ===== */
+.navbar-container,
+.navbar,
+.prime-menu-container {
+  transform: none !important;
+}
+
+/*======RESALTO DE NOMBRE DE USUARIO======*/
+.username-highlight {
+  font-weight: bold;
+  color: #f39c12;
+  /* un naranja bonito */
+  font-size: 1.05rem;
+}
+
+.snap-logo .letter {
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  font-size: 50px;
+}
+
+.letter-s {
+  color: #ff4d4d;
+}
+
+/* rojo */
+.letter-n {
+  color: #ff9900;
+}
+
+/* naranja */
+.letter-a {
+  color: #ffcc00;
+}
+
+/* amarillo */
+.letter-p1 {
+  color: #33cc33;
+}
+
+/* verde */
+.letter-t {
+  color: #3399ff;
+}
+
+/* azul */
+.letter-a2 {
+  color: #9966ff;
+}
+
+/* violeta */
+.letter-p2 {
+  color: #ff66b2;
+}
+
+/* rosa */

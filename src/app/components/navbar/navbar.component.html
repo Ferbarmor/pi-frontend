@@ -1,0 +1,41 @@
+<div class="navbar-container bg-primary shadow-sm">
+  <nav class="navbar navbar-expand-lg px-4 py-2">
+    <!-- Logo y nombre -->
+    <div class="d-flex align-items-center navbar-brand-container logo-container">
+      <img src="assets/images/Logo.png" alt="Logo Rally Fotográfico" class="navbar-logo me-2">
+      <div class="d-flex flex-column lh-1">
+        <a routerLink="/" class="navbar-brand fw-bold fs-4 text-decoration-none snap-logo m-0">
+          <span class="letter letter-s">S</span>
+          <span class="letter letter-n">n</span>
+          <span class="letter letter-a">a</span>
+          <span class="letter letter-p1">p</span>
+          <span class="letter letter-t">T</span>
+          <span class="letter letter-a2">a</span>
+          <span class="letter letter-p2">p</span>
+        </a>
+        <small class="text-white fw-light ms-1" style="font-size: 0.9rem;">Rallies fotográficos</small>
+      </div>
+    </div>
+    <!--<div class="d-flex align-items-center flex-wrap navbar-brand-container ms-5">
+      <a routerLink="/" class="navbar-brand custom-menu text-white fw-bold fs-4 text-decoration-none">
+        Inicio
+      </a>
+      <a routerLink="/contest-rules"  class="navbar-brand custom-menu text-white fw-bold fs-4 text-decoration-none">
+        Reglas del concurso
+      </a>
+      <a routerLink="/" class="navbar-brand custom-menu text-white fw-bold fs-4 text-decoration-none">
+        Estadísticas
+      </a>
+
+    </div> -->
+
+    <!-- Menú de PrimeNG con estilos personalizados -->
+    <div class="prime-menu-container ms-auto">
+      <p-menubar [model]="items">
+        <ng-template pTemplate="start">
+          <!-- Espacio para elementos adicionales a la izquierda -->
+        </ng-template>
+      </p-menubar>
+    </div>
+  </nav>
+</div>
