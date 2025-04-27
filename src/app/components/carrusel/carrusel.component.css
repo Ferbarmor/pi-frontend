@@ -44,28 +44,28 @@
 
 /* Fondo específico para cada categoría (usando imágenes de fondo) */
 .escalada {
-    background-image: url(/assets/images/palo-gris.jpg);
+    background-image: url(/dist/pifrontend/browser/assets/images/palo-gris.jpg);
     /* Cambia la ruta a la imagen correspondiente */
 }
 
 .bici {
-    background-image: url(/assets/images/foto-desenfocada.jpg);
+    background-image: url(/dist/pifrontend/browser/foto-desenfocada.jpg);
 }
 
 .buceo {
-    background-image: url(/assets/images/foto-chavea.jpg);
+    background-image: url(/dist/pifrontend/browser/foto-chavea.jpg);
 }
 
 .correr {
-    background-image: url(/assets/images/foto-calle.jpg);
+    background-image: url(/dist/pifrontend/browser/foto-calle.jpg);
 }
 
 .crossfit {
-    background-image: url(/assets/images/foto-barca.jpg);
+    background-image: url(/dist/pifrontend/browser/foto-barca.jpg);
 }
 
 .ninoescalada {
-    background-image: url(/assets/images/Logo.png);
+    background-image: url(/dist/pifrontend/browser/Logo.png);
 }
 
 /* Estilos para posicionar los elementos dentro del slider */
