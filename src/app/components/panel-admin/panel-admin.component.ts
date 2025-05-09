@@ -88,7 +88,7 @@ export class PanelAdminComponent {
     this.showForm = false;
     this.selectedUsuario = <Usuario>{}
     if (result.success && result.message == "Añadiendo") {
-      this.usId == undefined ? this.usuario = result.usuario : this.usuarios.push(result.usuario!);
+      this.usuarios.push(result.usuario!);
     } else if (result.success && result.message == "Editando") {
       //this.usuarios.find(e => e.id == result.usuario!.id)!.nombre = result.usuario!.nombre;
       if (this.usId == undefined) {
