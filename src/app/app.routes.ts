@@ -8,6 +8,8 @@ import { PhotosComponent } from './components/photos/photos.component';
 import { PanelAdminComponent } from './components/panel-admin/panel-admin.component';
 import { ContestRulesComponent } from './components/contest-rules/contest-rules.component';
 import { HomeComponent } from './components/home/home.component';
+import { ConfigurationComponent } from './components/configuration/configuration.component';
+import { StatisticComponent } from './components/statistic/statistic.component';
 
 export const routes: Routes = [
     {path: "listado-tests-photos", component: ListadoTestsComponent},
@@ -21,5 +23,7 @@ export const routes: Routes = [
     {path: "admin", component: PanelAdminComponent},
     {path: "contest-rules", component: ContestRulesComponent},
     {path: "", component: HomeComponent},
+    {path: "configuration", component: ConfigurationComponent},
+    {path: "estadisticas", component: StatisticComponent},
     
 ];

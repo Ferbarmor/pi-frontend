@@ -1,0 +1,176 @@
+.wrapper {
+    padding-top: 100px;
+    padding-bottom: 15%;
+    position: relative;
+    min-height: calc(100vh - 100px);
+}
+
+:host {
+    display: block;
+}
+
+.stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stat-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    font-size: 1.1rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    color: #2d3748;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.chart-card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #2d3748;
+}
+
+.chart-wrapper {
+    position: relative;
+    min-height: 300px;
+}
+
+/* === Estilos actualizados para .top-photos === */
+
+.top-photos {
+    margin-top: 2rem;
+}
+
+.top-photos h3 {
+    margin-bottom: 1rem;
+    color: #2d3748;
+    font-family: 'Roboto Slab', serif;
+}
+
+.photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.photo-card {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 2px solid #f39c12;
+    /* igual a .custom-card */
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    /* shadow-sm */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Efecto de hover en la imagen */
+.photo-card:hover img {
+    transform: scale(1.03);
+}
+
+/* Overlay similar al anterior */
+.photo-card .overlay-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    padding: 6px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.photo-card:hover .overlay-text {
+    opacity: 1;
+}
+
+.photo-info {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.photo-info h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #3399ff;
+    font-family: 'Roboto Slab', serif;
+}
+
+.photo-desc {
+    color: #6c757d;
+    font-size: 0.875rem;
+    flex-grow: 1;
+}
+
+.photo-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    color: #333;
+    margin-top: 0.5rem;
+}
+
+.overlay-text {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    padding: 6px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.photo-card:hover .overlay-text {
+    opacity: 1;
+}

@@ -1,0 +1,54 @@
+<div class="wrapper">
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header header-custom text-white">
+                <h4 class="mb-0">Listado de Rallies</h4>
+            </div>
+            <div class="card-body">
+                <!-- Mostrar formulario o tabla según el estado -->
+                @if(showDetails){
+                <app-rally-details [rally]="selectedRally" (detailsClosed)="handleDetailsClose($event)">
+                </app-rally-details>
+                }
+                @if(showForm) {
+                <app-form-rally [rally]="selectedRally" (formClosed)="handleFormClose($event)">
+                </app-form-rally>
+                } @else {
+                <table class="table table-hover table-bordered align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (rally of rallies; track $index) {
+                        <tr>
+                            <td>{{ rally.nombre }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary me-2" (click)="verDetallesRally(rally)">
+                                    <i class="bi bi-info-circle"></i> Ver Detalles
+                                </button>
+                                <!-- Botón para editar -->
+                                <button class="btn btn-sm btn-warning me-2" (click)="editRally(rally)">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </button>
+                                <!-- Botón para eliminar -->
+                                <button class="btn btn-sm btn-danger me-2" (click)="BorraRally(rally.id, rally.nombre)">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="text-end">
+                    <button class="btn btn-success" (click)="newRally()">
+                        <i class="bi bi-person-plus-fill"></i> Nuevo Rally
+                    </button>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

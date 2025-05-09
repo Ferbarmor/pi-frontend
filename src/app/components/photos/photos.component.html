@@ -75,10 +75,10 @@
             @if(!isAdmin && !isVoted) {
             <div class="d-flex justify-content-between mt-auto">
               <button class="btn btn-sm btn-outline-primary" (click)="editarFoto(foto)">
-                <i class="pi pi-pencil me-1"></i> Editar
+                <i class="bi bi-pencil me-1"></i> Editar
               </button>
               <button class="btn btn-sm btn-outline-danger" (click)="borraFoto(foto.id, foto.titulo)">
-                <i class="pi pi-trash me-1"></i> Borrar
+                <i class="bi bi-trash me-1"></i> Borrar
               </button>
             </div>
             }@else if(isVoted) {
@@ -87,16 +87,17 @@
               'btn-outline-primary': !haVotado(foto.id),
               'btn-outline-danger': haVotado(foto.id)
             }" (click)="votarAnularFoto(foto.id)">
-                <i class="pi pi-pencil me-1"></i> {{ haVotado(foto.id) ? 'Anular voto' : 'Vota esta foto' }}
+                <i class="bi me-1" [ngClass]="haVotado(foto.id) ? 'bi-trash' : 'bi-pencil'"></i>
+                {{ haVotado(foto.id) ? 'Anular voto' : 'Vota esta foto' }}
               </button>
             </div>
             }@else {
             <div class="d-flex justify-content-between mt-auto">
               <button class="btn btn-sm btn-outline-primary" (click)="aceptaRechaza('aprobada', foto.id)">
-                <i class="pi pi-pencil me-1"></i> Aceptar
+                <i class="bi bi-pencil me-1"></i> Aceptar
               </button>
               <button class="btn btn-sm btn-outline-danger" (click)="aceptaRechaza('rechazada', foto.id)">
-                <i class="pi pi-trash me-1"></i> Rechazar
+                <i class="bi bi-trash me-1"></i> Rechazar
               </button>
             </div>
             }

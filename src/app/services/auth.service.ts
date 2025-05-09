@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
 import { NotificationsService } from './notifications.service';
 import { BehaviorSubject } from 'rxjs';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root' // Registra el servicio a nivel de aplicación
@@ -90,6 +91,14 @@ export class AuthService {
    */
   getCurrentUserDirect() {
     return this.userSubject.getValue();
+  }
+
+   /**
+   * Método para actualizar el usuario actual en el BehaviorSubject
+   * @param user 
+   */
+   updateCurrentUser(user: Usuario) {
+    this.userSubject.next(user);
   }
 
   /**

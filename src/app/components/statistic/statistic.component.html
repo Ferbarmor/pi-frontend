@@ -1,0 +1,74 @@
+<div class="wrapper">
+    <div class="stats-container">
+        <h2>Estadísticas del Rally</h2>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Usuarios</h3>
+                <p class="stat-value">{{ estadisticas?.total_usuarios || 0 }}</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Fotos</h3>
+                <p class="stat-value">{{ estadisticas?.total_fotos || 0 }}</p>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3>Participación de Usuarios</h3>
+            <div class="chart-wrapper">
+                <canvas baseChart [data]="participacionChartData" [options]="participacionChartOptions"
+                    [type]="participacionChartType">
+                </canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3>Top Fotos Más Votadas</h3>
+            <div class="chart-wrapper">
+                <canvas baseChart [data]="topFotosChartData" [options]="topFotosChartOptions" type="pie">
+                </canvas>
+            </div>
+        </div>
+
+        @if (estadisticas?.top_fotos) {
+        <div class="top-photos">
+            <h3>Detalle de Fotos Top</h3>
+            <div class="photos-grid">
+                @for (foto of estadisticas.top_fotos; track foto.id) {
+                <div class="photo-card">
+
+                    <div class="overflow-hidden position-relative" style="height: 200px;">
+                        <img [src]="getUrl(foto.ruta_archivo)" loading="lazy" class="w-100 h-100 object-fit-cover"
+                            alt="Foto" (click)="verFotoGrande(getUrl(foto.ruta_archivo))" />
+                        <div class="overlay-text">Haz clic para ampliar la foto</div>
+                    </div>
+                    <div class="photo-info">
+                        <h4>{{ foto.titulo }}</h4>
+                        <p class="photo-desc">{{ foto.descripcion }}</p>
+                        <div class="photo-stats">
+                            <span><strong>Votos:</strong> {{ foto.votaciones_count }}</span>
+                            <span><strong>Autor:</strong> {{ foto.usuario.nombre }}</span>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        }
+    </div>
+    <div class="modal fade show" tabindex="-1" [ngClass]="{ 'd-block': mostrarModal }"
+        style="background-color: rgba(0,0,0,0.6);" *ngIf="mostrarModal">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">Vista previa</h5>
+                    <button type="button" class="btn-close btn-close-white" (click)="cerrarModal()"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img [src]="fotoSeleccionada" class="img-fluid rounded" alt="Foto ampliada" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

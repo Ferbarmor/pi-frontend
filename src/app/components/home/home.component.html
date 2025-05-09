@@ -45,8 +45,10 @@
     <h2 class="mb-4 text-center text-primary fw-bold">PUEDES VOTAR LAS FOTOS DE NUESTROS PARTICIPANTES UN MÁXIMO DE
       <strong class="num-votos">
         <h1>2</h1>
-      </strong> VECES</h2>
-    <p class="text-center">Si quieres votar muchas veces...  <a routerLink="/register" class="fw-bold fs-5 text-decoration-none ms-2"> REGÍSTRATE</a> </p>
+      </strong> VECES
+    </h2>
+    <p class="text-center">Si quieres votar muchas veces... <a routerLink="/register"
+        class="fw-bold fs-5 text-decoration-none ms-2"> REGÍSTRATE</a> </p>
     <div class="row g-4">
       @if(fotos.length === 0) {
       <div class="d-flex justify-content-center align-items-center w-100">
@@ -99,18 +101,16 @@
       }
 
       <!-- Modal para ver imagen en grande -->
-      <div class="modal fade show" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': isFotoModalOpen }"
-        style="background-color: rgba(0, 0, 0, 0.7);" *ngIf="isFotoModalOpen" (click)="cerrarModal()">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" (click)="$event.stopPropagation()">
-          <div class="modal-content bg-transparent border-0">
-            <div class="modal-body text-center p-0">
-              <img [src]="selectedFotoUrl" alt="Foto grande" class="img-fluid rounded shadow"
-                style="width: 1000px; height: 1000px; object-fit: contain;" />
+      <div class="modal fade show" tabindex="-1" [ngClass]="{ 'd-block': isFotoModalOpen }"
+        style="background-color: rgba(0,0,0,0.6);" *ngIf="isFotoModalOpen">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-0">
+              <h5 class="modal-title">Vista previa</h5>
+              <button type="button" class="btn-close btn-close-white" (click)="cerrarModal()"></button>
             </div>
-            <div class="text-end me-3 mt-2">
-              <button type="button" class="btn btn-light" (click)="cerrarModal()">
-                <i class="bi bi-x-lg"></i> Cerrar
-              </button>
+            <div class="modal-body text-center">
+              <img [src]="selectedFotoUrl" class="img-fluid rounded" alt="Foto ampliada" />
             </div>
           </div>
         </div>

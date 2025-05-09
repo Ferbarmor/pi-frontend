@@ -40,7 +40,7 @@ export class NavbarComponent {
         label: 'Estadísticas',
         icon: 'pi pi-chart-line',
         styleClass: 'menu-estadisticas',
-        command: () => this.ruta.navigate(['/'])
+        command: () => this.ruta.navigate(['/estadisticas'])
       },
       {
         label: 'Reglas del concurso',
@@ -88,7 +88,7 @@ export class NavbarComponent {
               {
                 label: 'Configuración',
                 icon: 'pi pi-cog',
-                command: () => this.ruta.navigate(['/configuracion'])
+                command: () => this.ruta.navigate(['/configuration'])
               },
               ...(this.isAdmin ? [{
                 label: 'Panel Admin',

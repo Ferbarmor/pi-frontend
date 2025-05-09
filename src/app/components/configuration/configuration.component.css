@@ -1,0 +1,9 @@
+.header-custom{
+    background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%); ;
+}
+
+.wrapper {
+    padding-top: 100px; 
+    position: relative;
+    min-height: calc(100vh - 100px); 
+}
