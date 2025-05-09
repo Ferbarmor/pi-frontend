@@ -70,11 +70,11 @@ export class NavbarComponent {
             icon: 'pi pi-user',
             styleClass: 'p-menuitem-user',
             items: [
-              {
-                label: 'Mi Perfil',
+              ...(this.isAdmin ? [] : [{
+                label: 'Mis Perfil',
                 icon: 'pi pi-id-card',
-                command: () => this.ruta.navigate(['/listado-tests-photos'])
-              },
+                command: () => this.ruta.navigate(['/admin', { id: user.id }])
+              }]),
               {
                 label: 'Votar Fotos',
                 icon: 'pi pi-star',

@@ -25,5 +25,6 @@ export const routes: Routes = [
     {path: "", component: HomeComponent},
     {path: "configuration", component: ConfigurationComponent},
     {path: "estadisticas", component: StatisticComponent},
+    {path: "admin/:id", component: PanelAdminComponent, runGuardsAndResolvers: 'paramsChange'},
     
 ];
