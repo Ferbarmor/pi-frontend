@@ -114,34 +114,128 @@
 .animated-pulse {
     animation: pulse 5s infinite ease-in-out;
 }
-
-.overlay-text {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    text-align: center;
-    padding: 6px;
-    font-size: 0.9rem;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    pointer-events: none;
-    /* Para que no bloquee el click */
+/*Estilo para las tarjetas de las imágenes*/
+/* Contenedor principal */
+.top-photos {
+  margin-top: 3rem;
+  padding: 1rem 0;
 }
 
-.position-relative:hover .overlay-text {
-    opacity: 1;
+.top-photos h3 {
+  color: #1974f2;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 700;
 }
 
+/* Grid de fotos */
+.photos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* Tarjeta personalizada */
 .custom-card {
-    border: 2px solid #f39c12;
-    /* naranja bonito */
-    /* opcional, bordes redondeados */
+  border: 2px solid #f39c12;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.custom-card img {
+  transition: transform 0.5s ease;
+  object-position: center;
+  cursor: pointer;
+}
+
+.custom-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Texto overlay */
+.overlay-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-size: 0.85rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  opacity: 0;
+}
+
+.custom-card:hover .overlay-text {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1974f2 !important; /* Sobreescribe el estilo inline */
+  margin-bottom: 0.75rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #6c757d !important;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+  .photos-grid {
+      gap: 1rem;
+  }
+  
+  .col-sm-6 {
+      padding: 0.5rem;
+  }
+  
+  .custom-card {
+      margin-bottom: 1rem;
+  }
+}
+
+/* Efecto de carga para imágenes */
+img[loading="lazy"] {
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+  to {
+      background-position-x: -200%;
+  }
 }
 
 .content-container {
-    padding-bottom: 1000px;
+    padding-bottom: 15%;
     margin-top: 5%;
     /* o más si el footer es alto */
 }

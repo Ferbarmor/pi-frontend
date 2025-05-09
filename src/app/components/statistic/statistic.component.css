@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Roboto+Slab:wght@100;300;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Holtwood+One+SC&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Holtwood+One+SC&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&family=Sixtyfour&display=swap');
+
+* {
+    font-family: 'Roboto Slab', serif !important;
+}
+
 .wrapper {
     padding-top: 100px;
     padding-bottom: 15%;
@@ -13,6 +22,12 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 1.5rem;
+}
+
+.title{
+    color: #1974f2;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 .stats-grid {
@@ -65,112 +80,121 @@
 
 /* === Estilos actualizados para .top-photos === */
 
+/* Contenedor principal */
 .top-photos {
-    margin-top: 2rem;
+    margin-top: 3rem;
+    padding: 1rem 0;
 }
 
 .top-photos h3 {
-    margin-bottom: 1rem;
-    color: #2d3748;
-    font-family: 'Roboto Slab', serif;
+    color: #1974f2;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 700;
 }
 
+/* Grid de fotos */
 .photos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
-
-.photo-card {
-    background: #ffffff;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    border: 2px solid #f39c12;
-    /* igual a .custom-card */
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    /* shadow-sm */
     display: flex;
-    flex-direction: column;
-    height: 100%;
-    position: relative;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
 }
 
-.photo-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+/* Tarjeta personalizada */
+.custom-card {
+    border: 2px solid #f39c12;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.custom-card img {
+    transition: transform 0.5s ease;
+    object-position: center;
     cursor: pointer;
 }
 
-/* Efecto de hover en la imagen */
-.photo-card:hover img {
-    transform: scale(1.03);
+.custom-card:hover img {
+    transform: scale(1.05);
 }
 
-/* Overlay similar al anterior */
-.photo-card .overlay-text {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    text-align: center;
-    padding: 6px;
-    font-size: 0.9rem;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    pointer-events: none;
-}
-
-.photo-card:hover .overlay-text {
-    opacity: 1;
-}
-
-.photo-info {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.photo-info h4 {
-    margin: 0 0 0.5rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #3399ff;
-    font-family: 'Roboto Slab', serif;
-}
-
-.photo-desc {
-    color: #6c757d;
-    font-size: 0.875rem;
-    flex-grow: 1;
-}
-
-.photo-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    font-size: 0.85rem;
-    color: #333;
-    margin-top: 0.5rem;
-}
-
+/* Texto overlay */
 .overlay-text {
     position: absolute;
     bottom: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
     color: white;
     text-align: center;
-    padding: 6px;
-    font-size: 0.9rem;
+    padding: 8px;
+    font-size: 0.85rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    pointer-events: none;
 }
 
-.photo-card:hover .overlay-text {
+.custom-card:hover .overlay-text {
+    transform: translateY(0);
     opacity: 1;
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1974f2 !important; /* Sobreescribe el estilo inline */
+    margin-bottom: 0.75rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #6c757d !important;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+}
+
+/* Ajustes responsive */
+@media (max-width: 768px) {
+    .photos-grid {
+        gap: 1rem;
+    }
+    
+    .col-sm-6 {
+        padding: 0.5rem;
+    }
+    
+    .custom-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Efecto de carga para imágenes */
+img[loading="lazy"] {
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
 }
