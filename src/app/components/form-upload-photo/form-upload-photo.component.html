@@ -1,95 +1,101 @@
 <div class="wrapper">
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-            <div class="card shadow">
-                <div class="card-header bg-light cursor-move text-center">
-                    <h1 class="card-title mb-0">
-                        Subir Foto
-                    </h1>
-                </div>
-                <div class="card-body p-4">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
-                        <!-- Campo Título -->
-                        <div class="mb-3">
-                            <label for="titulo" class="form-label">Título</label>
-                            <input type="text" class="form-control" id="titulo" formControlName="titulo" [ngClass]="{
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow">
+                    <div class="card-header bg-light cursor-move text-center">
+                        @if(photo.id !== undefined){
+                        <h1 class="card-title mb-0">
+                            Modificar Foto
+                        </h1>
+                        }@else {
+                        <h1 class="card-title mb-0">
+                            Subir Foto
+                        </h1>
+                        }
+                    </div>
+                    <div class="card-body p-4">
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                            <!-- Campo Título -->
+                            <div class="mb-3">
+                                <label for="titulo" class="form-label">Título</label>
+                                <input type="text" class="form-control" id="titulo" formControlName="titulo" [ngClass]="{
                                     'is-invalid': form.controls['titulo'].invalid && 
                                                 (form.controls['titulo'].dirty || form.controls['titulo'].touched)
                                 }" placeholder="Escribe el título">
 
-                            @if (form.controls['titulo'].invalid &&
-                            (form.controls['titulo'].dirty || form.controls['titulo'].touched)) {
-                            <div class="invalid-feedback">
-                                @if (form.controls['titulo'].errors?.['required']) {
-                                <div>El título es obligatorio.</div>
-                                }
-                                @if (form.controls['titulo'].errors?.['minlength']) {
-                                <div>El título debe tener al menos 2 caracteres.</div>
+                                @if (form.controls['titulo'].invalid &&
+                                (form.controls['titulo'].dirty || form.controls['titulo'].touched)) {
+                                <div class="invalid-feedback">
+                                    @if (form.controls['titulo'].errors?.['required']) {
+                                    <div>El título es obligatorio.</div>
+                                    }
+                                    @if (form.controls['titulo'].errors?.['minlength']) {
+                                    <div>El título debe tener al menos 2 caracteres.</div>
+                                    }
+                                </div>
                                 }
                             </div>
-                            }
-                        </div>
 
-                        <!-- Campo Descripción -->
-                        <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <input type="text" class="form-control" id="descripcion" formControlName="descripcion"
-                                [ngClass]="{
+                            <!-- Campo Descripción -->
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripción</label>
+                                <input type="text" class="form-control" id="descripcion" formControlName="descripcion"
+                                    [ngClass]="{
                                     'is-invalid': form.controls['descripcion'].invalid && 
                                                 (form.controls['descripcion'].dirty || form.controls['descripcion'].touched)
                                 }" placeholder="Escribe una descripción">
 
-                            @if (form.controls['descripcion'].invalid &&
-                            (form.controls['descripcion'].dirty || form.controls['descripcion'].touched)) {
-                            <div class="invalid-feedback">
-                                @if (form.controls['descripcion'].errors?.['required']) {
-                                <div>La descripción es obligatoria.</div>
+                                @if (form.controls['descripcion'].invalid &&
+                                (form.controls['descripcion'].dirty || form.controls['descripcion'].touched)) {
+                                <div class="invalid-feedback">
+                                    @if (form.controls['descripcion'].errors?.['required']) {
+                                    <div>La descripción es obligatoria.</div>
+                                    }
+                                    @if (form.controls['descripcion'].errors?.['minlength']) {
+                                    <div>La descripción debe tener al menos 2 caracteres.</div>
+                                    }
+                                </div>
                                 }
-                                @if (form.controls['descripcion'].errors?.['minlength']) {
-                                <div>La descripción debe tener al menos 2 caracteres.</div>
+                            </div>
+                            @if(photo.id === undefined){
+                            <!-- Campo Archivo (Imagen) -->
+                            <div class="mb-3">
+                                <input type="file" class="form-control" formControlName="archivo"
+                                    (change)="leerImagen($event)">
+                                <div class="imagen">
+                                    @if (imagen64) {
+                                    <img [src]="imagen64" class="img-fluid mt-2" />
+                                    }
+                                </div>
+
+                                @if (form.controls['archivo'].invalid &&
+                                (form.controls['archivo'].dirty || form.controls['archivo'].touched)) {
+                                <div class="invalid-feedback">Debes seleccionar un archivo.</div>
                                 }
                             </div>
                             }
-                        </div>
-                        @if(photo.id === undefined){
-                        <!-- Campo Archivo (Imagen) -->
-                        <div class="mb-3">
-                            <input type="file" class="form-control" formControlName="archivo"
-                                (change)="leerImagen($event)">
-                            <div class="imagen">
-                                @if (imagen64) {
-                                <img [src]="imagen64" class="img-fluid mt-2" />
-                                }
+
+                            <!-- Mensaje de éxito o error -->
+                            @if (message) {
+                            <div class="alert" [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+                                {{ message }}
                             </div>
-
-                            @if (form.controls['archivo'].invalid &&
-                            (form.controls['archivo'].dirty || form.controls['archivo'].touched)) {
-                            <div class="invalid-feedback">Debes seleccionar un archivo.</div>
                             }
-                        </div>
-                        }
 
-                        <!-- Mensaje de éxito o error -->
-                        @if (message) {
-                        <div class="alert" [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
-                            {{ message }}
-                        </div>
-                        }
-
-                        <!-- Botones -->
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-custom btn-lg" [disabled]="!form.valid">
-                                <i class="bi bi-check-circle ml-2"></i> {{ textBottom }}
-                            </button>
-                            <button type="button" class="btn btn-customd btn-lg" (click)="onCancel()">
-                                <i class="bi bi-x-circle"></i> Cancelar
-                            </button>
-                        </div>
-                    </form>
+                            <!-- Botones -->
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-custom btn-lg" [disabled]="!form.valid">
+                                    <i class="bi bi-check-circle ml-2"></i> {{ textBottom }}
+                                </button>
+                                <button type="button" class="btn btn-customd btn-lg" (click)="onCancel()">
+                                    <i class="bi bi-x-circle"></i> Cancelar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

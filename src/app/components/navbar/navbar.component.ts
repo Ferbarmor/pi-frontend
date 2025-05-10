@@ -85,11 +85,13 @@ export class NavbarComponent {
                 icon: 'pi pi-images',
                 command: () => this.ruta.navigate(['/photos', { id: user.id }])
               }]),
-              {
+
+              ...(this.isAdmin ? [{
                 label: 'Configuración',
                 icon: 'pi pi-cog',
                 command: () => this.ruta.navigate(['/configuration'])
-              },
+              }] : []),
+
               ...(this.isAdmin ? [{
                 label: 'Panel Admin',
                 icon: 'pi pi-shield',

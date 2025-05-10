@@ -29,6 +29,7 @@ export class PhotosComponent {
   public isFotoModalOpen = false;
   public isLoading = false;
   public selectedPhoto: Photo = <Photo>{};
+  public usuId: number = 0;
 
   constructor(
     private serphoto: FotografiasService,
@@ -38,21 +39,22 @@ export class PhotosComponent {
     private ruta: Router,
     private notifications: NotificationsService,
     private servoto: VotosService
+
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(params => {//Se suscribe a los parámetros de la ruta (paramMap), es decir, escucha los cambios en la URL, como /perfil/id.
       const usuario = this.serAuth.getCurrentUser()!;
-      const usuId = Number(params.get("id"));
+      this.usuId = Number(params.get("id"));
       this.isAdmin = usuario.rol === "administrador";
-      this.isVoted = usuId === -1;
+      this.isVoted = this.usuId === -1;
       this.nombreUsuario = usuario.nombre;
-      this.loadPhotos(usuario, usuId);
-      if (!this.isVoted) this.loadUsuario(usuId);
+      this.loadPhotos(usuario, this.usuId);
+      if (!this.isVoted) this.loadUsuario(this.usuId);
     });
   }
 
-  private loadPhotos(usuario: Usuario, usuId: number) {
+  /*private loadPhotos(usuario: Usuario, usuId: number) {
     this.isLoading = true;
     // UNA SOLA llamada: ListarFotografias o ListarFotografiasPorUsuario
     const obs = (!this.isAdmin && !this.isVoted)
@@ -77,7 +79,51 @@ export class PhotosComponent {
         this.isLoading = false;
       }
     });
+  }*/
+
+  private loadPhotos(usuario: Usuario, usuId: number) {
+    this.isLoading = true;
+
+    //Traemos SIEMPRE todas las fotos para calcular el ranking global
+    this.serphoto.ListarFotografias().subscribe({
+      next: fotos => {
+        //Solo dejamos las aprobadas
+        const aprobadas = fotos.filter(f => f.estado === 'aprobada');
+
+        //Calculamos ranking global con las fotos aprobadas
+        const conEstadistica = this.updateAllPhotoStats(aprobadas);
+
+        //Mapeamos la estadística solo a las fotos aprobadas
+        const mapEstadistica = new Map<number, Photo>();
+        conEstadistica.forEach(f => mapEstadistica.set(f.id, f));
+
+        //Asignamos estadística solo si es una foto aprobada
+        fotos.forEach(f => {
+          if (mapEstadistica.has(f.id)) {
+            f.estadistica = mapEstadistica.get(f.id)!.estadistica;
+          } else {
+            f.estadistica = undefined;
+          }
+        });
+
+        //Filtramos lo que se mostrará, dependiendo del modo
+        let list = (!this.isAdmin && !this.isVoted)
+          ? fotos.filter(f => f.usuario_id === usuario.id && f.estado === 'aprobada')
+          : this.isVoted
+            ? fotos.filter(f => f.usuario_id !== usuario.id && f.estado === 'aprobada')
+            : fotos.filter(f => f.usuario_id === usuId); // admin: todas del usuario
+
+        this.fotos = list;
+        this.isLoading = false;
+      },
+      error: err => {
+        console.error("Error cargando fotos", err);
+        this.notifications.showToast("Error cargando fotos", "danger");
+        this.isLoading = false;
+      }
+    });
   }
+
 
   private loadUsuario(usuId: number) {
     this.seruser.ObtenerUsuarioId(usuId).subscribe({
@@ -90,14 +136,14 @@ export class PhotosComponent {
     });
   }
 
-  private processPhotoData(fotos: Photo[]) {
+  /*private processPhotoData(fotos: Photo[]) {
     // Asegura que exista array de votos y estadistica en cada foto
     fotos.forEach(f => {
       f.votos = f.votos || [];
       f.estadistica = f.estadistica || { id: 0, fotografia_id: f.id, ranking: 0, total_votos: 0 };
     });
     this.fotos = this.updateAllPhotoStats(fotos);
-  }
+  }*/
 
   private updateAllPhotoStats(list: Photo[]): Photo[] {
     // 1. Recalcula total_votos en estadistica
@@ -148,7 +194,7 @@ export class PhotosComponent {
   }
 
   getVotosPorFoto(f: Photo): number {
-    return f.votos.length;
+    return f.votos ? f.votos.length : 0;
   }
 
   getRankingPorFoto(f: Photo): string {
@@ -190,7 +236,13 @@ export class PhotosComponent {
       //this.usuarios.find(e => e.id == result.usuario!.id)!.nombre = result.usuario!.nombre;
       const index = this.fotos.findIndex(e => e.id === result.photo!.id);
       if (index !== -1) {
+        console.log("Esto es lo que recibo de la foto editada", result.photo);
+        //Aseguramos que el ranking sea un número entero
+        result.photo!.estadistica!.ranking = Math.floor(result.photo!.estadistica!.ranking);
         this.fotos[index] = result.photo!;
+        this.selectedPhoto = result.photo!;
+      } else if (!result.success) {
+        this.selectedPhoto = result.photo!;
       }
     }
     // Puedes mostrar el mensaje si lo necesitas
@@ -224,7 +276,7 @@ export class PhotosComponent {
   }
 
   volver() {
-    this.isAdmin ? this.ruta.navigate(['/admin']) : this.ruta.navigate(['']);
+    this.isAdmin ? this.ruta.navigate(['/admin']) : this.ruta.navigate(['/admin', { id: this.usuId }]);
   }
 
   aceptaRechaza(caso: string, id: number) {

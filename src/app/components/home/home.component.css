@@ -10,68 +10,69 @@
   border-radius: 8px;
 }*/
 * {
-    font-family: 'Roboto Slab', serif !important;
+  font-family: 'Roboto Slab', serif !important;
 }
 
 .navbar-logo {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .username-special {
-    font-size: 2rem;
-    color: #37576c;
-    font-weight: bold;
+  font-size: 2rem;
+  color: #37576c;
+  font-weight: bold;
 }
 
 .btn-custom {
-    background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
+  background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
 }
-.num-votos{
-    color:red;
-    size:500px;
+
+.num-votos {
+  color: red;
+  size: 500px;
 }
 
 .snap-logo .letter {
-    font-weight: bold;
-    font-family: 'Poppins', sans-serif;
-    font-size: 50px;
-  }
-  
-  .letter-s {
-    color: #ff4d4d;
-  }
-  
-  /* rojo */
-  .letter-n {
-    color: #ff9900;
-  }
-  
-  /* naranja */
-  .letter-a {
-    color: #ffcc00;
-  }
-  
-  /* amarillo */
-  .letter-p1 {
-    color: #33cc33;
-  }
-  
-  /* verde */
-  .letter-t {
-    color: #3399ff;
-  }
-  
-  /* azul */
-  .letter-a2 {
-    color: #9966ff;
-  }
-  
-  /* violeta */
-  .letter-p2 {
-    color: #ff66b2;
-  }
-  
-  /* rosa */
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  font-size: 50px;
+}
+
+.letter-s {
+  color: #ff4d4d;
+}
+
+/* rojo */
+.letter-n {
+  color: #ff9900;
+}
+
+/* naranja */
+.letter-a {
+  color: #ffcc00;
+}
+
+/* amarillo */
+.letter-p1 {
+  color: #33cc33;
+}
+
+/* verde */
+.letter-t {
+  color: #3399ff;
+}
+
+/* azul */
+.letter-a2 {
+  color: #9966ff;
+}
+
+/* violeta */
+.letter-p2 {
+  color: #ff66b2;
+}
+
+/* rosa */
 
 /*@keyframes bounceIn {
   0% {
@@ -95,25 +96,26 @@
 }*/
 
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(1);
+  }
 
-    50% {
-        transform: scale(1.1);
-        /* Aumenta el tamaño */
-    }
+  50% {
+    transform: scale(1.1);
+    /* Aumenta el tamaño */
+  }
 
-    100% {
-        transform: scale(1);
-        /* Vuelve al tamaño normal */
-    }
+  100% {
+    transform: scale(1);
+    /* Vuelve al tamaño normal */
+  }
 }
 
 /* Clase que aplica la animación */
 .animated-pulse {
-    animation: pulse 5s infinite ease-in-out;
+  animation: pulse 5s infinite ease-in-out;
 }
+
 /*Estilo para las tarjetas de las imágenes*/
 /* Contenedor principal */
 .top-photos {
@@ -138,7 +140,6 @@
 
 /* Tarjeta personalizada */
 .custom-card {
-  border: 2px solid #f39c12;
   transition: all 0.3s ease;
   overflow: hidden;
   background: #fff;
@@ -146,6 +147,7 @@
 }
 
 .custom-card:hover {
+  border: 2px solid #f39c12;
   transform: translateY(-5px);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
@@ -194,7 +196,8 @@
 .card-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1974f2 !important; /* Sobreescribe el estilo inline */
+  color: #1974f2 !important;
+  /* Sobreescribe el estilo inline */
   margin-bottom: 0.75rem;
 }
 
@@ -209,15 +212,15 @@
 /* Ajustes responsive */
 @media (max-width: 768px) {
   .photos-grid {
-      gap: 1rem;
+    gap: 1rem;
   }
-  
+
   .col-sm-6 {
-      padding: 0.5rem;
+    padding: 0.5rem;
   }
-  
+
   .custom-card {
-      margin-bottom: 1rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -230,52 +233,52 @@ img[loading="lazy"] {
 
 @keyframes shine {
   to {
-      background-position-x: -200%;
+    background-position-x: -200%;
   }
 }
 
 .content-container {
-    padding-bottom: 15%;
-    margin-top: 5%;
-    /* o más si el footer es alto */
+  padding-bottom: 15%;
+  margin-top: 5%;
+  /* o más si el footer es alto */
 }
 
 .letter {
-    font-family: 'Holtwood One SC', serif !important;
+  font-family: 'Holtwood One SC', serif !important;
 }
 
 .letter-s {
-    color: #ff4d4d;
+  color: #ff4d4d;
 }
 
 /* rojo */
 .letter-n {
-    color: #ff9900;
+  color: #ff9900;
 }
 
 /* naranja */
 .letter-a {
-    color: #ffcc00;
+  color: #ffcc00;
 }
 
 /* amarillo */
 .letter-p1 {
-    color: #33cc33;
+  color: #33cc33;
 }
 
 /* verde */
 .letter-t {
-    color: #3399ff;
+  color: #3399ff;
 }
 
 /* azul */
 .letter-a2 {
-    color: #9966ff;
+  color: #9966ff;
 }
 
 /* violeta */
 .letter-p2 {
-    color: #ff66b2;
+  color: #ff66b2;
 }
 
 /* rosa */

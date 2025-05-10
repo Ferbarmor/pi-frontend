@@ -106,18 +106,16 @@
         </div>
       </div>
       }
-      <div class="modal fade show" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': isFotoModalOpen }"
-        style="background-color: rgba(0, 0, 0, 0.7);" *ngIf="isFotoModalOpen" (click)="cerrarModal()">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document" (click)="$event.stopPropagation()">
-          <div class="modal-content bg-transparent border-0">
-            <div class="modal-body text-center p-0">
-              <img [src]="selectedFotoUrl" alt="Foto grande" class="img-fluid rounded shadow"
-                style="width: 1000px; height: 1000px; object-fit: contain;" />
+      <div class="modal fade show" tabindex="-1" [ngClass]="{ 'd-block': isFotoModalOpen }"
+        style="background-color: rgba(0,0,0,0.6);" *ngIf="isFotoModalOpen">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-0">
+              <h5 class="modal-title">Vista previa</h5>
+              <button type="button" class="btn-close btn-close-white" (click)="cerrarModal()"></button>
             </div>
-            <div class="text-end me-3 mt-2">
-              <button type="button" class="btn btn-light" (click)="cerrarModal()">
-                <i class="bi bi-x-lg"></i> Cerrar
-              </button>
+            <div class="modal-body text-center">
+              <img [src]="selectedFotoUrl" class="img-fluid rounded" alt="Foto ampliada" />
             </div>
           </div>
         </div>
