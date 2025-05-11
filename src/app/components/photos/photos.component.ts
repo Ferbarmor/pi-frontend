@@ -245,7 +245,7 @@ export class PhotosComponent {
         this.selectedPhoto = result.photo!;
       }
     }
-    // Puedes mostrar el mensaje si lo necesitas
+    
   }
 
   borraFoto(id: number, nombre: string) {
