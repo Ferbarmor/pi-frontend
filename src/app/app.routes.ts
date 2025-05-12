@@ -10,6 +10,8 @@ import { ContestRulesComponent } from './components/contest-rules/contest-rules.
 import { HomeComponent } from './components/home/home.component';
 import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 export const routes: Routes = [
     {path: "listado-tests-photos", component: ListadoTestsComponent},
@@ -26,5 +28,7 @@ export const routes: Routes = [
     {path: "configuration", component: ConfigurationComponent},
     {path: "estadisticas", component: StatisticComponent},
     {path: "admin/:id", component: PanelAdminComponent, runGuardsAndResolvers: 'paramsChange'},
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: 'reset-password', component: ResetPasswordComponent },
     
 ];

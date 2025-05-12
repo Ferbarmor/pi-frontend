@@ -141,18 +141,23 @@ export class StatisticComponent {
     };
   }
 
-   getUrl(ruta: string) {
-      return `${environment.BASE_URL}/storage/${ruta}`;
-    }
+  getUrl(ruta: string) {
+    return `${environment.BASE_URL}/storage/${ruta}`;
+  }
 
-    verFotoGrande(url: string) {
-      this.fotoSeleccionada = url;
-      this.mostrarModal = true;
-    }
+  verFotoGrande(url: string) {
+    this.fotoSeleccionada = url;
+    this.mostrarModal = true;
+  }
 
-    cerrarModal() {
-      this.mostrarModal = false;
-    }
+  cerrarModal() {
+    this.mostrarModal = false;
+  }
 
-
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
 }

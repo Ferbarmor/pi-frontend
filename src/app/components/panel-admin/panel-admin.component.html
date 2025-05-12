@@ -30,7 +30,7 @@
                     <tbody>
                         @if(usId === undefined){
                         @for (usuario of usuarios; track $index) {
-                        <tr>
+                        <tr *ngIf="usuario">
                             <td>{{ usuario.nombre }}</td>
                             <td class="text-capitalize">{{ usuario.rol }}</td>
                             <td>
@@ -61,7 +61,7 @@
                         </tr>
                         }
                         }@else {
-                        <tr>
+                        <tr *ngIf="usuario">
                             <td>{{ usuario!.nombre }}</td>
                             <td class="text-capitalize">{{ usuario!.rol }}</td>
                             <td>

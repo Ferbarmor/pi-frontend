@@ -28,12 +28,15 @@ export class FormUploadPhotoComponent {
   public message: string = '';  // Mensaje de respuesta
   public messageType: 'success' | 'error' = 'success';  // Tipo de mensaje
   public navRegister: number = 0;
+   public isUploaded: boolean = false;
+  public usuId: number = 0;
   constructor(private fb: FormBuilder, private serAuth: AuthService, private serphoto: FotografiasService,
     private ruta: Router, private notifications: NotificationsService) {
     this.textBottom = "Subir";
   }
 
   ngOnInit() {
+    this.usuId = this.serAuth.getCurrentUser().id;
     console.log("Id de la foto", this.photo.id);
     //const usuario = this.serAuth.getCurrentUser();
     const esNueva = this.photo.id === undefined;
@@ -118,6 +121,7 @@ export class FormUploadPhotoComponent {
           this.form.reset();
           this.imagen64 = '';
           this.fImagen = null;
+          this.isUploaded = true;
         },
         error: err => {
           console.log("Error al subir la foto", err);

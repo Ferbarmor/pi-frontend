@@ -10,10 +10,11 @@ import { FormRegisterComponent } from "../form-register/form-register.component"
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2'
 import { UserDetailsComponent } from "../user-details/user-details.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-panel-admin',
-  imports: [FormRegisterComponent, UserDetailsComponent],
+  imports: [FormRegisterComponent, UserDetailsComponent, CommonModule],
   templateUrl: './panel-admin.component.html',
   styleUrl: './panel-admin.component.css'
 })

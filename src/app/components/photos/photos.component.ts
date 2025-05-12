@@ -30,6 +30,7 @@ export class PhotosComponent {
   public isLoading = false;
   public selectedPhoto: Photo = <Photo>{};
   public usuId: number = 0;
+  public previousUserId: number | null = null;
 
   constructor(
     private serphoto: FotografiasService,
@@ -39,13 +40,16 @@ export class PhotosComponent {
     private ruta: Router,
     private notifications: NotificationsService,
     private servoto: VotosService
-
   ) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {//Se suscribe a los parámetros de la ruta (paramMap), es decir, escucha los cambios en la URL, como /perfil/id.
       const usuario = this.serAuth.getCurrentUser()!;
       this.usuId = Number(params.get("id"));
+      //Si estamos entrando al modo votación (id = -1), guardamos el ID real del usuario
+      if (this.usuId === -1 && usuario.id) {
+        sessionStorage.setItem('previousUserId', usuario.id);
+      } //Guardamos en sessionStorage
       this.isAdmin = usuario.rol === "administrador";
       this.isVoted = this.usuId === -1;
       this.nombreUsuario = usuario.nombre;
@@ -108,7 +112,7 @@ export class PhotosComponent {
 
         //Filtramos lo que se mostrará, dependiendo del modo
         let list = (!this.isAdmin && !this.isVoted)
-          ? fotos.filter(f => f.usuario_id === usuario.id && f.estado === 'aprobada')
+          ? fotos.filter(f => f.usuario_id === usuario.id /*&& f.estado === 'aprobada'*/)
           : this.isVoted
             ? fotos.filter(f => f.usuario_id !== usuario.id && f.estado === 'aprobada')
             : fotos.filter(f => f.usuario_id === usuId); // admin: todas del usuario
@@ -245,7 +249,7 @@ export class PhotosComponent {
         this.selectedPhoto = result.photo!;
       }
     }
-    
+
   }
 
   borraFoto(id: number, nombre: string) {
@@ -276,7 +280,19 @@ export class PhotosComponent {
   }
 
   volver() {
-    this.isAdmin ? this.ruta.navigate(['/admin']) : this.ruta.navigate(['/admin', { id: this.usuId }]);
+    //this.isAdmin ? this.ruta.navigate(['/admin']) : this.ruta.navigate(['/admin', { id: this.usuId }]);
+    if (this.isAdmin) {
+      //Si es admin, vuelve al panel de admin
+      this.ruta.navigate(['/admin']);
+    } else {
+      //Recuperamos el ID guardado (o usamos el actual si no hay modo votación)
+      const previousUserId = sessionStorage.getItem('previousUserId');
+      const targetId = previousUserId ? +previousUserId : this.usuId;
+      this.ruta.navigate(['/admin', { id: targetId }]);
+
+      //Limpiamos el storage después de usarlo
+      sessionStorage.removeItem('previousUserId');
+    }
   }
 
   aceptaRechaza(caso: string, id: number) {

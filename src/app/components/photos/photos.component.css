@@ -17,6 +17,7 @@
 
 .wrapper {
   padding-top: 100px;
+  margin-bottom: 10%;
   position: relative;
   min-height: calc(100vh - 100px); /* Altura total menos navbar */
 }
