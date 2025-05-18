@@ -38,7 +38,7 @@
     position: relative;
     min-height: calc(100vh - 100px);
     left: 2.5%;
-    
+
 }
 
 .card-header h1 {
@@ -48,7 +48,7 @@
 /* RESPONSIVE PARA TABLETS */
 @media (max-width: 992px) {
     .login-wrapper {
-        padding-top: 200px;
+        padding-top: 110px;
         min-height: calc(100vh - 80px);
         margin: auto;
     }
@@ -61,9 +61,9 @@
 /* RESPONSIVE PARA MÓVILES */
 @media (max-width: 768px) {
     .login-wrapper {
-        padding-top: 200px;
+        padding-top: 90px;
         min-height: calc(100vh - 60px);
-        margin-left:17%;
+        margin-left: 17%;
     }
 
     .container.draggable {
@@ -76,9 +76,9 @@
 /* AJUSTES PARA PANTALLAS MUY PEQUEÑAS */
 @media (max-width: 576px) {
     .login-wrapper {
-        padding-top: 300px;
+        padding-top: 90px;
         min-height: calc(100vh - 60px);
-     margin-right: 20%;
+        margin-right: 20%;
     }
 
     .container.draggable {

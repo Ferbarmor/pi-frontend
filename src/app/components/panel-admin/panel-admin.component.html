@@ -47,9 +47,11 @@
                                     <i class="bi bi-trash"></i> Eliminar
                                 </button>
                                 <!-- Botón para ver fotos -->
+                                @if(usuario?.rol != 'administrador'){
                                 <button class="btn btn-sm btn-info" (click)="verFotosUsuario(usuario)">
                                     <i class="bi bi-image"></i> Ver Fotos
                                 </button>
+                                }
                             </td>
                             <td>
                                 @if (tieneFotosPendientes(usuario)) {

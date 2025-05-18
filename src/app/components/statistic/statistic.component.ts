@@ -119,7 +119,7 @@ export class StatisticComponent {
       labels: this.estadisticas.top_fotos.map((f: any) => `${f.titulo} (${f.usuario.nombre})`),
       datasets: [
         {
-          data: this.estadisticas.top_fotos.map((f: any) => f.votaciones_count),
+          data: this.estadisticas.top_fotos.map((f: any) => f.estadistica.total_votos),
           label: 'Votos Recibidos',
           backgroundColor: [
             'rgba(255, 99, 132, 0.7)',

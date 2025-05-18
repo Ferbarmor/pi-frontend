@@ -34,11 +34,10 @@
 }
 
 .login-wrapper {
-    padding-top: 70px;
     position: relative;
     min-height: calc(100vh - 100px);
     left: 2.5%;
-    
+
 }
 
 .card-header h1 {
@@ -63,7 +62,7 @@
     .login-wrapper {
         padding-top: 200px;
         min-height: calc(100vh - 60px);
-        margin-left:17%;
+        margin-left: 17%;
     }
 
     .container.draggable {
@@ -76,9 +75,9 @@
 /* AJUSTES PARA PANTALLAS MUY PEQUEÑAS */
 @media (max-width: 576px) {
     .login-wrapper {
-        padding-top: 300px;
+        padding-top: 1px;
         min-height: calc(100vh - 60px);
-     margin-right: 20%;
+        margin-right: 20%;
     }
 
     .container.draggable {

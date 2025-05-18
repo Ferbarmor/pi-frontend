@@ -59,12 +59,12 @@ export class NavbarComponent {
 
         this.items = [
           ...this.commonItems,
-          {
+          ...(!this.isAdmin ? [{
             label: 'Subir Foto',
             icon: 'pi pi-upload',
             styleClass: 'p-button-text p-button-lg text-white',
             command: () => this.ruta.navigate(['/upload-photo'])
-          },
+          }] : []),
           {
             label: `Bienvenido, ${this.userName}`,
             icon: 'pi pi-user',
@@ -75,11 +75,11 @@ export class NavbarComponent {
                 icon: 'pi pi-id-card',
                 command: () => this.ruta.navigate(['/admin', { id: user.id }])
               }]),
-              {
+              ...(this.isAdmin ? [] : [{
                 label: 'Votar Fotos',
                 icon: 'pi pi-star',
                 command: () => this.ruta.navigate(['/photos', { id: -1 }])
-              },
+              }]),
               ...(this.isAdmin ? [] : [{
                 label: 'Mis Fotos',
                 icon: 'pi pi-images',

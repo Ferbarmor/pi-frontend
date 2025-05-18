@@ -9,17 +9,3 @@
     position: relative;
     z-index: 1;
   }
-
-  @media (max-width: 992px) {
-     .contest-rules-wrapper {
-      margin-top: 80px;
-      padding-top: 200px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .contest-rules-wrapper {
-      margin-top: 60px;
-      padding-top: 200px;
-    }
-  }
