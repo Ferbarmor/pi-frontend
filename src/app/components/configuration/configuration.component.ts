@@ -32,7 +32,7 @@ export class ConfigurationComponent {
     })
   }
 
-  //Método para añadir un rally
+  //Método para añadir un rally.
   newRally() {
     this.selectedRally = <Rally>{ id: -1 };
     this.showDetails = false;
