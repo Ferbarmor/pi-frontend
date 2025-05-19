@@ -50,7 +50,7 @@ export class NavbarComponent {
       }
     ];
     this.userSubscription = this.serAuth.getUserObservable().subscribe(user => {//Nos traemos el usuario mediante el BEhaviorSubject
-      this.items = []; //limpiar para regenerar
+      this.items = []; //limpiar para regenerar.
       console.log("El usuario que traemsos es: ", user);
 
       if (user) {
