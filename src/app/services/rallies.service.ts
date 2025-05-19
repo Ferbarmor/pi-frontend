@@ -27,7 +27,7 @@ export class RalliesService {
       id: id
       //Este es el atributo que tenemos en servicio (acordarse de poner el mismo nombre del atributo al objeto que pasas)
     };
-    return this.serrallies.post<Rally[]>(this.url, body);
+    return this.serrallies.post<Rally>(this.url, body);
   }
 
   AnadeRally(rally: Rally) {

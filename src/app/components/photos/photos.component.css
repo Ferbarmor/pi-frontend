@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Holtwood+One+SC&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Holtwood+One+SC&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&family=Sixtyfour&display=swap');
+
 /*.foto-uniforme {
   width: 300px;
   height: 200px;
@@ -11,7 +12,8 @@
 * {
   font-family: 'Roboto Slab', serif !important;
 }
-.navbar-logo{
+
+.navbar-logo {
   border-radius: 50%;
 }
 
@@ -19,7 +21,8 @@
   padding-top: 100px;
   margin-bottom: 10%;
   position: relative;
-  min-height: calc(100vh - 100px); /* Altura total menos navbar */
+  min-height: calc(100vh - 100px);
+  /* Altura total menos navbar */
 }
 
 .username-special {
@@ -28,7 +31,7 @@
   font-weight: bold;
 }
 
-.btn-custom{
+.btn-custom {
   background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
 }
 
@@ -57,11 +60,15 @@
   0% {
     transform: scale(1);
   }
+
   50% {
-    transform: scale(1.1); /* Aumenta el tamaño */
+    transform: scale(1.1);
+    /* Aumenta el tamaño */
   }
+
   100% {
-    transform: scale(1); /* Vuelve al tamaño normal */
+    transform: scale(1);
+    /* Vuelve al tamaño normal */
   }
 }
 
@@ -94,7 +101,7 @@
 
 /* Tarjeta personalizada */
 .custom-card {
-  
+
   transition: all 0.3s ease;
   overflow: hidden;
   background: #fff;
@@ -151,7 +158,8 @@
 .card-title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1974f2 !important; /* Sobreescribe el estilo inline */
+  color: #1974f2 !important;
+  /* Sobreescribe el estilo inline */
   margin-bottom: 0.75rem;
 }
 
@@ -163,18 +171,51 @@
   margin-bottom: 1rem;
 }
 
-/* Ajustes responsive */
-@media (max-width: 768px) {
-  .photos-grid {
-      gap: 1rem;
+/* Para tablets y móviles */
+@media (max-width: 992px) {
+  .wrapper {
+    padding-top: 150px;
+    /* menos espacio arriba */
+    margin: 0 1rem;
+    /* margen horizontal menor */
   }
-  
-  .col-sm-6 {
-      padding: 0.5rem;
+
+  .card-title {
+    font-size: 1rem;
+    /* texto más pequeño */
   }
-  
-  .custom-card {
-      margin-bottom: 1rem;
+
+  .card-text {
+    font-size: 0.8rem;
+  }
+
+  h1.mb-4 {
+    font-size: 1.5rem;
+    /* reduce tu headline */
+  }
+}
+
+@media (max-width: 576px) {
+  .wrapper {
+    padding-top: 150px;
+    margin: 0 0.5rem;
+  }
+
+  h1.mb-4 {
+    font-size: 1.25rem;
+  }
+
+  .lead {
+    font-size: 0.9rem;
+  }
+
+  .overlay-text {
+    font-size: 0.75rem;
+    padding: 4px;
+  }
+
+  .num-votos h1 {
+    font-size: 2.5rem;
   }
 }
 
@@ -187,7 +228,6 @@ img[loading="lazy"] {
 
 @keyframes shine {
   to {
-      background-position-x: -200%;
+    background-position-x: -200%;
   }
 }
-

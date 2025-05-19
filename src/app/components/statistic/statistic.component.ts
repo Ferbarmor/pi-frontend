@@ -94,8 +94,10 @@ export class StatisticComponent {
 
   prepareCharts(): void {
     // Gráfico de participación
+    //Filtrar usuarios que no sean administradores
+    const usuariosFiltrados = this.estadisticas.participacion_usuarios.filter((u: any) => u.nombre !== 'Administrador');
     this.participacionChartData = {
-      labels: this.estadisticas.participacion_usuarios.map((u: any) => u.nombre),
+      labels: usuariosFiltrados.map((u: any) => u.nombre),
       datasets: [
         {
           data: this.estadisticas.participacion_usuarios.map((u: any) => u.total_fotos),

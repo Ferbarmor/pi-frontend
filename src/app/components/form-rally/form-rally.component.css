@@ -26,6 +26,10 @@
     cursor: move;
 }
 
+body {
+  padding-bottom: 70px; /* altura aproximada del footer */
+}
+
 .container.mt-5.draggable {
     margin-top: 0 !important;
     /* Elimina el margen superior */
@@ -37,6 +41,7 @@
     position: relative;
     min-height: calc(100vh - 100px);
     left: 2.5%;
+    padding-top: 20px;
 
 }
 

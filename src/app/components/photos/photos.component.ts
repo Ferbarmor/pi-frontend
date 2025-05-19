@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment.development';
 import { CommonModule } from '@angular/common';
 import { FormUploadPhotoComponent } from "../form-upload-photo/form-upload-photo.component";
 import Swal from 'sweetalert2';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UsuarioService } from '../../services/usuarios.service';
 import { NotificationsService } from '../../services/notifications.service';
 import { VotosService } from '../../services/votos.service';
@@ -15,7 +15,7 @@ import { Usuario } from '../../models/usuario';
 
 @Component({
   selector: 'app-photos',
-  imports: [CommonModule, FormUploadPhotoComponent],
+  imports: [CommonModule, FormUploadPhotoComponent, RouterLink],
   templateUrl: './photos.component.html',
   styleUrl: './photos.component.css'
 })
@@ -31,6 +31,7 @@ export class PhotosComponent {
   public selectedPhoto: Photo = <Photo>{};
   public usuId: number = 0;
   public previousUserId: number | null = null;
+  public votacionFinalizada: Boolean = false;
 
   constructor(
     private serphoto: FotografiasService,
@@ -93,7 +94,7 @@ export class PhotosComponent {
       next: fotos => {
         //Solo dejamos las aprobadas
         const aprobadas = fotos.filter(f => f.estado === 'aprobada');
-
+        this.votacionFinalizada = new Date(fotos[0].rally.fecha_fin_votacion) < new Date();
         //Calculamos ranking global con las fotos aprobadas
         const conEstadistica = this.updateAllPhotoStats(aprobadas);
 

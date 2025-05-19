@@ -1,5 +1,5 @@
 <app-carrusel></app-carrusel>
-<div class="content-container "> <!-- NUEVO CONTENEDOR AÑADIDO AQUÍ -->
+<div class="content-container"> <!-- NUEVO CONTENEDOR AÑADIDO AQUÍ -->
 
   <div class="container mt-4">
     <h1 class="mb-4 text-center fw-bold"
@@ -42,6 +42,7 @@
       y un lugar destacado en nuestro ranking.
       🌼📸
     </p>
+    @if(!votacionFinalizada){
     <h2 class="mb-4 text-center text-primary fw-bold">PUEDES VOTAR LAS FOTOS DE NUESTROS PARTICIPANTES UN MÁXIMO DE
       <strong class="num-votos">
         <h1>2</h1>
@@ -49,6 +50,16 @@
     </h2>
     <p class="text-center">Si quieres votar muchas veces... <a routerLink="/register"
         class="fw-bold fs-5 text-decoration-none ms-2"> REGÍSTRATE</a> </p>
+    }@else{
+    <div class="alert alert-warning text-center mt-4">
+      ⚠️ El plazo de votación ha finalizado. Pudes verlo en las <a [routerLink]="['/contest-rules']"
+        class="text-primary text-decoration-underline">reglas del concurso.</a>
+      <p class="text-muted">Gracias por tu interés.</p>
+    </div>
+    <h2 class="mb-4 text-center fw-bold"
+      style="font-family:'Holtwood One SC', serif !important; color: #39c048 !important;">ASÍ HA QUEDADO NUESTRO RANKING
+    </h2>
+    }
     <div class="row g-4">
       @if(fotos.length === 0) {
       <div class="d-flex justify-content-center align-items-center w-100">
@@ -59,7 +70,6 @@
         </div>
       </div>
       }
-
       @for (foto of fotos; track $index) {
       <div class="col-12 col-sm-6 col-md-4 col-lg-3">
         <div class="card h-100 shadow-sm custom-card d-flex flex-column">
@@ -83,7 +93,7 @@
                 <span>Ranking: {{ getRankingPorFoto(foto) }}</span>
               </div>
             </div>
-            @if(!isLoggedIn){
+            @if(!isLoggedIn && !votacionFinalizada){
             <div class="d-flex justify-content-between mt-auto">
               <!-- <button class="btn btn-sm" [ngClass]="{
                     'btn-outline-primary': !haVotado(foto.id),

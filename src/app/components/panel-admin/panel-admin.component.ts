@@ -106,6 +106,8 @@ export class PanelAdminComponent {
         this.selectedUsuario = result.usuario!;
       }
     }
+    this.usuario = result.usuario!;
+    this.selectedUsuario = result.usuario!;
   }
 
   handleDetailsClose(result: { success: boolean, message?: string, usuario?: Usuario }) {

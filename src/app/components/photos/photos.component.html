@@ -3,10 +3,17 @@
   <app-form-upload-photo [photo]="selectedPhoto" (formClosed)="handleFormClose($event)">
   </app-form-upload-photo>
   } @else {
+  @if(!isAdmin && votacionFinalizada) {
+  <div class="alert alert-warning text-center mt-4">
+    ⚠️ El plazo de votación ha finalizado. Pudes verlo en las <a [routerLink]="['/contest-rules']"
+      class="text-primary text-decoration-underline">reglas del concurso.</a>
+    <p class="text-muted">Gracias por tu interés.</p>
+  </div>
+  }
   <div class="container mt-4">
     @if(nombreUsuario != '' && !isVoted){
     <h2 class="mb-4 text-center text-primary fw-bold">Fotos de {{nombreUsuario}}</h2>
-    } @else if(isVoted) {
+    } @else if(isVoted && !votacionFinalizada) {
     <h2 class="mb-4 text-center text-primary fw-bold"
       style="font-family:'Holtwood One SC', serif !important; color: #ff9900 !important;">¡¡Vamos a votar,
       {{nombreUsuario}}!!</h2>
@@ -81,7 +88,7 @@
                 <i class="bi bi-trash me-1"></i> Borrar
               </button>
             </div>
-            }@else if(isVoted) {
+            }@else if(isVoted && !votacionFinalizada) {
             <div class="d-flex justify-content-between mt-auto">
               <button class="btn btn-sm" [ngClass]="{
               'btn-outline-primary': !haVotado(foto.id),
@@ -91,7 +98,7 @@
                 {{ haVotado(foto.id) ? 'Anular voto' : 'Vota esta foto' }}
               </button>
             </div>
-            }@else {
+            }@else if (isAdmin) {
             <div class="d-flex justify-content-between mt-auto">
               @if(foto.estado === 'aprobada') { <button class="btn btn-sm btn-outline-danger"
                 (click)="aceptaRechaza('rechazada', foto.id)">

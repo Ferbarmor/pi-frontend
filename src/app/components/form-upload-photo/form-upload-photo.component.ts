@@ -7,6 +7,8 @@ import { FotografiasService } from '../../services/fotografias.service';
 import { Photo } from '../../models/photo';
 import { Input, Output, EventEmitter, OnInit } from '@angular/core'
 import { NotificationsService } from '../../services/notifications.service';
+import { RalliesService } from '../../services/rallies.service';
+import { Rally } from '../../models/rally';
 
 @Component({
   selector: 'app-form-upload-photo',
@@ -28,10 +30,13 @@ export class FormUploadPhotoComponent {
   public message: string = '';  // Mensaje de respuesta
   public messageType: 'success' | 'error' = 'success';  // Tipo de mensaje
   public navRegister: number = 0;
-   public isUploaded: boolean = false;
+  public isUploaded: boolean = false;
   public usuId: number = 0;
+  public rally: Rally = <Rally>{};
+  public votacionFinalizada: Boolean = false;
+
   constructor(private fb: FormBuilder, private serAuth: AuthService, private serphoto: FotografiasService,
-    private ruta: Router, private notifications: NotificationsService) {
+    private ruta: Router, private notifications: NotificationsService, private serrally: RalliesService) {
     this.textBottom = "Subir";
   }
 
@@ -40,6 +45,14 @@ export class FormUploadPhotoComponent {
     console.log("Id de la foto", this.photo.id);
     //const usuario = this.serAuth.getCurrentUser();
     const esNueva = this.photo.id === undefined;
+    this.serrally.ObtenerRallyId(1).subscribe({
+      next: res => {
+        console.log("Resultado de los rallies ", res)
+        this.rally = res;
+        this.votacionFinalizada = new Date(this.rally.fecha_fin_votacion) < new Date();
+      },
+      error: error => console.log("Esto es un eror del servidor", error)
+    });
     this.form = this.fb.group({
       //Declaramos los diferente campos del formulario
       titulo: ['', [Validators.required, Validators.minLength(2)]],

@@ -31,11 +31,67 @@
 
 .cursor-move {
     cursor: move;
-  }
+}
 
-  .wrapper {
+.wrapper {
     padding-top: 100px;
     position: relative;
     min-height: calc(100vh - 100px);
     /* Altura total menos navbar */
+}
+
+/* RESPONSIVE PARA TABLETS */
+@media (max-width: 992px) {
+    .login-wrapper {
+        padding-top: 160px;
+        min-height: calc(100vh - 80px);
+        margin: auto;
+    }
+
+    .container.draggable {
+        padding: 1.5rem;
+    }
+
+    .alert {
+        padding-top: 30px;
+
+    }
+}
+
+/* RESPONSIVE PARA MÓVILES */
+@media (max-width: 768px) {
+    .login-wrapper {
+        padding-top: 160px;
+        min-height: calc(100vh - 60px);
+        margin-left: 17%;
+    }
+
+    .container.draggable {
+        padding: 1rem;
+    }
+
+
+}
+
+/* AJUSTES PARA PANTALLAS MUY PEQUEÑAS */
+@media (max-width: 576px) {
+    .login-wrapper {
+        padding-top: 90px;
+        min-height: calc(100vh - 60px);
+        margin-right: 20%;
+    }
+
+    .container.draggable {
+        padding: 0.5rem;
+    }
+
+    .card-header h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .btn-custom,
+    .btn-customd {
+        padding: 0.5rem !important;
+        font-size: 0.9rem;
+    }
 }

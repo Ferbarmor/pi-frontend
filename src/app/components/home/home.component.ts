@@ -23,6 +23,8 @@ export class HomeComponent {
   public selectedFotoUrl: string | null = null;
   public isFotoModalOpen = false;
   public isLoggedIn = false;
+  public votacionFinalizada: Boolean = false;
+
   constructor(private serphoto: FotografiasService,
     private servoto: VotosService,
     private notifications: NotificationsService, private serAuth: AuthService) { }
@@ -35,6 +37,7 @@ export class HomeComponent {
     this.isLoading = true;
     this.serphoto.ListarFotografias().subscribe({
       next: fotos => {
+        this.votacionFinalizada = new Date(fotos[0].rally.fecha_fin_votacion) < new Date();
         const list = fotos.filter(f => f.estado === 'aprobada');
         this.processPhotoData(list);
         this.isLoading = false;

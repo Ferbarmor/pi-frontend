@@ -1,4 +1,11 @@
 <div class="wrapper">
+    @if(votacionFinalizada){
+    <div class="alert alert-warning text-center mt-4">
+        ⚠️ El plazo de subida de fotos ha finalizado. Pudes verlo en las <a [routerLink]="['/contest-rules']"
+            class="text-primary text-decoration-underline">reglas del concurso.</a>
+        <p class="text-muted">Gracias por tu interés.</p>
+    </div>
+    } @else{
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-4">
@@ -91,7 +98,7 @@
                                 <button type="button" class="btn btn-customd btn-lg" (click)="onCancel()">
                                     <i class="bi bi-x-circle"></i> Cancelar
                                 </button>
-                                 @if(isUploaded){
+                                @if(isUploaded){
                                 <button type="button" class="btn btn-success btn-lg" routerLink="/photos/{{ usuId }}">
                                     <i class="bi bi-box-arrow-up-right me-1"></i> Ir a mis fotos
                                 </button>}
@@ -102,4 +109,5 @@
             </div>
         </div>
     </div>
+    }
 </div>
