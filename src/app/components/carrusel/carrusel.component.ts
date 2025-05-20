@@ -88,7 +88,7 @@ export class CarruselComponent {
     const container = this.slideContainer?.nativeElement as HTMLElement;
     if (!container) return;
 
-    const slideWidth = container.offsetWidth * 0.85; // 85% porque usas eso como ancho en móvil
+    const slideWidth = container.offsetWidth * 0.85; // 85% porque usas eso como ancho en móvil.
     container.scrollTo({
       left: slideWidth * this.currentIndex,
       behavior: 'smooth'
