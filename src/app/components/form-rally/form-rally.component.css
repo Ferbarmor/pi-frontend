@@ -68,6 +68,7 @@ body {
         padding-top: 200px;
         min-height: calc(100vh - 60px);
         margin-left: 17%;
+        padding-bottom: 400px;
     }
 
     .container.draggable {
@@ -83,6 +84,7 @@ body {
         padding-top: 1px;
         min-height: calc(100vh - 60px);
         margin-right: 20%;
+        padding-bottom: 400px;
     }
 
     .container.draggable {

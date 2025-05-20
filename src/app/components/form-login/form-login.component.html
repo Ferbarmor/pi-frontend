@@ -10,26 +10,6 @@
                   </div>
                 <div class="card-body p-4">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
-                        <!-- Selector de Rol -->
-                        <div class="mb-3">
-                            <label for="role" class="form-label">Tipo de Usuario</label>
-                            <select class="form-select" id="role" formControlName="role" [ngClass]="{
-                                    'is-invalid': form.controls['role'].invalid && 
-                                                (form.controls['role'].dirty || form.controls['role'].touched)
-                                }">
-                                <option value="" disabled selected>Selecciona tu rol</option>
-                                <option value="participante">Participante</option>
-                                <option value="administrador">Administrador</option>
-                            </select>
-
-                            @if(form.controls["role"].invalid && (form.controls["role"].dirty ||
-                            form.controls["role"].touched)){
-                            @if(form.controls["role"].errors?.["required"]){
-                            <div class="invalid-feedback">Debes seleccionar un rol</div>
-                            }
-                            }
-                        </div>
-
                         <!-- Campo Email -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Correo Electrónico</label>

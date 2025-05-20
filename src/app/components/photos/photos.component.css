@@ -178,6 +178,7 @@
     /* menos espacio arriba */
     margin: 0 1rem;
     /* margen horizontal menor */
+    padding-bottom: 300px;
   }
 
   .card-title {
@@ -199,6 +200,7 @@
   .wrapper {
     padding-top: 150px;
     margin: 0 0.5rem;
+    padding-bottom: 300px;
   }
 
   h1.mb-4 {

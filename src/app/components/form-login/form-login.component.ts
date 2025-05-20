@@ -26,7 +26,6 @@ export class FormLoginComponent {
     private serviceauth: AuthService, private ruta: Router) {
     this.form = this.fb.group({
       //Declaramos los diferente campos del formulario
-      role: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       remember: [false]

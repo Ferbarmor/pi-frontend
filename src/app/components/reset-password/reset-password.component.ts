@@ -24,6 +24,7 @@ export class ResetPasswordComponent implements OnInit {
     private resetService: PasswordresetService
   ) {
     this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       password_confirmation: ['', Validators.required],
     }, { validator: this.checkPasswords });
@@ -32,10 +33,13 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.token = params['token'] || '';
-      this.email = params['email'] || '';
-      
-      if (!this.token || !this.email) {
+      //this.email = params['email'] || '';
+
+      /*if (!this.token || !this.email) {
         this.error = 'Token o email no proporcionados';
+      }*/
+      if (!this.token) {
+        this.error = 'Token no proporcionado';
       }
     });
   }
@@ -47,14 +51,14 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.form.invalid || !this.token || !this.email) {
+    if (this.form.invalid || !this.token) {
       this.error = 'Por favor complete todos los campos correctamente';
       return;
     }
 
     const formData = {
       token: this.token,
-      email: this.email,
+      email: this.form.value.email,
       password: this.form.value.password,
       password_confirmation: this.form.value.password_confirmation
     };
