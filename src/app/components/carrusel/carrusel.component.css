@@ -1,9 +1,10 @@
 /* Estilos base comunes */
 .wrapper {
-  padding-top: 120px;
-  width: 100%;
+  width: 50%;
+  margin:auto;
   position: relative;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5)
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  
 }
 
 .item {
@@ -29,7 +30,7 @@
 }
 
 .name {
-  font-size: 24px;
+  font-size: 20px;
   text-transform: uppercase;
   font-weight: bold;
   background-color: rgba(46, 56, 46, 0.5);
@@ -180,7 +181,7 @@
   }
   
   .name {
-    font-size: 20px;
+    font-size: 10px;
   }
 }
 
@@ -200,6 +201,6 @@
   }
   
   .name {
-    font-size: 18px;
+    font-size: 10px;
   }
 }

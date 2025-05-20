@@ -80,6 +80,7 @@
 .chart-wrapper {
     position: relative;
     min-height: 300px;
+    overflow-x: auto;
 }
 
 /* === Estilos actualizados para .top-photos === */

@@ -46,6 +46,7 @@ export class StatisticComponent {
   };
   public participacionChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    indexAxis: this.isMobile() ? 'y' : 'x',
     plugins: {
       title: {
         display: true,
@@ -150,6 +151,10 @@ export class StatisticComponent {
   verFotoGrande(url: string) {
     this.fotoSeleccionada = url;
     this.mostrarModal = true;
+  }
+
+  isMobile(): boolean {
+    return window.innerWidth <= 576;
   }
 
   cerrarModal() {

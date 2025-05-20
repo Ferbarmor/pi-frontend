@@ -29,7 +29,7 @@
 
   <!-- Versión para móvil -->
   <div class="mobile-carousel" *ngIf="isMobile">
-    <div class="slide-container">
+    <div class="slide-container" #slideContainer>
       <div *ngFor="let slide of slides; let i = index" 
            class="item {{slide.class}}"
            [class.active]="i === currentIndex">

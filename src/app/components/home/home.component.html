@@ -1,4 +1,6 @@
-<app-carrusel></app-carrusel>
+<div class="carrusel-wrapper">
+  <app-carrusel></app-carrusel>
+</div>
 <div class="content-container"> <!-- NUEVO CONTENEDOR AÑADIDO AQUÍ -->
 
   <div class="container mt-4">
@@ -52,13 +54,12 @@
         class="fw-bold fs-5 text-decoration-none ms-2"> REGÍSTRATE</a> </p>
     }@else{
     <div class="alert alert-warning text-center mt-4">
-      ⚠️ El plazo de votación ha finalizado. Pudes verlo en las <a [routerLink]="['/contest-rules']"
-        class="text-primary text-decoration-underline">reglas del concurso.</a>
-      <p class="text-muted">Gracias por tu interés.</p>
+        ⚠️ El plazo de votación ha finalizado. Pudes verlo en las <a [routerLink]="['/contest-rules']"
+            class="text-primary text-decoration-underline">reglas del concurso.</a>
+        <p class="text-muted">Gracias por tu interés.</p>
     </div>
-    <h2 class="mb-4 text-center fw-bold"
-      style="font-family:'Holtwood One SC', serif !important; color: #39c048 !important;">ASÍ HA QUEDADO NUESTRO RANKING
-    </h2>
+     <h2 class="mb-4 text-center fw-bold"
+      style="font-family:'Holtwood One SC', serif !important; color: #39c048 !important;">ASÍ HA QUEDADO NUESTRO RANKING</h2>
     }
     <div class="row g-4">
       @if(fotos.length === 0) {

@@ -308,7 +308,7 @@ img[loading="lazy"] {
 
 @media (max-width: 576px) {
   .content-container {
-    padding-top: 200px;
+    padding-top: 10px;
     margin: 0 0.5rem;
   }
 

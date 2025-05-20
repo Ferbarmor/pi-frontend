@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-carrusel',
@@ -28,11 +28,6 @@ export class CarruselComponent {
       class: 'buceo',
       content: ''
     },
-    {
-      title: 'Capta la esencia',
-      class: 'crossfit',
-      content: ''
-    },
   ];
 
   ngOnInit() {
@@ -43,6 +38,8 @@ export class CarruselComponent {
   ngOnDestroy() {
     this.stopAutoSlide();
   }
+
+  @ViewChild('slideContainer', { static: false }) slideContainer!: ElementRef;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -88,14 +85,14 @@ export class CarruselComponent {
   }
 
   private scrollToCurrentSlide() {
-    const slideElement = document.querySelector(`.slide-container .item:nth-child(${this.currentIndex + 1})`);
-    if (slideElement) {
-      slideElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center'
-      });
-    }
+    const container = this.slideContainer?.nativeElement as HTMLElement;
+    if (!container) return;
+
+    const slideWidth = container.offsetWidth * 0.85; // 85% porque usas eso como ancho en móvil
+    container.scrollTo({
+      left: slideWidth * this.currentIndex,
+      behavior: 'smooth'
+    });
   }
 
 }
