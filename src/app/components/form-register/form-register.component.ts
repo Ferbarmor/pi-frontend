@@ -29,6 +29,8 @@ export class FormRegisterComponent {
   public rally: string = 'Rally';
   public message: string = '';  // Mensaje de respuesta
   public messageType: 'success' | 'error' = 'success';  // Tipo de mensaje
+  public isUploading: boolean = false;
+
   constructor(private fb: FormBuilder, private serrally: RalliesService, private seruser: UsuarioService,
     private ruta: Router, private notifications: NotificationsService) {
     this.textBottom = "Registrar";
@@ -98,6 +100,7 @@ export class FormRegisterComponent {
   };
 
   onSubmit() {
+    this.isUploading = true;
     //Hacemos una copia profunda de lo que tenemos en el formulario
     const formData = JSON.parse(JSON.stringify(this.form.value));
 
@@ -112,12 +115,13 @@ export class FormRegisterComponent {
       this.seruser.ModificaUsuario(formData, this.usuario.id).subscribe({
 
         next: res => {
-
+          this.isUploading = false;
           console.log("Respuesta del servidor al modficar Usuario", res);
           this.formClosed.emit({ success: true, message: "Editando", usuario: res });
           this.notifications.showToast("Usuario modificado con éxito", "success");
         },
         error: (err) => {
+          this.isUploading = false;
           this.notifications.showToast(err.message, "danger");
         }
       });
@@ -125,7 +129,7 @@ export class FormRegisterComponent {
       this.seruser.AnadeUsuario(formData).subscribe({
 
         next: res => {
-
+          this.isUploading = false;
           console.log("Usuario registrado correctamente", res);
           this.formClosed.emit({ success: true, message: "Añadiendo", usuario: res });
           this.form.reset();  // Limpiamos el formulario tras el registro
@@ -136,6 +140,7 @@ export class FormRegisterComponent {
 
         },
         error: (err) => {
+          this.isUploading = false;
           console.log("Este es el mensaje de error", err);
 
           // Verifica si existe el error de validación en datos.email

@@ -19,11 +19,13 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomeComponent {
   public fotos: Photo[] = [];
-  public isLoading = false;
   public selectedFotoUrl: string | null = null;
   public isFotoModalOpen = false;
   public isLoggedIn = false;
   public votacionFinalizada: Boolean = false;
+  public currentPage = 1;
+  public itemsPerPage = 8; //Ajustamos este número según necesidad
+  public totalPages = 0;
 
   constructor(private serphoto: FotografiasService,
     private servoto: VotosService,
@@ -34,45 +36,53 @@ export class HomeComponent {
 
   }
   private loadPhotos() {
-    this.isLoading = true;
     this.serphoto.ListarFotografias().subscribe({
       next: fotos => {
+        console.log("Fotos que traigo", fotos);
         this.votacionFinalizada = new Date(fotos[0].rally.fecha_fin_votacion) < new Date();
         const list = fotos.filter(f => f.estado === 'aprobada');
-        this.processPhotoData(list);
-        this.isLoading = false;
+        //this.processPhotoData(list);
+        //Ordenamos por ranking ascendente
+        list.sort((a, b) => {
+          const rankA = a.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
+          const rankB = b.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
+          return rankA - rankB;
+        });
+        this.fotos = list;
+        //Para sacar las páginas que quiero segun las fotos por página que indico en la variable a ajustar
+        this.totalPages = Math.ceil(this.fotos.length / this.itemsPerPage);
       },
       error: err => {
         console.error("Error cargando fotos", err);
         this.notifications.showToast("Error cargando fotos", "danger");
-        this.isLoading = false;
       }
     });
   }
 
-  private processPhotoData(fotos: Photo[]) {
-    fotos.forEach(f => {
-      f.votos = f.votos || [];
-      f.estadistica = f.estadistica || { id: 0, fotografia_id: f.id, ranking: 0, total_votos: 0 };
-    });
-    this.fotos = this.updateAllPhotoStats(fotos);
-  }
-
-  private updateAllPhotoStats(list: Photo[]): Photo[] {
-    list.forEach(f => f.estadistica!.total_votos = f.votos.length);
-
-    //Ordenamos primero por votos DESC, y si hay empate, por ID ASC
-    const byVotes = [...list].sort((a, b) => {
-      const diff = b.votos.length - a.votos.length;
-      return diff !== 0 ? diff : a.id - b.id;
-    });
-    byVotes.forEach((f, i) => f.estadistica!.ranking = i + 1);
-
-    const byRanking = [...byVotes].sort((a, b) => a.estadistica!.ranking - b.estadistica!.ranking);
-    console.log("Ranking", byRanking);
-    return byRanking;
-  }
-
+  //Si quiesiéramos ortdenar las fotos en el front y no volver a caragr las fotos desde el servidor. Pero hay un problema con el orden si cargo las fotos desde el servidor
+  /* private processPhotoData(fotos: Photo[]) {
+     fotos.forEach(f => {
+       f.votos = f.votos || [];
+       f.estadistica = f.estadistica || { id: 0, fotografia_id: f.id, ranking: 0, total_votos: 0 };
+     });
+     this.fotos = this.updateAllPhotoStats(fotos);
+   }
+ 
+   private updateAllPhotoStats(list: Photo[]): Photo[] {
+     list.forEach(f => f.estadistica!.total_votos = f.votos.length);
+ 
+     //Ordenamos primero por votos DESC, y si hay empate, por ID ASC
+     const byVotes = [...list].sort((a, b) => {
+       const diff = b.votos.length - a.votos.length;
+       return diff !== 0 ? diff : a.id - b.id;
+     });
+     byVotes.forEach((f, i) => f.estadistica!.ranking = i + 1);
+ 
+     const byRanking = [...byVotes].sort((a, b) => a.estadistica!.ranking - b.estadistica!.ranking);
+     console.log("Ranking", byRanking);
+     return byRanking;
+   }
+   */
   votarAnularFoto(fotoId: number) {
     const storedId = localStorage.getItem(`votado_${fotoId}`);
     const foto = this.fotos.find(f => f.id === fotoId);
@@ -93,9 +103,10 @@ export class HomeComponent {
     const nuevo: Voto = { id_fotografia: fotoId, id_usuario: 0 }; // Usuario anónimo
     this.servoto.AnadeVotacion(nuevo).subscribe({
       next: (res) => {
-        foto.votos.push(res);
+        //foto.votos.push(res);
         localStorage.setItem(`votado_${fotoId}`, res.id!.toString());
-        this.fotos = this.updateAllPhotoStats(this.fotos);
+        //this.fotos = this.updateAllPhotoStats(this.fotos);
+        this.loadPhotos();
         this.notifications.showToast("Voto registrado con éxito", "success");
       },
       error: (err) => {
@@ -115,7 +126,7 @@ export class HomeComponent {
   }
 
   getRankingPorFoto(f: Photo): string {
-    const r = f.estadistica?.ranking;
+    const r = Math.floor(Number(f.estadistica?.ranking ?? 0));
     if (!r) return '-';
 
     //Obtenemos el sufijo ordinal
@@ -148,5 +159,23 @@ export class HomeComponent {
   cerrarModal() {
     this.isFotoModalOpen = false;
     this.selectedFotoUrl = null;
+  }
+
+  paginatedFotos(): Photo[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.fotos.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
 }

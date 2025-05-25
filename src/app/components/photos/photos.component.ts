@@ -27,11 +27,15 @@ export class PhotosComponent {
   public isVoted = false;
   public selectedFotoUrl: string | null = null;
   public isFotoModalOpen = false;
-  public isLoading = false;
   public selectedPhoto: Photo = <Photo>{};
   public usuId: number = 0;
   public previousUserId: number | null = null;
   public votacionFinalizada: Boolean = false;
+  public ordenActual: 'ranking' | 'autor' = 'ranking';
+  public currentPage = 1;
+  public itemsPerPage = 4; // Puedes ajustar este número según necesidad
+  public totalPages = 0;
+
 
   constructor(
     private serphoto: FotografiasService,
@@ -85,10 +89,8 @@ export class PhotosComponent {
       }
     });
   }*/
-
+  /*Esta loadsería para calacular ranking y ordenar haciéndone menos pietciones al servidro, con el problema que conlleva si recalculas el rankin solo para un usuario
   private loadPhotos(usuario: Usuario, usuId: number) {
-    this.isLoading = true;
-
     //Traemos SIEMPRE todas las fotos para calcular el ranking global
     this.serphoto.ListarFotografias().subscribe({
       next: fotos => {
@@ -113,27 +115,77 @@ export class PhotosComponent {
 
         //Filtramos lo que se mostrará, dependiendo del modo
         let list = (!this.isAdmin && !this.isVoted)
-          ? fotos.filter(f => f.usuario_id === usuario.id /*&& f.estado === 'aprobada'*/)
+          ? fotos.filter(f => f.usuario_id === usuario.id)//&& f.estado === 'aprobada'
           : this.isVoted
             ? fotos.filter(f => f.usuario_id !== usuario.id && f.estado === 'aprobada')
             : fotos.filter(f => f.usuario_id === usuId); // admin: todas del usuario
 
+        // Ordenamos por ranking ascendente
+        list.sort((a, b) => {
+          const rankA = a.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
+          const rankB = b.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
+          return rankA - rankB;
+        });
         this.fotos = list;
-        this.isLoading = false;
       },
       error: err => {
         console.error("Error cargando fotos", err);
         this.notifications.showToast("Error cargando fotos", "danger");
-        this.isLoading = false;
+      }
+    });
+  }
+    */
+
+
+  private loadPhotos(usuario: Usuario, usuId: number) {
+
+
+    this.serphoto.ListarFotografias().subscribe({
+      next: fotos => {
+        console.log("Fotos que traigo", fotos);
+        //Solo dejamos las aprobadas
+        const aprobadas = fotos.filter(f => f.estado === 'aprobada');
+        this.votacionFinalizada = new Date(fotos[0].rally.fecha_fin_votacion) < new Date();
+        //Mapeamos la estadística solo a las fotos aprobadas
+        const mapEstadistica = new Map<number, Photo>();
+        aprobadas.forEach(f => mapEstadistica.set(f.id, f));
+
+        //Asignamos estadística solo si es una foto aprobada
+        fotos.forEach(f => {
+          if (mapEstadistica.has(f.id)) {
+            f.estadistica = mapEstadistica.get(f.id)!.estadistica;
+          } else {
+            f.estadistica = undefined;
+          }
+        });
+
+        let list = (!this.isAdmin && !this.isVoted)
+          ? fotos.filter(f => f.usuario_id === usuario.id)
+          : this.isVoted
+            ? fotos.filter(f => f.usuario_id !== usuario.id && f.estado === 'aprobada')
+            : fotos.filter(f => f.usuario_id === usuId);
+
+        // Ordenamos por ranking ascendente
+        list.sort((a, b) => {
+          const rankA = a.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
+          const rankB = b.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
+          return rankA - rankB;
+        });
+
+        this.fotos = list;
+        //Divide la cantidad total de fotos (this.fotos.length) entre la cantidad de fotos por página (this.itemsPerPage) y redondea
+        this.totalPages = Math.ceil(this.fotos.length / this.itemsPerPage);
+      },
+      error: err => {
+        console.error("Error cargando fotos", err);
+        this.notifications.showToast("Error cargando fotos", "danger");
       }
     });
   }
 
-
   private loadUsuario(usuId: number) {
     this.seruser.ObtenerUsuarioId(usuId).subscribe({
       next: (res) => {
-        console.log("Maricón");
         console.log("Esto es lo que recibo de ObtenerUsuarioId", res);
         this.nombreUsuario = res.nombre;
       },
@@ -141,23 +193,42 @@ export class PhotosComponent {
     });
   }
 
-  /*private processPhotoData(fotos: Photo[]) {
-    // Asegura que exista array de votos y estadistica en cada foto
-    fotos.forEach(f => {
-      f.votos = f.votos || [];
-      f.estadistica = f.estadistica || { id: 0, fotografia_id: f.id, ranking: 0, total_votos: 0 };
-    });
-    this.fotos = this.updateAllPhotoStats(fotos);
-  }*/
+  //Sin ordenásemos sin traer otra vez las fotos
+  /* private updateAllPhotoStats(list: Photo[]): Photo[] {
+     // 1. Recalcula total_votos en estadistica
+     list.forEach(f => f.estadistica!.total_votos = f.votos.length);
+     // 2. Ordena por total_votos descendente
+     const sorted = [...list].sort((a, b) => b.votos.length - a.votos.length);
+     // 3. Recalcula ranking 1-based
+     sorted.forEach((f, i) => f.estadistica!.ranking = i + 1);
+     return sorted;
+   }
+ */
 
-  private updateAllPhotoStats(list: Photo[]): Photo[] {
-    // 1. Recalcula total_votos en estadistica
-    list.forEach(f => f.estadistica!.total_votos = f.votos.length);
-    // 2. Ordena por total_votos descendente
-    const sorted = [...list].sort((a, b) => b.votos.length - a.votos.length);
-    // 3. Recalcula ranking 1-based
-    sorted.forEach((f, i) => f.estadistica!.ranking = i + 1);
-    return sorted;
+  ordenarFotos() {
+    if (this.ordenActual === 'ranking') {
+      this.fotos.sort((a, b) => {
+        const rankA = a.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
+        const rankB = b.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
+        return rankA - rankB;
+      });
+    } else if (this.ordenActual === 'autor') {
+      if (this.isVoted) {
+        // Ordenar por autor si está votando
+        this.fotos.sort((a, b) => {
+          const autorA = a.usuario?.nombre?.toLowerCase() ?? '';
+          const autorB = b.usuario?.nombre?.toLowerCase() ?? '';
+          return autorA.localeCompare(autorB);
+        });
+      } else {
+        // Ordenar por título (nombre) si no está votando
+        this.fotos.sort((a, b) => {
+          const tituloA = a.titulo?.toLowerCase() ?? '';
+          const tituloB = b.titulo?.toLowerCase() ?? '';
+          return tituloA.localeCompare(tituloB);
+        });
+      }
+    }
   }
 
   votarAnularFoto(fotoId: number) {
@@ -171,8 +242,9 @@ export class PhotosComponent {
       // ANULA VOTO
       this.servoto.BorraVotacion(votoExistente.id!).subscribe({
         next: () => {
-          foto.votos = foto.votos.filter(v => v.id_usuario !== usuario.id);
-          this.fotos = this.updateAllPhotoStats(this.fotos);
+          //foto.votos = foto.votos.filter(v => v.id_usuario !== usuario.id);
+          //this.fotos = this.updateAllPhotoStats(this.fotos);
+          this.loadPhotos(usuario, this.usuId);
           this.notifications.showToast("Voto anulado con éxito", "success");
         },
         error: () => this.notifications.showToast("No se pudo anular voto", "danger")
@@ -182,8 +254,9 @@ export class PhotosComponent {
       const nuevo: Voto = { id_fotografia: fotoId, id_usuario: usuario.id };
       this.servoto.AnadeVotacion(nuevo).subscribe({
         next: (res) => {
-          foto.votos.push(res);
-          this.fotos = this.updateAllPhotoStats(this.fotos);
+          //foto.votos.push(res);
+          //this.fotos = this.updateAllPhotoStats(this.fotos);
+          this.loadPhotos(usuario, this.usuId);
           this.notifications.showToast("Voto registrado con éxito", "success");
         },
         error: () => this.notifications.showToast("Error al votar", "danger")
@@ -203,8 +276,8 @@ export class PhotosComponent {
   }
 
   getRankingPorFoto(f: Photo): string {
-    const r = f.estadistica?.ranking;
-    if (!r) return '-';
+    const r = Math.floor(Number(f.estadistica?.ranking ?? 0));
+    if (!r || f.estado != "aprobada") return '-';
 
     //Obtenemos el sufijo ordinal
     const lastDigit = r % 10; //Última cifra del número
@@ -319,5 +392,23 @@ export class PhotosComponent {
   cerrarModal() {
     this.isFotoModalOpen = false;
     this.selectedFotoUrl = null;
+  }
+
+  paginatedFotos(): Photo[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.fotos.slice(startIndex, endIndex);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
 }

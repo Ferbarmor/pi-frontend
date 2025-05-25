@@ -107,6 +107,13 @@
                             </div>
                             }
 
+                             @if(isUploading){
+                            <div class="upload-message">
+                                <span class="spinner-border spinner-border-sm" role="status"></span>
+                                Cargando...
+                            </div>
+                            }
+
                             <!-- Botón de Login -->
                             <div class="d-flex justify-content-between gap-2 mt-3 flex-wrap">
                                 <button type="submit" class="btn btn-custom btn-sm" [disabled]="!form.valid">

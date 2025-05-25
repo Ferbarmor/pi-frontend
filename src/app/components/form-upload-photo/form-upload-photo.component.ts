@@ -94,6 +94,7 @@ export class FormUploadPhotoComponent {
   }
 
   onSubmit() {
+    this.isUploading = true;
     if (this.photo.id != undefined) {
       console.log("Estoy editando una foto", this.photo.id);
       const formData = this.form.value;
