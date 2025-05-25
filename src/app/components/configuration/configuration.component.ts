@@ -69,9 +69,9 @@ export class ConfigurationComponent {
   }
 
   BorraRally(id: number, nombre: string) {
-    // Usando SweetAlert2 sin async/await
+    //Usando SweetAlert2 sin async/await
     Swal.fire({
-      title: `¿Quieres eliminar ell rally ${nombre}?`,
+      title: `¿Quieres eliminar el rally ${nombre}?`,
       text: 'Esta acción no se puede revertir',
       icon: 'warning',
       showCancelButton: true,
@@ -91,7 +91,7 @@ export class ConfigurationComponent {
 
   verDetallesRally(rally: Rally) {
     console.log("Estoy viendo los detalles del rally", rally);
-    this.showForm = false; // <- Asegura que no esté abierto el form
+    this.showForm = false; //Asegura que no esté abierto el form
     this.selectedRally = rally;
     this.showDetails = true;
   }

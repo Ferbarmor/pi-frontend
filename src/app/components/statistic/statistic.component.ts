@@ -101,14 +101,14 @@ export class StatisticComponent {
       labels: usuariosFiltrados.map((u: any) => u.nombre),
       datasets: [
         {
-          data: this.estadisticas.participacion_usuarios.map((u: any) => u.total_fotos),
+          data: usuariosFiltrados.map((u: any) => u.total_fotos),
           label: 'Fotos Subidas',
           backgroundColor: 'rgba(54, 162, 235, 0.7)',
           borderColor: 'rgba(54, 162, 235, 1)',
           borderWidth: 1
         },
         {
-          data: this.estadisticas.participacion_usuarios.map((u: any) => u.total_votos),
+          data: usuariosFiltrados.map((u: any) => u.total_votos),
           label: 'Votos Realizados',
           backgroundColor: 'rgba(255, 99, 132, 0.7)',
           borderColor: 'rgba(255, 99, 132, 1)',

@@ -90,6 +90,13 @@
                             </div>
                             }
 
+                             @if(isUploading){
+                            <div class="upload-message">
+                                <span class="spinner-border spinner-border-sm" role="status"></span>
+                                Subiendo foto...
+                            </div>
+                            }
+
                             <!-- Botones -->
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-custom btn-lg" [disabled]="!form.valid">

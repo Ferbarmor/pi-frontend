@@ -116,6 +116,11 @@ export class PanelAdminComponent {
   }
 
   BorraUsuario(id: number, nombre: string) {
+    const usuario = this.serAuth.getCurrentUser();
+    console.log("Usuario al borra", usuario.rol);
+    const mensaje = usuario.rol === 'administrador'
+      ? `¿Quieres eliminar a ${nombre}?. Se borraran todos los datos`
+      : `¿Estás seguro de que quieres darte de baja ${nombre}?. Perderás todos tus datos`;
     // Usando SweetAlert2 sin async/await
     Swal.fire({
       title: `¿Quieres eliminar a ${nombre}?`,
@@ -129,6 +134,7 @@ export class PanelAdminComponent {
           next: () => {
             Swal.fire('¡Eliminado!', '', 'success');
             this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);//Crea un nuevo array con la coindición que hemos puesto
+            this.logout();
           },
           error: () => Swal.fire('Error', 'No se pudo eliminar', 'error')
         });
@@ -163,4 +169,7 @@ export class PanelAdminComponent {
     this.showDetails = true;
   }
 
+  logout() {
+    this.serAuth.logout();
+  }
 }

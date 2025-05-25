@@ -1,90 +1,98 @@
 <div class="login-wrapper">
-<div class="container mt-5 draggable">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-            <div class="card shadow" #dragTarget style="position: absolute;">
-                <div class="card-header bg-light cursor-move text-center" #dragHandle>
-                    <h1 class="card-title mb-0">
-                      <strong>INICIAR SESIÓN</strong>
-                    </h1>
-                  </div>
-                <div class="card-body p-4">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
-                        <!-- Campo Email -->
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="email" formControlName="email" [ngClass]="{
+    <div class="container mt-5 draggable">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow" #dragTarget style="position: absolute;">
+                    <div class="card-header bg-light cursor-move text-center" #dragHandle>
+                        <h1 class="card-title mb-0">
+                            <strong>INICIAR SESIÓN</strong>
+                        </h1>
+                    </div>
+                    <div class="card-body p-4">
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                            <!-- Campo Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" formControlName="email" [ngClass]="{
                                     'is-invalid': form.controls['email'].invalid && 
                                                 (form.controls['email'].dirty || form.controls['email'].touched)
                                 }" placeholder="tu@email.com">
 
-                            @if(form.controls["email"].invalid && (form.controls["email"].dirty ||
-                            form.controls["email"].touched)){
-                            @if(form.controls["email"].errors?.["required"]){
-                            <div class="invalid-feedback">El email es obligatorio</div>
-                            }
-                            @if(form.controls["email"].errors?.["email"]){
-                            <div class="invalid-feedback">Debe ser un email válido</div>
-                            }
-                            }
-                        </div>
+                                @if(form.controls["email"].invalid && (form.controls["email"].dirty ||
+                                form.controls["email"].touched)){
+                                @if(form.controls["email"].errors?.["required"]){
+                                <div class="invalid-feedback">El email es obligatorio</div>
+                                }
+                                @if(form.controls["email"].errors?.["email"]){
+                                <div class="invalid-feedback">Debe ser un email válido</div>
+                                }
+                                }
+                            </div>
 
-                        <!-- Campo Password -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="password" formControlName="password"
-                                [ngClass]="{
+                            <!-- Campo Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" formControlName="password"
+                                    [ngClass]="{
                                     'is-invalid': form.controls['password'].invalid && 
                                                 (form.controls['password'].dirty || form.controls['password'].touched)
                                 }" placeholder="contraseña">
 
-                            @if(form.controls["password"].invalid && (form.controls["password"].dirty ||
-                            form.controls["password"].touched)){
-                            @if(form.controls["password"].errors?.["required"]){
-                            <div class="invalid-feedback">La contraseña es obligatoria</div>
+                                @if(form.controls["password"].invalid && (form.controls["password"].dirty ||
+                                form.controls["password"].touched)){
+                                @if(form.controls["password"].errors?.["required"]){
+                                <div class="invalid-feedback">La contraseña es obligatoria</div>
+                                }
+                                @if(form.controls["password"].errors?.["minlength"]){
+                                <div class="invalid-feedback">La contraseña debe tener al menos 6 caracteres</div>
+                                }
+                                }
+                            </div>
+
+                            <!-- Recordar sesión -->
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="remember"
+                                    formControlName="remember">
+                                <label class="form-check-label" for="remember">Recordar sesión</label>
+                            </div>
+
+                            <!-- Mensaje de error -->
+                            @if (message) {
+                            <div class="alert alert-dismissible"
+                                [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+                                {{ message }}
+                                <button type="button" class="btn-close" (click)="message = ''"></button>
+                            </div>
                             }
-                            @if(form.controls["password"].errors?.["minlength"]){
-                            <div class="invalid-feedback">La contraseña debe tener al menos 6 caracteres</div>
+
+                            @if(isUploading){
+                            <div class="upload-message">
+                                <span class="spinner-border spinner-border-sm" role="status"></span>
+                                Iniciando sesión...
+                            </div>
                             }
-                            }
-                        </div>
 
-                        <!-- Recordar sesión -->
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="remember" formControlName="remember">
-                            <label class="form-check-label" for="remember">Recordar sesión</label>
-                        </div>
+                            <!-- Botón de Login -->
+                            <div class="d-flex justify-content-between gap-2 mt-3 flex-wrap">
+                                <button type="submit" class="btn btn-custom btn-sm" [disabled]="!form.valid">
+                                    <i class="bi bi-check-circle"></i> Iniciar Sesión
+                                </button>
+                                <button type="button" class="btn btn-customd btn-sm" routerLink="/">
+                                    <i class="bi bi-x-circle"></i> Cancelar</button>
+                            </div>
+                        </form>
 
-                        <!-- Mensaje de error -->
-                        @if (message) {
-                        <div class="alert alert-dismissible"
-                            [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
-                            {{ message }}
-                            <button type="button" class="btn-close" (click)="message = ''"></button>
+                        <div class="text-center mt-4">
+                            <p class="mb-0">¿No tienes una cuenta? <a routerLink="/register"
+                                    class="text-decoration-none">Regístrate</a></p>
                         </div>
-                        }
-
-                        <!-- Botón de Login -->
-                        <div class="d-flex justify-content-between gap-2 mt-3 flex-wrap">
-                            <button type="submit" class="btn btn-custom btn-sm" [disabled]="!form.valid">
-                                <i class="bi bi-check-circle"></i> Iniciar Sesión
-                            </button>
-                            <button type="button" class="btn btn-customd btn-sm" routerLink="/">
-                                <i class="bi bi-x-circle"></i> Cancelar</button>
+                        <div class="text-center mt-4">
+                            <p class="mb-0">¿Has olvidado tu contraseña? <a routerLink="/forgot-password"
+                                    class="text-decoration-none">Pincha aquí</a></p>
                         </div>
-                    </form>
-
-                    <div class="text-center mt-4">
-                        <p class="mb-0">¿No tienes una cuenta? <a routerLink="/register"
-                                class="text-decoration-none">Regístrate</a></p>
-                    </div>
-                    <div class="text-center mt-4">
-                        <p class="mb-0">¿Has olvidado tu contraseña? <a routerLink="/forgot-password"
-                                class="text-decoration-none">Pincha aquí</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

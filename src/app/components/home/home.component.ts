@@ -13,7 +13,7 @@ import { Voto } from '../../models/voto';
 import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-home',
-  imports: [CarruselComponent, CommonModule,RouterLink],
+  imports: [CarruselComponent, CommonModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -60,9 +60,17 @@ export class HomeComponent {
 
   private updateAllPhotoStats(list: Photo[]): Photo[] {
     list.forEach(f => f.estadistica!.total_votos = f.votos.length);
-    const sorted = [...list].sort((a, b) => b.votos.length - a.votos.length);
-    sorted.forEach((f, i) => f.estadistica!.ranking = i + 1);
-    return sorted;
+
+    //Ordenamos primero por votos DESC, y si hay empate, por ID ASC
+    const byVotes = [...list].sort((a, b) => {
+      const diff = b.votos.length - a.votos.length;
+      return diff !== 0 ? diff : a.id - b.id;
+    });
+    byVotes.forEach((f, i) => f.estadistica!.ranking = i + 1);
+
+    const byRanking = [...byVotes].sort((a, b) => a.estadistica!.ranking - b.estadistica!.ranking);
+    console.log("Ranking", byRanking);
+    return byRanking;
   }
 
   votarAnularFoto(fotoId: number) {
@@ -141,6 +149,4 @@ export class HomeComponent {
     this.isFotoModalOpen = false;
     this.selectedFotoUrl = null;
   }
-
-  // Aquí puedes agregar métodos y propiedades adicionales según sea necesario
 }

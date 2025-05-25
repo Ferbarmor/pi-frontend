@@ -34,6 +34,7 @@ export class FormUploadPhotoComponent {
   public usuId: number = 0;
   public rally: Rally = <Rally>{};
   public votacionFinalizada: Boolean = false;
+  public isUploading: boolean = false;
 
   constructor(private fb: FormBuilder, private serAuth: AuthService, private serphoto: FotografiasService,
     private ruta: Router, private notifications: NotificationsService, private serrally: RalliesService) {
@@ -101,12 +102,13 @@ export class FormUploadPhotoComponent {
       this.serphoto.ModificaFotografia(formData, this.photo.id).subscribe({
 
         next: res => {
-
+          this.isUploading = false;
           console.log("Respuesta del servidor al modficar Usuario", res);
           this.formClosed.emit({ success: true, message: "Editando", photo: res });
           this.notifications.showToast("Fotografía modificada con éxito", "success");
         },
         error: (err) => {
+          this.isUploading = false;
           console.log("Error al modificar la foto", err);
           this.notifications.showToast(err.mesagge, "danger");
         }
@@ -128,6 +130,7 @@ export class FormUploadPhotoComponent {
       console.log("Esto es lo que mando en el formulario", formData);
       this.serphoto.AnadeFotografia(formData).subscribe({
         next: res => {
+          this.isUploading = false;
           console.log("Foto subida correctamente", res);
           this.message = "Foto subida con éxito";
           this.messageType = "success";
@@ -137,6 +140,7 @@ export class FormUploadPhotoComponent {
           this.isUploaded = true;
         },
         error: err => {
+          this.isUploading = false;
           console.log("Error al subir la foto", err);
           const erroresValidacion = err?.error?.errors;
           const errorCustom = err?.error?.error;

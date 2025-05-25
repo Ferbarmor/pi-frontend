@@ -3,12 +3,11 @@
   <div class="desktop-carousel" *ngIf="!isMobile">
     <div class="container">
       <div class="slide">
-        <div *ngFor="let slide of slides; let i = index" 
-             class="item {{slide.class}}"
-             [class.active]="i === currentIndex">
-          <div class="content" [class.show]="i === currentIndex">
-            <div class="name" *ngIf="!slide.specialText">{{slide.title}}</div>
-            <div class="name" *ngIf="slide.specialText">
+        <!-- Mostrar solo la imagen activa -->
+        <div class="item active {{slides[currentIndex].class}}">
+          <div class="content show">
+            <div class="name" *ngIf="!slides[currentIndex].specialText">{{slides[currentIndex].title}}</div>
+            <div class="name" *ngIf="slides[currentIndex].specialText">
               <span class="letter letter-s">S</span>
               <span class="letter letter-n">n</span>
               <span class="letter letter-a">a</span>

@@ -20,8 +20,10 @@ export class FormLoginComponent {
   private offsetX = 0;
   private offsetY = 0;
   public form: FormGroup;
-  public message: string = '';  // Mensaje de respuesta
-  public messageType: 'success' | 'error' = 'success';  // Tipo de mensaje
+  public message: string = '';  
+  public messageType: 'success' | 'error' = 'success';  
+  public isUploading: boolean = false;
+
   constructor(private fb: FormBuilder, private notifications: NotificationsService,
     private serviceauth: AuthService, private ruta: Router) {
     this.form = this.fb.group({
@@ -64,16 +66,17 @@ export class FormLoginComponent {
   };
 
   onSubmit() {
-
+    this.isUploading = true;
     this.serviceauth.login(this.form.value).subscribe({
 
       next: res => {
-
+        this.isUploading = false;
         console.log("Usuario logeado correctamente", res);
         this.notifications.showToast("Logueado con éxito", "success");
         this.ruta.navigate(["/"]);
       },
       error: (err) => {
+        this.isUploading = false;
         console.log("Error al logearse", err);
         this.message = err.message;
         this.messageType = 'error';
