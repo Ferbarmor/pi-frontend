@@ -40,7 +40,6 @@ body {
 .login-wrapper {
     position: relative;
     min-height: calc(100vh - 100px);
-    left: 2.5%;
     padding-top: 20px;
 
 }

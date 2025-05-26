@@ -123,7 +123,7 @@ export class PanelAdminComponent {
       : `¿Estás seguro de que quieres darte de baja ${nombre}?. Perderás todos tus datos`;
     // Usando SweetAlert2 sin async/await
     Swal.fire({
-      title: `¿Quieres eliminar a ${nombre}?`,
+      title: mensaje,
       text: 'Esta acción no se puede revertir',
       icon: 'warning',
       showCancelButton: true,

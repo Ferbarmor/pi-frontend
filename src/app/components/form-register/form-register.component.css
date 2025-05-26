@@ -37,8 +37,6 @@
     padding-top: 70px;
     position: relative;
     min-height: calc(100vh - 100px);
-    left: 2.5%;
-
 }
 
 .card-header h1 {
