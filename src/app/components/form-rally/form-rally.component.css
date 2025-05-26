@@ -16,9 +16,7 @@
 
 .btn-custom:hover {
     filter: brightness(1.1);
-    /* Aumenta el brillo */
     box-shadow: 0 0 15px #1d4ed8;
-    /* Un poco de glow */
     cursor: pointer;
 }
 

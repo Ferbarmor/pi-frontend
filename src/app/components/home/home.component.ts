@@ -4,9 +4,7 @@ import { FotografiasService } from '../../services/fotografias.service';
 import { Photo } from '../../models/photo';
 import { environment } from '../../../environments/environment.development';
 import { CommonModule } from '@angular/common';
-import { FormUploadPhotoComponent } from "../form-upload-photo/form-upload-photo.component";
-import Swal from 'sweetalert2';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NotificationsService } from '../../services/notifications.service';
 import { VotosService } from '../../services/votos.service';
 import { Voto } from '../../models/voto';
@@ -19,27 +17,38 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomeComponent {
   public fotos: Photo[] = [];
-  public selectedFotoUrl: string | null = null;
-  public isFotoModalOpen = false;
-  public isLoggedIn = false;
-  public votacionFinalizada: Boolean = false;
-  public currentPage = 1;
+  public selectedFotoUrl: string | null = null; //URL de la foto seleccionada para modal
+  public isFotoModalOpen = false; //Controla si el modal de la foto está abierto
+  public isLoggedIn = false; //Indica si el usuario está autenticado
+  public votacionFinalizada: Boolean = false; //Controla si ya se cerró la votación
+  public currentPage = 1; //Página actual
   public itemsPerPage = 8; //Ajustamos este número según necesidad
-  public totalPages = 0;
+  public totalPages = 0; //Total de páginas calculadas
 
   constructor(private serphoto: FotografiasService,
     private servoto: VotosService,
     private notifications: NotificationsService, private serAuth: AuthService) { }
+
+  /**
+   * Hook de inicialización del componente.
+   * Carga las fotos y determina si el usuario está autenticado.
+   */
   ngOnInit() {
     this.loadPhotos();
     this.isLoggedIn = this.serAuth.getCurrentUser() !== null;
 
   }
+
+   /**
+   * Carga las fotografías desde el servidor.
+   * Filtra las que están aprobadas, calcula el ranking y total de páginas.
+   */
   private loadPhotos() {
     this.serphoto.ListarFotografias().subscribe({
       next: fotos => {
-        console.log("Fotos que traigo", fotos);
-        this.votacionFinalizada = new Date(fotos[0].rally.fecha_fin_votacion) < new Date();
+        //console.log("Fotos que traigo", fotos);
+        this.votacionFinalizada = new Date(fotos[0].rally.fecha_fin_votacion) < new Date(); //Hacemos la comprobación de si la votación ha finalizado
+        //Filtramos las fotos aprobadas
         const list = fotos.filter(f => f.estado === 'aprobada');
         //this.processPhotoData(list);
         //Ordenamos por ranking ascendente
@@ -84,22 +93,9 @@ export class HomeComponent {
    }
    */
   votarAnularFoto(fotoId: number) {
-    const storedId = localStorage.getItem(`votado_${fotoId}`);
+    //const storedId = localStorage.getItem(`votado_${fotoId}`);
     const foto = this.fotos.find(f => f.id === fotoId);
     if (!foto) return;
-
-    /*if (storedId) {
-      // ANULAR
-      this.servoto.BorraVotacion(Number(storedId)).subscribe({
-        next: () => {
-          foto.votos = foto.votos.filter(v => v.id !== Number(storedId));
-          localStorage.removeItem(`votado_${fotoId}`);
-          this.fotos = this.updateAllPhotoStats(this.fotos);
-          this.notifications.showToast("Voto anulado con éxito", "success");
-        },
-        error: () => this.notifications.showToast("No se pudo anular voto", "danger")
-      });
-    } else {*/
     const nuevo: Voto = { id_fotografia: fotoId, id_usuario: 0 }; // Usuario anónimo
     this.servoto.AnadeVotacion(nuevo).subscribe({
       next: (res) => {

@@ -18,7 +18,6 @@ export class ContestRulesComponent {
   ngOnInit() {
     this.serrally.ObtenerRallyId(1).subscribe({
       next: res => {
-        console.log("Resultado de los rallies ", res)
         this.rally = res;
       },
       error: error => console.log("Esto es un eror del servidor", error)

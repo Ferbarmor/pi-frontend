@@ -41,14 +41,18 @@ export class FormUploadPhotoComponent {
     this.textBottom = "Subir";
   }
 
+  /**
+   * Inicializa el formulario, carga datos si se edita una foto,
+   * obtiene información del rally y verifica si la votación ha finalizado.
+   */
   ngOnInit() {
     this.usuId = this.serAuth.getCurrentUser().id;
-    console.log("Id de la foto", this.photo.id);
+    //console.log("Id de la foto", this.photo.id);
     //const usuario = this.serAuth.getCurrentUser();
     const esNueva = this.photo.id === undefined;
     this.serrally.ObtenerRallyId(1).subscribe({
       next: res => {
-        console.log("Resultado de los rallies ", res)
+        //console.log("Resultado de los rallies ", res)
         this.rally = res;
         this.votacionFinalizada = new Date(this.rally.fecha_fin_votacion) < new Date();
       },
@@ -72,7 +76,25 @@ export class FormUploadPhotoComponent {
     }
   }
 
+  /**
+* Maneja la selección o cambio de archivo en el input tipo file.
+* 
+* Cuando el usuario selecciona un archivo, esta función:
+* 1. Obtiene el archivo seleccionado del evento.
+* 2. Lo guarda en la propiedad `fImagen` para usarlo luego en la subida.
+* 3. Usa un FileReader para leer el archivo como una URL base64.
+*    Esto permite obtener una representación en cadena codificada en base64,
+*    que es útil para mostrar una previsualización de la imagen en el formulario.
+* 4. Asigna el resultado base64 a `imagen64` para poder enlazarlo en el template y mostrar la imagen.
+* 
+* Si el usuario elimina el archivo (por ejemplo, cancela la selección),
+* limpia las variables relacionadas para no mantener datos obsoletos.
+* 
+* @param event Evento disparado al seleccionar un archivo en el input (change event)
+*/
   leerImagen(event: Event): void {
+    /*Así, TypeScript nos permite usar .files sin error, porque sabe que el tipo tiene esa propiedad.
+    Se llama type assertion o aserción de tipo.No cambia el valor ni el comportamiento en tiempo de ejecución, solo le dice al compilador qué tipo debería asumir.*/
     const input = event.target as HTMLInputElement;
 
     if (input.files && input.files.length > 0) {
@@ -82,41 +104,50 @@ export class FormUploadPhotoComponent {
 
       const reader = new FileReader();
       reader.onloadend = () => {
-        this.imagen64 = reader.result as string;
+        this.imagen64 = reader.result as string;//Hacemos un casteo para el compilador
       };
       reader.readAsDataURL(this.fImagen);
     } else {
-      // Si no hay archivo seleccionado (o lo ha quitado), limpiamos todo:
+      //Si no hay archivo seleccionado (o lo ha quitado), limpiamos todo:
       this.fImagen = null;
       this.imagen64 = '';
       this.inputFile = null;
     }
   }
 
+  /**
+  * Envía el formulario para subir una nueva foto o modificar una existente.
+  * 
+  * - Marca `isUploading` como true para bloquear UI y mostrar estado de carga.
+  * - En caso de edición elimina el campo archivo y llama al servicio de modificación.
+  * - En caso de foto nueva construye FormData para envío multipart/form-data.
+  * - Muestra mensajes de éxito o error usando notifications.showToast.
+  * - Emite evento formClosed para informar resultado al padre.
+  */
   onSubmit() {
     this.isUploading = true;
     if (this.photo.id != undefined) {
-      console.log("Estoy editando una foto", this.photo.id);
+      //console.log("Estoy editando una foto", this.photo.id);
       const formData = this.form.value;
-      delete formData.archivo;
-      console.log("Lo que le mando de la foto", formData);//Borramos la propiedad archivo del objeto 
+      delete formData.archivo;//Borramos la propiedad archivo del objeto
+      //console.log("Lo que le mando de la foto", formData); 
       this.serphoto.ModificaFotografia(formData, this.photo.id).subscribe({
 
         next: res => {
           this.isUploading = false;
-          console.log("Respuesta del servidor al modficar Usuario", res);
+          //console.log("Respuesta del servidor al modficar Usuario", res);
           this.formClosed.emit({ success: true, message: "Editando", photo: res });
           this.notifications.showToast("Fotografía modificada con éxito", "success");
         },
         error: (err) => {
           this.isUploading = false;
-          console.log("Error al modificar la foto", err);
+          //console.log("Error al modificar la foto", err);
           this.notifications.showToast(err.mesagge, "danger");
         }
       });
     } else {
       const formData = new FormData();
-      // Construimos el objeto FormData como espera la API
+      //Construimos el objeto FormData como espera la API
       const datos = {
         titulo: this.form.value.titulo,
         descripcion: this.form.value.descripcion,
@@ -128,11 +159,11 @@ export class FormUploadPhotoComponent {
       formData.append('datos[usuario_id]', datos.usuario_id);
       formData.append('datos[rally_id]', datos.rally_id);
       formData.append('archivo', this.fImagen!);
-      console.log("Esto es lo que mando en el formulario", formData);
+      //console.log("Esto es lo que mando en el formulario", formData);
       this.serphoto.AnadeFotografia(formData).subscribe({
         next: res => {
           this.isUploading = false;
-          console.log("Foto subida correctamente", res);
+          //console.log("Foto subida correctamente", res);
           this.message = "Foto subida con éxito";
           this.messageType = "success";
           this.form.reset();
@@ -158,6 +189,10 @@ export class FormUploadPhotoComponent {
     }
   }
 
+  /**
+  * Cancela la operación actual, emite evento para cerrar el formulario
+  * y redirige a la página principal si es una nueva foto.
+  */
   onCancel() {
     this.formClosed.emit({ success: false });
     if (this.photo.id === undefined) {
