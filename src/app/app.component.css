@@ -16,7 +16,7 @@
   }*/
 
   .loading-overlay {
-    position: fixed;  /* Cambiar a 'fixed' para que se mantenga en su lugar mientras haces scroll */
+    position: fixed;  
     top: 0;
     left: 0;
     width: 100vw;  /* Asegura que ocupe todo el ancho de la pantalla */

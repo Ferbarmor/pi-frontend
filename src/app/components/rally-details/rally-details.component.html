@@ -1,28 +1,26 @@
 <div class="container mt-1 mb-2">
-    <div class="card border-primary shadow-sm">
-      <div class="card-header header-custom text-white">
-        <h5 class="mb-0"><i class="bi bi-person-circle me-2"></i>Detalles del Rally</h5>
+  <div class="card border-primary shadow-sm">
+    <div class="card-header header-custom text-white">
+      <h5 class="mb-0"><i class="bi bi-person-circle me-2"></i>Detalles del Rally</h5>
+    </div>
+    <div class="card-body">
+      <div>
+        <p><strong>Nombre: </strong> {{ rally.nombre }}</p>
+        <p><strong>Descripción: </strong> {{ rally.descripcion }}</p>
+        <p><strong>Fecha de inicio: </strong> {{ rally.fecha_inicio | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Fecha de fin: </strong> {{ rally.fecha_fin | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Límite votos por participante: </strong> {{ rally.limite_fotos_participante}}</p>
+        <p><strong>Fecha límite votación: </strong> {{ rally.fecha_fin_votacion | date:'dd/MM/yyyy' }}</p>
       </div>
-      <div class="card-body">
-        <div>
-          <p><strong>Nombre: </strong> {{ rally.nombre }}</p>
-          <p><strong>Descripción: </strong> {{ rally.descripcion }}</p>
-          <p><strong>Fecha de inicio: </strong> {{ rally.fecha_inicio | date:'dd/MM/yyyy' }}</p>
-          <p><strong>Fecha de fin: </strong> {{ rally.fecha_fin | date:'dd/MM/yyyy' }}</p>
-          <p><strong>Límite votos por participante: </strong> {{ rally.limite_fotos_participante}}</p>
-          <p><strong>Fecha límite votación: </strong> {{ rally.fecha_fin_votacion | date:'dd/MM/yyyy' }}</p>
-          <!-- Puedes añadir más campos aquí si el objeto tiene más datos -->
-        </div>
-  
-        <ng-template #noData>
-          <p class="text-muted">No hay datos del usuario seleccionados.</p>
-        </ng-template>
-      </div>
-      <div class="card-footer text-end">
-        <button class="btn btn-secondary" (click)="closeDetails()">
-          <i class="bi bi-arrow-left"></i> Cerrar detalles
-        </button>
-      </div>
+
+      <ng-template #noData>
+        <p class="text-muted">No hay datos del usuario seleccionados.</p>
+      </ng-template>
+    </div>
+    <div class="card-footer text-end">
+      <button class="btn btn-secondary" (click)="closeDetails()">
+        <i class="bi bi-arrow-left"></i> Cerrar detalles
+      </button>
     </div>
   </div>
-
+</div>

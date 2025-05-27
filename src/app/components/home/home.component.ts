@@ -39,10 +39,10 @@ export class HomeComponent {
 
   }
 
-   /**
-   * Carga las fotografías desde el servidor.
-   * Filtra las que están aprobadas, calcula el ranking y total de páginas.
-   */
+  /**
+  * Carga las fotografías desde el servidor.
+  * Filtra las que están aprobadas, calcula el ranking y total de páginas.
+  */
   private loadPhotos() {
     this.serphoto.ListarFotografias().subscribe({
       next: fotos => {
@@ -92,6 +92,11 @@ export class HomeComponent {
      return byRanking;
    }
    */
+
+  /**
+  * Registra un voto anónimo para una fotografía específica.
+  * @param fotoId ID de la fotografía a la que se desea votar.
+  */
   votarAnularFoto(fotoId: number) {
     //const storedId = localStorage.getItem(`votado_${fotoId}`);
     const foto = this.fotos.find(f => f.id === fotoId);
@@ -100,6 +105,7 @@ export class HomeComponent {
     this.servoto.AnadeVotacion(nuevo).subscribe({
       next: (res) => {
         //foto.votos.push(res);
+        //Guardamos en el LocalStorage que ya ha votado esta foto
         localStorage.setItem(`votado_${fotoId}`, res.id!.toString());
         //this.fotos = this.updateAllPhotoStats(this.fotos);
         this.loadPhotos();
@@ -113,14 +119,30 @@ export class HomeComponent {
 
   }
 
+  /**
+  * Verifica si el usuario ya ha votado por una fotografía.
+  * @param fotoId ID de la fotografía a comprobar.
+  * @returns true si ya ha votado, false en caso contrario.
+  */
   haVotado(fotoId: number): boolean {
     return !!localStorage.getItem(`votado_${fotoId}`);
   }
 
+  /**
+   * Obtiene el número de votos que tiene una fotografía.
+   * @param f Objeto Photo.
+   * @returns Número de votos.
+   */
   getVotosPorFoto(f: Photo): number {
     return f.votos.length;
   }
 
+  /**
+   * Obtiene el ranking formateado de una fotografía.
+   * Incluye emoji si está en el top 3.
+   * @param f Objeto Photo.
+   * @returns Ranking como string (ej. "1º🥇").
+   */
   getRankingPorFoto(f: Photo): string {
     const r = Math.floor(Number(f.estadistica?.ranking ?? 0));
     if (!r) return '-';
@@ -143,32 +165,54 @@ export class HomeComponent {
     }
   }
 
+  /**
+   * Construye la URL completa para acceder al recurso (foto).
+   * @param ruta Ruta relativa del archivo.
+   * @returns URL completa.
+   */
   getUrl(ruta: string) {
     return `${environment.BASE_URL}/storage/${ruta}`;
   }
 
+  /**
+   * Abre el modal para mostrar la foto en tamaño completo.
+   * @param url URL de la foto a visualizar.
+   */
   verFotoGrande(url: string) {
     this.selectedFotoUrl = url;
     this.isFotoModalOpen = true;
   }
 
+  /**
+  * Cierra el modal de visualización de la fotografía.
+  */
   cerrarModal() {
     this.isFotoModalOpen = false;
     this.selectedFotoUrl = null;
   }
 
+  /**
+   * Obtiene las fotos correspondientes a la página actual.
+   * @returns Array con las fotos de la página activa.
+   */
   paginatedFotos(): Photo[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.fotos.slice(startIndex, endIndex);
   }
 
+  /**
+   * Cambia a la página siguiente si no se ha llegado al final.
+   */
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
     }
   }
 
+  /**
+   * Cambia a la página anterior si no se está en la primera página.
+   */
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;

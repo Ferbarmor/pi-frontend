@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { Rally } from '../models/rally';
 
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class RalliesService {
 
   private url = environment.API_URL + "/rallies";//Así llamamos a la url si tener que escribirla entera
@@ -21,7 +21,7 @@ export class RalliesService {
   }
 
   ObtenerRallyId(id: number) {
-    console.log("Estoy en obtener rally por id", id);
+    //console.log("Estoy en obtener rally por id", id);
     let body = {
       accion: "ObtenerRallyId",
       id: id
@@ -31,7 +31,7 @@ export class RalliesService {
   }
 
   AnadeRally(rally: Rally) {
-    console.log("Estoy en añadir rally", rally);
+    //console.log("Estoy en añadir rally", rally);
     let body = {
       accion: "AnadeRally",
       datos: rally
@@ -40,18 +40,18 @@ export class RalliesService {
   }
 
   ModificaRally(rally: Rally, id: number) {
-    console.log("Estoy en modificar rally", rally, id);
+    //console.log("Estoy en modificar rally", rally, id);
     let body = {
       accion: "ModificaRally",
       id: id,
       datos: rally
     };
-    console.log("Este es el cuerpo que mando al servidor en modificar rally", body);
+    //console.log("Este es el cuerpo que mando al servidor en modificar rally", body);
     return this.serrallies.post<Rally>(this.url, body);
   }
 
   BorraRally(id: number) {
-    console.log("Estoy en borrar rally", id);
+    //console.log("Estoy en borrar rally", id);
     let body = {
       accion: "BorraRally",
       id: id

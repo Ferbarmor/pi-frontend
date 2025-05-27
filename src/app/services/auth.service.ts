@@ -35,8 +35,8 @@ export class AuthService {
       `${this.API_URL}/login`,
       credentials
     ).pipe(//pipe es un método que te permite encadenar operadores para transformar, filtrar, o manejar los datos que emite un Observable.
-      // Si la petición es exitosa:
-      tap(response => {
+      //Si la petición es exitosa:
+      tap(response => {//tap se usa para hacer algo con la respuesta cuando llega (guardar datos, emitir eventos, logging) sin afectar el flujo del observable.En este caso, sirve para almacenar el token y actualizar el estado del usuario cuando se loguea.
         this.setAuthData(response.access_token, response.user); //Guarda los datos del usuario
         this.userSubject.next(response.user); //Emitimos el usuario logueado
       }),

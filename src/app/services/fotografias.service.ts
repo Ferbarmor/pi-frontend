@@ -5,6 +5,7 @@ import { Photo } from '../models/photo';
 @Injectable({
   providedIn: 'root'
 })
+
 export class FotografiasService {
   private url = environment.API_URL + "/fotografias";//Así llamamos a la url si tener que escribirla entera
   constructor(private serfotografias: HttpClient) { }
@@ -15,7 +16,7 @@ export class FotografiasService {
   }
 
   ListarFotografiasPorUsuario(usuario_id: number) {
-    console.log("Estoy en listar fotografías por usuario", usuario_id);
+    //console.log("Estoy en listar fotografías por usuario", usuario_id);
     const body = {
       accion: "ListarFotografiasPorUsuario",
       usuario_id: usuario_id
@@ -39,23 +40,23 @@ export class FotografiasService {
   }
 
   ModificaFotografia(photo: Photo, id: number) {
-    console.log("Estoy en modificar foto", photo, id);
+    //console.log("Estoy en modificar foto", photo, id);
     const body = {
       accion: "ModificaFotografia",
       id: id,
       datos: photo
-    }; 
-    console.log("Este es el cuerpo que mando al servidor", body);
+    };
+    //console.log("Este es el cuerpo que mando al servidor", body);
     return this.serfotografias.post<Photo>(this.url, body);
   }
 
   BorraFotografia(id: number) {
-    console.log("Estoy en borrar foto");
+    //console.log("Estoy en borrar foto");
     let body = {
       accion: "BorraFotografia",
       id: id
     };
-    console.log("Este es el cuerpo que mando al servidor", body)
+    //console.log("Este es el cuerpo que mando al servidor", body)
 
     return this.serfotografias.post<Photo>(this.url, body);
   }

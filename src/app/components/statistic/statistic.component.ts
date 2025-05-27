@@ -5,6 +5,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { environment } from '../../../environments/environment.development';
 import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+//Registro de plugins necesarios para Chart.js
 Chart.register(...registerables, ChartDataLabels);
 
 @Component({
@@ -22,16 +23,23 @@ export class StatisticComponent {
 
   public estadisticas: any = {};
 
+  /**.
+  * Llama a la función que carga las estadísticas desde el servicio.
+  */
   ngOnInit() {
     this.loadStatistics();
   }
 
+  /**
+   * Carga las estadísticas del rally desde el backend.
+   * Al recibir los datos, llama a la función para preparar los gráficos.
+   */
   private loadStatistics() {
     this.sevestad.EstadisticasRally(1).subscribe({
       next: (data) => {
         this.estadisticas = data;
-        console.log("Estadísticas cargadas", this.estadisticas);
-        this.prepareCharts(); // 👈 Esto es lo que faltaba
+        //console.log("Estadísticas cargadas", this.estadisticas);
+        this.prepareCharts(); //Prepara lso datos para los gráficos
       },
       error: (err) => {
         console.error("Error cargando estadísticas", err);
@@ -39,7 +47,7 @@ export class StatisticComponent {
     });
   }
 
-  // Gráfico de participación
+  /** Configuración de datos para el gráfico de participación */
   public participacionChartData: ChartConfiguration['data'] = {
     datasets: [],
     labels: []
@@ -65,7 +73,7 @@ export class StatisticComponent {
   };
   public participacionChartType: ChartType = 'bar';
 
-  // Gráfico de top fotos
+  /** Configuración y datos del gráfico de top fotos más votadas */
   public topFotosChartData: ChartConfiguration['data'] = {
     datasets: [],
     labels: []
@@ -93,10 +101,14 @@ export class StatisticComponent {
     }
   };
 
+  /**
+  * Prepara los datos y configuraciones necesarias para los gráficos estadísticos.
+  * Se filtran los usuarios para excluir al administrador.
+  */
   prepareCharts(): void {
-    // Gráfico de participación
-    //Filtrar usuarios que no sean administradores
+    //Filtramos usuarios que no sean administradores
     const usuariosFiltrados = this.estadisticas.participacion_usuarios.filter((u: any) => u.nombre !== 'Administrador');
+    //Prepara gráfico de participación
     this.participacionChartData = {
       labels: usuariosFiltrados.map((u: any) => u.nombre),
       datasets: [
@@ -117,7 +129,7 @@ export class StatisticComponent {
       ]
     };
 
-    // Gráfico de top fotos
+    //Prepara gráfico de top fotos
     this.topFotosChartData = {
       labels: this.estadisticas.top_fotos.map((f: any) => `${f.titulo} (${f.usuario.nombre})`),
       datasets: [
@@ -144,23 +156,38 @@ export class StatisticComponent {
     };
   }
 
+  /**
+  * Construye la URL completa para acceder a una imagen desde el almacenamiento.
+  * @param ruta - Ruta relativa del archivo
+  * @returns URL completa
+  */
   getUrl(ruta: string) {
     return `${environment.BASE_URL}/storage/${ruta}`;
   }
 
+  /**
+   * Abre el modal para ver una foto en tamaño completo.
+   * @param url - URL de la foto a mostrar
+   */
   verFotoGrande(url: string) {
     this.fotoSeleccionada = url;
     this.mostrarModal = true;
   }
 
+  /**
+   * Verifica si el dispositivo actual es móvil según el ancho de la pantalla.
+   * @returns true si el ancho es menor o igual a 576px
+   */
   isMobile(): boolean {
     return window.innerWidth <= 576;
   }
 
+  /** Cierra el modal de imagen ampliada */
   cerrarModal() {
     this.mostrarModal = false;
   }
 
+  /** Hace scroll suave hacia la parte superior de la página */
   scrollToTop() {
     window.scrollTo({
       top: 0,

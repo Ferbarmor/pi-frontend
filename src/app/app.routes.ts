@@ -14,21 +14,20 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 export const routes: Routes = [
-    {path: "listado-tests-photos", component: ListadoTestsComponent},
-    {path: "register", component: FormRegisterComponent},
+    { path: "listado-tests-photos", component: ListadoTestsComponent },
+    { path: "register", component: FormRegisterComponent },
     //{path:"register/:id", component: FormRegisterComponent},
-    {path: "login", component: FormLoginComponent},
-    {path: "upload-photo", component: FormUploadPhotoComponent},
+    { path: "login", component: FormLoginComponent },
+    { path: "upload-photo", component: FormUploadPhotoComponent },
     //{path: "upload-photo/:id", component: FormUploadPhotoComponent},
-    {path: "photos", component: PhotosComponent},
-    {path: "photos/:id", component: PhotosComponent, runGuardsAndResolvers: 'paramsChange'},
-    {path: "admin", component: PanelAdminComponent},
-    {path: "contest-rules", component: ContestRulesComponent},
-    {path: "", component: HomeComponent},
-    {path: "configuration", component: ConfigurationComponent},
-    {path: "estadisticas", component: StatisticComponent},
-    {path: "admin/:id", component: PanelAdminComponent, runGuardsAndResolvers: 'paramsChange'},
+    { path: "photos", component: PhotosComponent },
+    { path: "photos/:id", component: PhotosComponent, runGuardsAndResolvers: 'paramsChange' },
+    { path: "admin", component: PanelAdminComponent },
+    { path: "contest-rules", component: ContestRulesComponent },
+    { path: "", component: HomeComponent },
+    { path: "configuration", component: ConfigurationComponent },
+    { path: "estadisticas", component: StatisticComponent },
+    { path: "admin/:id", component: PanelAdminComponent, runGuardsAndResolvers: 'paramsChange' },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'reset-password', component: ResetPasswordComponent },
-    
 ];

@@ -3,9 +3,10 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoaderService {
 
-  private loadingSubject = new BehaviorSubject<boolean>(false);  // Valor por defecto false (no cargando)
+  private loadingSubject = new BehaviorSubject<boolean>(false);  //Valor por defecto false (no cargando)
   public isLoading$ = this.loadingSubject.asObservable();
 
   show() {
@@ -19,9 +20,9 @@ export class LoaderService {
       this.loadingSubject.next(false);  //Establece el estado a false después de un ciclo
     });
   }
- /* hide(delayMs: number = 2000) {  // 👈 delay opcional de 300ms por defecto
-    setTimeout(() => {
-      this.loadingSubject.next(false);
-    }, delayMs);
-  }*/
+  /* hide(delayMs: number = 2000) {  // 👈 delay opcional de 300ms por defecto
+     setTimeout(() => {
+       this.loadingSubject.next(false);
+     }, delayMs);
+   }*/
 }

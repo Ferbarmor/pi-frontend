@@ -24,8 +24,8 @@ export class PhotosComponent {
   public fotos: Photo[] = [];
   public nombreUsuario: string | undefined;
   public isAdmin = false;
-  public isVoted = false;
-  public selectedFotoUrl: string | null = null;
+  public isVoted = false; //Indica que el usuario está en modo votación
+  public selectedFotoUrl: string | null = null; //URL de la foto seleccionada para vista ampliada
   public isFotoModalOpen = false;
   public selectedPhoto: Photo = <Photo>{};
   public usuId: number = 0;
@@ -33,7 +33,7 @@ export class PhotosComponent {
   public votacionFinalizada: Boolean = false;
   public ordenActual: 'ranking' | 'autor' = 'ranking';
   public currentPage = 1;
-  public itemsPerPage = 4; // Puedes ajustar este número según necesidad
+  public itemsPerPage = 8;
   public totalPages = 0;
 
 
@@ -47,6 +47,9 @@ export class PhotosComponent {
     private servoto: VotosService
   ) { }
 
+  /**
+  * Inicializa el componente y suscripción a cambios en la ruta para cargar datos.
+  */
   ngOnInit() {
     this.route.paramMap.subscribe(params => {//Se suscribe a los parámetros de la ruta (paramMap), es decir, escucha los cambios en la URL, como /perfil/id.
       const usuario = this.serAuth.getCurrentUser()!;
@@ -89,7 +92,7 @@ export class PhotosComponent {
       }
     });
   }*/
-  /*Esta loadsería para calacular ranking y ordenar haciéndone menos pietciones al servidro, con el problema que conlleva si recalculas el rankin solo para un usuario
+  /*Esta load sería para calacular ranking y ordenar haciéndone menos pietciones al servidor, con el problema que conlleva si recalculas el rankin solo para un usuario
   private loadPhotos(usuario: Usuario, usuId: number) {
     //Traemos SIEMPRE todas las fotos para calcular el ranking global
     this.serphoto.ListarFotografias().subscribe({
@@ -136,13 +139,15 @@ export class PhotosComponent {
   }
     */
 
-
+  /**
+  * Carga las fotografías según el usuario y estado actual, calcula ranking y prepara paginación.
+  * @param usuario Usuario actual
+  * @param usuId ID del usuario para cargar fotos
+  */
   private loadPhotos(usuario: Usuario, usuId: number) {
-
-
     this.serphoto.ListarFotografias().subscribe({
       next: fotos => {
-        console.log("Fotos que traigo", fotos);
+        //console.log("Fotos que traigo", fotos);
         //Solo dejamos las aprobadas
         const aprobadas = fotos.filter(f => f.estado === 'aprobada');
         this.votacionFinalizada = new Date(fotos[0].rally.fecha_fin_votacion) < new Date();
@@ -165,8 +170,10 @@ export class PhotosComponent {
             ? fotos.filter(f => f.usuario_id !== usuario.id && f.estado === 'aprobada')
             : fotos.filter(f => f.usuario_id === usuId);
 
-        // Ordenamos por ranking ascendente
+        //Ordenamos por ranking ascendente
         list.sort((a, b) => {
+          /*Si a.estadistica o a.estadistica.ranking no existe, entonces se usa el valor a la derecha del ??, 
+          que es Number.MAX_SAFE_INTEGER (el número entero más grande seguro en JavaScript)*/
           const rankA = a.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
           const rankB = b.estadistica?.ranking ?? Number.MAX_SAFE_INTEGER;
           return rankA - rankB;
@@ -183,10 +190,14 @@ export class PhotosComponent {
     });
   }
 
+  /**
+   * Carga los datos de un usuario dado su ID.
+   * @param usuId ID del usuario a cargar
+   */
   private loadUsuario(usuId: number) {
     this.seruser.ObtenerUsuarioId(usuId).subscribe({
       next: (res) => {
-        console.log("Esto es lo que recibo de ObtenerUsuarioId", res);
+        //console.log("Esto es lo que recibo de ObtenerUsuarioId", res);
         this.nombreUsuario = res.nombre;
       },
       error: (error) => console.log("Esto es un error de selPersonaID")
@@ -205,6 +216,9 @@ export class PhotosComponent {
    }
  */
 
+  /**
+  * Ordena las fotos según el criterio seleccionado ('ranking' o 'autor').
+  */
   ordenarFotos() {
     if (this.ordenActual === 'ranking') {
       this.fotos.sort((a, b) => {
@@ -214,14 +228,14 @@ export class PhotosComponent {
       });
     } else if (this.ordenActual === 'autor') {
       if (this.isVoted) {
-        // Ordenar por autor si está votando
+        //Ordena por autor si está votando
         this.fotos.sort((a, b) => {
           const autorA = a.usuario?.nombre?.toLowerCase() ?? '';
           const autorB = b.usuario?.nombre?.toLowerCase() ?? '';
           return autorA.localeCompare(autorB);
         });
       } else {
-        // Ordenar por título (nombre) si no está votando
+        //Ordena por título (nombre) si no está votando
         this.fotos.sort((a, b) => {
           const tituloA = a.titulo?.toLowerCase() ?? '';
           const tituloB = b.titulo?.toLowerCase() ?? '';
@@ -231,15 +245,20 @@ export class PhotosComponent {
     }
   }
 
+  /**
+  * Añade o anula el voto de la foto para el usuario actual.
+  * Utilizamos las notificaciones con  el servicio NotificationService que ya hemos explicado en otrso componentes
+  * @param fotoId ID de la foto a votar o anular voto
+  */
   votarAnularFoto(fotoId: number) {
-    const usuario = this.serAuth.getCurrentUser()!;
+    const usuario = this.serAuth.getCurrentUser()!;//Obteneos el usuario actual
     const foto = this.fotos.find(f => f.id === fotoId);
     if (!foto) return;
 
     const votoExistente = foto.votos.find(v => v.id_usuario === usuario.id);
 
     if (votoExistente) {
-      // ANULA VOTO
+      //ANULA VOTO
       this.servoto.BorraVotacion(votoExistente.id!).subscribe({
         next: () => {
           //foto.votos = foto.votos.filter(v => v.id_usuario !== usuario.id);
@@ -250,7 +269,7 @@ export class PhotosComponent {
         error: () => this.notifications.showToast("No se pudo anular voto", "danger")
       });
     } else {
-      // AÑADE VOTO
+      //AÑADE VOTO
       const nuevo: Voto = { id_fotografia: fotoId, id_usuario: usuario.id };
       this.servoto.AnadeVotacion(nuevo).subscribe({
         next: (res) => {
@@ -264,17 +283,31 @@ export class PhotosComponent {
     }
   }
 
-  // Helpers para plantilla
+  /**
+   * Comprueba si el usuario actual ha votado una foto.
+   * @param fotoId ID de la foto
+   * @returns true si ha votado, false en caso contrario
+   */
   haVotado(fotoId: number): boolean {
     const usuario = this.serAuth.getCurrentUser()!;
     const foto = this.fotos.find(f => f.id === fotoId);
     return !!foto?.votos.find(v => v.id_usuario === usuario.id);
   }
 
+  /**
+  * Obtiene el número total de votos de una foto.
+  * @param f Foto
+  * @returns Número de votos
+  */
   getVotosPorFoto(f: Photo): number {
     return f.votos ? f.votos.length : 0;
   }
 
+  /**
+  * Obtiene el ranking en formato string con sufijo ordinal y emoji.
+  * @param f Foto
+  * @returns Ranking formateado o '-' si no aplica
+  */
   getRankingPorFoto(f: Photo): string {
     const r = Math.floor(Number(f.estadistica?.ranking ?? 0));
     if (!r || f.estado != "aprobada") return '-';
@@ -298,14 +331,22 @@ export class PhotosComponent {
 
   }
 
+  /**
+  * Construye la URL completa para acceder a la foto.
+  * @param ruta Ruta relativa de la foto
+  * @returns URL completa
+  */
   getUrl(ruta: string) {
     return `${environment.BASE_URL}/storage/${ruta}`;
   }
 
-
+  /**
+  * Maneja el cierre del formulario de carga/edición de foto.
+  * @param result Resultado del formulario
+  */
   handleFormClose(result: { success: boolean, message?: string, photo?: Photo }) {
-    console.log("Formulario cerrado, ¿con éxito?", result.success);
-    console.log("usuario que he modificado", result.photo);
+    //console.log("Formulario cerrado, ¿con éxito?", result.success);
+    //console.log("usuario que he modificado", result.photo);
     this.showForm = false;
     this.selectedPhoto = <Photo>{}
     if (result.success && result.message == "Añadiendo") {
@@ -314,7 +355,7 @@ export class PhotosComponent {
       //this.usuarios.find(e => e.id == result.usuario!.id)!.nombre = result.usuario!.nombre;
       const index = this.fotos.findIndex(e => e.id === result.photo!.id);
       if (index !== -1) {
-        console.log("Esto es lo que recibo de la foto editada", result.photo);
+        //console.log("Esto es lo que recibo de la foto editada", result.photo);
         //Aseguramos que el ranking sea un número entero
         result.photo!.estadistica!.ranking = Math.floor(result.photo!.estadistica!.ranking);
         this.fotos[index] = result.photo!;
@@ -326,6 +367,11 @@ export class PhotosComponent {
 
   }
 
+  /**
+  * Solicita confirmación para borrar una foto y la elimina si se confirma.
+  * @param id ID de la foto a borrar
+  * @param nombre Nombre de la foto (para mostrar en alerta)
+  */
   borraFoto(id: number, nombre: string) {
     // Usando SweetAlert2 sin async/await
     Swal.fire({
@@ -347,12 +393,19 @@ export class PhotosComponent {
     });
   }
 
+  /**
+  * Prepara el formulario para editar una foto seleccionada.
+  * @param photo Foto a editar
+  */
   editarFoto(photo: Photo) {
-    console.log("Estoy editando la foto", photo);
+    //console.log("Estoy editando la foto", photo);
     this.selectedPhoto = { ...photo };//Copia el objeto para evitar mutaciones
     this.showForm = true;
   }
 
+  /**
+   * Navega hacia la página anterior o panel dependiendo del rol y contexto.
+   */
   volver() {
     //this.isAdmin ? this.ruta.navigate(['/admin']) : this.ruta.navigate(['/admin', { id: this.usuId }]);
     if (this.isAdmin) {
@@ -369,6 +422,11 @@ export class PhotosComponent {
     }
   }
 
+  /**
+  * Cambia el estado de una foto (aceptar o rechazar).
+  * @param caso Nuevo estado a asignar
+  * @param id ID de la foto
+  */
   aceptaRechaza(caso: string, id: number) {
     const datos: Photo = <Photo>{ estado: caso }
     this.serphoto.ModificaFotografia(datos, id).subscribe({
@@ -377,35 +435,48 @@ export class PhotosComponent {
         this.notifications.showToast("Fotografía modificada con éxito", "success");
       },
       error: (err) => {
-        console.log("Error al modificar la foto", err);
+        //console.log("Error al modificar la foto", err);
         this.notifications.showToast(err.mesagge, "danger");
       }
     });
 
   }
 
+  /**
+   * Muestra la foto en tamaño grande en un modal.
+   * @param url URL de la foto
+   */
   verFotoGrande(url: string) {
     this.selectedFotoUrl = url;
     this.isFotoModalOpen = true;
   }
 
+  /**
+  * Cierra el modal de foto grande.
+  */
   cerrarModal() {
     this.isFotoModalOpen = false;
     this.selectedFotoUrl = null;
   }
 
+  /**
+  * Devuelve la lista de fotos para la página actual, paginadas.
+  * @returns Lista de fotos de la página actual
+  */
   paginatedFotos(): Photo[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.fotos.slice(startIndex, endIndex);
   }
 
+  /** Avanza a la siguiente página si no está en la última */
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
     }
   }
 
+  /** Retrocede a la página anterior si no está en la primera */
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage--;

@@ -5,6 +5,7 @@ import { Estadistica } from '../models/estadistica';
 @Injectable({
   providedIn: 'root'
 })
+
 export class EstadisticaService {
   private url = environment.API_URL + "/estadisticas";
   constructor(private serestad: HttpClient) { }
