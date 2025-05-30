@@ -147,7 +147,7 @@ export class PhotosComponent {
   private loadPhotos(usuario: Usuario, usuId: number) {
     this.serphoto.ListarFotografias().subscribe({
       next: fotos => {
-        //console.log("Fotos que traigo", fotos);
+        console.log("Fotos que traigo", fotos);
         //Solo dejamos las aprobadas
         const aprobadas = fotos.filter(f => f.estado === 'aprobada');
         this.votacionFinalizada = new Date(fotos[0].rally.fecha_fin_votacion) < new Date();
@@ -300,7 +300,7 @@ export class PhotosComponent {
   * @returns Número de votos
   */
   getVotosPorFoto(f: Photo): number {
-    return f.votos ? f.votos.length : 0;
+    return f.estadistica?.total_votos ?? 0; //Devuelve el total de votos o 0 si no tiene estadística
   }
 
   /**

@@ -134,7 +134,7 @@ export class HomeComponent {
    * @returns Número de votos.
    */
   getVotosPorFoto(f: Photo): number {
-    return f.votos.length;
+    return f.estadistica?.total_votos ?? 0; //Devuelve 0 si no tiene estadística
   }
 
   /**
