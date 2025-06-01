@@ -147,7 +147,7 @@ export class PhotosComponent {
   private loadPhotos(usuario: Usuario, usuId: number) {
     this.serphoto.ListarFotografias().subscribe({
       next: fotos => {
-        console.log("Fotos que traigo", fotos);
+        //console.log("Fotos que traigo", fotos);
         //Solo dejamos las aprobadas
         const aprobadas = fotos.filter(f => f.estado === 'aprobada');
         this.votacionFinalizada = new Date(fotos[0].rally.fecha_fin_votacion) < new Date();
@@ -278,7 +278,7 @@ export class PhotosComponent {
           this.loadPhotos(usuario, this.usuId);
           this.notifications.showToast("Voto registrado con éxito", "success");
         },
-        error: () => this.notifications.showToast("Error al votar", "danger")
+        error: (error) => this.notifications.showToast(error.error.message, "danger")
       });
     }
   }

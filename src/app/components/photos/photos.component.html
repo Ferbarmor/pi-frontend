@@ -23,12 +23,12 @@
       </button>
     </div>
     @if(nombreUsuario != '' && !isVoted){
-    <h2 class="mb-4 text-center text-primary fw-bold">Fotos de {{nombreUsuario}}</h2>
+    <h2 class="mb-4 text-center text-primary fw-bold title">Fotos de {{nombreUsuario}}</h2>
     } @else if(isVoted && !votacionFinalizada) {
     <h2 class="mb-4 text-center text-primary fw-bold"
       style="font-family:'Holtwood One SC', serif !important; color: #ff9900 !important;">¡¡Vamos a votar,
       {{nombreUsuario}}!!</h2>
-    <h6 class="mb-4 text-center fw-bold" style="color: #ff4d4d;">No verás tus propias fotos para que no hagas trampas :)
+    <h6 class="mb-4 text-center fw-bold" style="color: #ff4d4d; font-size: 20px;">No verás tus propias fotos para que no hagas trampas 😊
     </h6>}
     <div class="row g-4">
       @if(fotos.length === 0 && !isVoted) {

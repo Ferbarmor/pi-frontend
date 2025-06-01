@@ -28,3 +28,72 @@
     z-index: 1000;  /* Para asegurarse de que esté por encima de otros elementos */
     pointer-events: none;  /* Desactiva la interacción con los elementos debajo */
 }
+
+.camera-rain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* para no bloquear clicks */
+  overflow: visible;
+  z-index: -1;
+}
+
+.camera {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-image: url('/assets/images/camara.jfif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-name: fall-left, fall-right;
+  animation-duration: 8s, 10s;
+  animation-delay: calc(var(--i) * 0.4s), calc(var(--i) * 0.5s);
+  z-index: -1;
+}
+
+/* Distribuir aleatoriamente de los lados */
+.camera:nth-child(odd) {
+  left: -50px; /* empieza fuera de la pantalla por la izquierda */
+  animation-name: fall-right;
+}
+
+.camera:nth-child(even) {
+  right: -50px; /* empieza fuera por la derecha */
+  animation-name: fall-left;
+}
+
+@media (max-width: 600px) {
+  .camera {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Animaciones que caen y se mueven hacia el centro */
+
+@keyframes fall-left {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(-100vw) translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fall-right {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(100vw) translateY(100vh) rotate(-360deg);
+    opacity: 0;
+  }
+}

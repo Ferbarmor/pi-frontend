@@ -1,11 +1,21 @@
-.btn-custom{
+.btn-custom {
     background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
     color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #6ab7f9 0%, #1d4ed8 100%);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(29, 78, 216, 0.4);
+    color: #ffffff;
 }
 
 .contest-rules-wrapper {
-    padding-top: 100px;  /* Igual a la altura del navbar */
-    /*margin-top: -100px;  /* Compensación mágica */
+    padding-top: 100px;
+    /* Igual a la altura del navbar */
+    padding-bottom: 120px;
     position: relative;
     z-index: 1;
-  }
+}

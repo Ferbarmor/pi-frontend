@@ -1,15 +1,15 @@
 /* Estilos base comunes */
 .wrapper {
-  width: 50%;
+  width: 100%;
   margin:auto;
   position: relative;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  /*box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);*/
   
 }
 
 .item {
   border-radius: 20px;
-  box-shadow: 0 30px 50px #505050;
+  box-shadow: 0 10px 10px #505050;
   background-position: center;
   background-size: cover;
   transition: all 0.5s ease;
@@ -70,14 +70,14 @@
   border-radius: 0;
   z-index: 2;
 }
-
+/*
 .desktop-carousel .item:nth-child(1) { left: 0%; }
 .desktop-carousel .item:nth-child(2) { left: 15%; }
 .desktop-carousel .item:nth-child(3) { left: 30%; }
 .desktop-carousel .item:nth-child(4) { left: 45%; }
 .desktop-carousel .item:nth-child(5) { left: 60%; }
 .desktop-carousel .item:nth-child(6) { left: 75%; }
-
+*/
 .desktop-carousel .button {
   position: absolute;
   top: 50%;
@@ -157,7 +157,7 @@
 
 /* Estilos de imágenes de fondo */
 .escalada { background-image: url('/assets/images/palo-gris.jpg'); }
-.bici { background-image: url('/assets/images/pajaros.jpg'); }
+.bici { background-image: url('/assets/images/PacaYManuel.jpg'); }
 .buceo { background-image: url('/assets/images/foto-chavea.jpg'); }
 .correr { background-image: url('/assets/images/foto-calle.jpg'); }
 .crossfit { background-image: url('/assets/images/foto-barca.jpg'); }

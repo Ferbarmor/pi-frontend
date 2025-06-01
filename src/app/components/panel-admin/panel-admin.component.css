@@ -1,14 +1,21 @@
 .header-custom {
     background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
-    ;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .wrapper {
+    /*min-height: calc(100vh - 100px);*/
     padding-top: 100px;
-    /* Igual a la altura del navbar */
-    position: relative;
-    min-height: calc(100vh - 100px);
-    /* Altura total menos navbar */
+    padding-bottom: 120px;
+    min-height: 100vh;
+    background: url('/assets/images/PacaYManuel.jpg') no-repeat center center fixed;
+    background-size: cover
 }
 
 /* Ajuste específico para Listado de Usuarios */

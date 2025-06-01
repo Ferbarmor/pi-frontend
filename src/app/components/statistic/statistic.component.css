@@ -15,7 +15,16 @@
 }
 
 .btn-custom {
-    background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
+    background: linear-gradient(135deg, #9dcbd8 0%, #1d4ed8 100%);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #6ab7f9 0%, #1d4ed8 100%);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(29, 78, 216, 0.4);
+    color: #ffffff;
 }
 
 :host {
@@ -29,7 +38,8 @@
 }
 
 .title {
-    color: #1974f2;
+    font-family: 'Holtwood One SC', serif !important;
+    color: #ff9900 !important;
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -92,10 +102,10 @@
 }
 
 .top-photos h3 {
-    color: #1974f2;
+    font-family: 'Holtwood One SC', serif !important;
+    color: #ff9900 !important;
     margin-bottom: 1.5rem;
     text-align: center;
-    font-weight: 700;
 }
 
 /* Grid de fotos */
@@ -175,6 +185,17 @@
     color: #6c757d !important;
     flex-grow: 1;
     margin-bottom: 1rem;
+}
+
+h3 {
+    text-align: center;
+}
+
+.pie {
+    max-width: 500px;
+    max-height: 500px;
+    margin: 0 auto;
+    display: block;
 }
 
 /* Tablet (768px - 992px) */

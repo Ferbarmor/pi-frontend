@@ -35,6 +35,13 @@
   background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
 }
 
+.title {
+  font-family: 'Holtwood One SC', serif !important;
+  color: #ff9900 !important;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
 /*@keyframes bounceIn {
   0% {
     opacity: 0;

@@ -4,12 +4,12 @@
 <div class="content-container"> <!-- NUEVO CONTENEDOR AÑADIDO AQUÍ -->
 
   <div class="container mt-4">
-    <h1 class="mb-4 text-center fw-bold"
+    <h1 class="mb-4 text-center fw-bold primavera"
       style="font-family:'Holtwood One SC', serif !important; color: #ff9900 !important;">BIENVENIDOS A NUESTRO RALLY DE
       PRIMAVERA</h1>
-    <p class="lead text-center mb-5 " style="max-width: 800px; margin: 0 auto;">
-      Prepárate para sumergirte en un evento lleno de creatividad, naturaleza y pasión por la fotografía.
-      El <strong><span class="letter letter-s">R</span>
+    <p class="lead text-center mb-5 preparate" style="max-width: 800px; margin: 0 auto;">
+     <strong>Prepárate para sumergirte en un evento lleno de creatividad, naturaleza y pasión por la fotografía.
+      El <span class="letter letter-s">R</span>
         <span class="letter letter-n">a</span>
         <span class="letter letter-a">l</span>
         <span class="letter letter-p1">l</span>
@@ -38,20 +38,20 @@
         <span class="letter letter-a">v</span>
         <span class="letter letter-p1">e</span>
         <span class="letter letter-t">r</span>
-        <span class="letter letter-a2">a</span></strong> reúne a amantes de la imagen de todas las edades en una
+        <span class="letter letter-a2">a</span> reúne a amantes de la imagen de todas las edades en una
       competición donde cada disparo cuenta.
       Participantes de todas partes capturan la esencia de la estación más vibrante, compitiendo por el voto del público
-      y un lugar destacado en nuestro ranking.
+      y un lugar destacado en nuestro ranking.</strong>
       🌼📸
     </p>
     @if(!votacionFinalizada){
-    <h2 class="mb-4 text-center text-primary fw-bold">PUEDES VOTAR LAS FOTOS DE NUESTROS PARTICIPANTES UN MÁXIMO DE
+    <h2 class="mb-4 text-center fw-bold votacion">PUEDES VOTAR LAS FOTOS DE NUESTROS PARTICIPANTES UN MÁXIMO DE
       <strong class="num-votos">
         <h1>2</h1>
       </strong> VECES
     </h2>
-    <p class="text-center">Si quieres votar muchas veces... <a routerLink="/register"
-        class="fw-bold fs-5 text-decoration-none ms-2"> REGÍSTRATE</a> </p>
+    <p class="text-center registrate">Si quieres votar muchas veces... <a routerLink="/register"
+        class="registrate-anim"> REGÍSTRATE</a> </p>
     }@else{
     <div class="alert alert-warning text-center mt-4">
       ⚠️ El plazo de votación ha finalizado. Pudes verlo en las <a [routerLink]="['/contest-rules']"

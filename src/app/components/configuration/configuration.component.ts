@@ -58,8 +58,8 @@ export class ConfigurationComponent {
   * @param result Resultado del formulario, incluyendo si fue exitoso y el rally modificado/creado.
   */
   handleFormClose(result: { success: boolean, message?: string, rally?: Rally }) {
-    console.log("Formulario cerrado, ¿con éxito?", result.success);
-    console.log("Rally que he modificado", result.rally);
+    //console.log("Formulario cerrado, ¿con éxito?", result.success);
+    //console.log("Rally que he modificado", result.rally);
     this.showForm = false;
     this.selectedRally = <Rally>{}
     if (result.success && result.message == "Añadiendo") {
@@ -123,7 +123,7 @@ export class ConfigurationComponent {
   * @param rally Rally del cual se quieren ver los detalles.
   */
   verDetallesRally(rally: Rally) {
-    console.log("Estoy viendo los detalles del rally", rally);
+    //console.log("Estoy viendo los detalles del rally", rally);
     this.showForm = false; //Asegura que no esté abierto el form
     this.selectedRally = rally;
     this.showDetails = true;

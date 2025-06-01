@@ -116,8 +116,8 @@ export class PanelAdminComponent {
   * @param result - Resultado del formulario, incluyendo éxito, mensaje, y el usuario.
   */
   handleFormClose(result: { success: boolean, message?: string, usuario?: Usuario }) {
-    console.log("Formulario cerrado, ¿con éxito?", result.success);
-    console.log("usuario que he modificado", result.usuario);
+    //console.log("Formulario cerrado, ¿con éxito?", result.success);
+    //console.log("usuario que he modificado", result.usuario);
     this.showForm = false;
     this.selectedUsuario = <Usuario>{}
     if (result.success && result.message == "Añadiendo") {

@@ -15,7 +15,8 @@ import { FooterComponent } from "./components/footer/footer.component";
 })
 export class AppComponent {
   title = 'pifrontend';
-  constructor(public loaderService: LoaderService) {} 
+  cameras = Array(20);
+  constructor(public loaderService: LoaderService) { }
   /*constructor(private router: Router, public loaderService: LoaderService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {

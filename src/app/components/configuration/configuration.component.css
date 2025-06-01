@@ -1,13 +1,15 @@
 .header-custom {
     background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
-    ;
 }
 
 .wrapper {
     padding-top: 100px;
     position: relative;
-    min-height: calc(100vh - 100px);
+    /*min-height: calc(100vh - 100px);*/
+    min-height: 100vh;
     padding-bottom: 500px;
+    background: url('/assets/images/PacaYManuel.jpg') no-repeat center center fixed;
+    background-size: cover;
 }
 
 /* Tabletas (768px - 992px) */

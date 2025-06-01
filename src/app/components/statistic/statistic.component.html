@@ -24,16 +24,16 @@
         </div>
 
         <div class="chart-card">
-            <h3>Top Fotos Más Votadas</h3>
-            <div class="chart-wrapper">
+            <h3>Porcentaje Votos Top 3 Fotos</h3>
+            <div class="chart-wrapper pie">
                 <canvas baseChart [data]="topFotosChartData" [options]="topFotosChartOptions" type="pie">
                 </canvas>
             </div>
         </div>
 
         @if (estadisticas?.top_fotos) {
-        <div class="top-photos">
-            <h3>Detalle de Fotos Top</h3>
+        <div class="top-photos title">
+            <h3>Top 3 Fotos</h3>
             <div class="photos-grid">
                 @for (foto of estadisticas.top_fotos; track foto.id) {
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
@@ -58,7 +58,7 @@
             </div>
             <div class="d-flex justify-content-center mt-5">
                 <button class="btn btn-custom btn-primary" (click)="scrollToTop()">
-                    <i class="bi bi-arrow-up"></i>> Volver
+                    <i class="bi bi-arrow-up"></i>Volver
                 </button>
             </div>
         </div>
