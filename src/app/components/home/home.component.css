@@ -431,7 +431,7 @@ h1.text-center.fw-bold {
   }
 }
 
-/*Animación para Bienvenidos*/
+/*Animación para Bienvenido*/
 
 .home * {
   margin: 0;
@@ -461,7 +461,7 @@ h1.text-center.fw-bold {
 }
 
 .home .text::before {
-  content: 'BIENVENIDOS A NUESTRO RALLY DE PRIMAVERA';
+  content: 'BIENVENID@ A NUESTRO RALLY DE PRIMAVERA';
   position: absolute;
   top: 0;
   left: 0;
