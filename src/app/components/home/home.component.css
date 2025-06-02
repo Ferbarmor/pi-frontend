@@ -85,8 +85,8 @@
 }
 
 .registrate {
-  font-size: 50px;
-  font-weight: 600px;
+  font-size: 60px;
+  font-weight: 600;
 }
 
 /* Estilo para el texto "REGÍSTRATE" con animación latido. */
@@ -120,40 +120,6 @@
     transform: scale(1.1);
     text-shadow: 0 0 15px rgba(255, 102, 0, 1);
   }
-}
-
-.letter-s {
-  color: #ff4d4d;
-}
-
-/* rojo */
-.letter-n {
-  color: #ff9900;
-}
-
-/* naranja */
-.letter-a {
-  color: #ffcc00;
-}
-
-/* amarillo */
-.letter-p1 {
-  color: #33cc33;
-}
-
-/* verde */
-.letter-t {
-  color: #3399ff;
-}
-
-/* azul */
-.letter-a2 {
-  color: #9966ff;
-}
-
-/* violeta */
-.letter-p2 {
-  color: #ff66b2;
 }
 
 /* rosa */
