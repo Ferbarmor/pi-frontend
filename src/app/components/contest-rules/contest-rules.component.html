@@ -8,31 +8,31 @@ l
 
       <ol class="list-group list-group-numbered mb-4">
         <li class="list-group-item">
-          <strong>Tema del concurso:</strong> Cada participante deberá subir fotos relacionadas con el tema anunciado
+          <strong>Tema del concurso:</strong> cada participante deberá subir fotos relacionadas con el tema anunciado
           para el rally.
         </li>
         <li class="list-group-item">
-          <strong>Fotos originales:</strong> Todas las fotos deben ser tomadas por el participante. No se permiten
+          <strong>Fotos originales:</strong> todas las fotos deben ser tomadas por el participante. No se permiten
           imágenes sacadas de internet ni con IA.
         </li>
         <li class="list-group-item">
-          <strong>Máximo de fotos:</strong> Cada participante podrá subir un máximo de
+          <strong>Máximo de fotos:</strong> cada participante podrá subir un máximo de
           <strong>{{rally.limite_fotos_participante}} fotografías</strong>.
         </li>
         <li class="list-group-item">
-          <strong>Formato:</strong> Las fotos deben estar en formato JPG, JPEG, PNG o JFIF. No deben pesar más de 5MB.
+          <strong>Formato:</strong> las fotos deben estar en formato JPG, JPEG, PNG o JFIF. No deben pesar más de 5MB.
         </li>
         <li class="list-group-item">
-          <strong>Votación:</strong> No puedes votar por tus propias fotos. El sistema ocultará tus fotos al votar para
+          <strong>Votación:</strong> no puedes votar por tus propias fotos y no mas de <strong>{{rally.limite_fotos_participante}} veces</strong> (coincide con el número máximo de fotografías que puedes subir). El sistema ocultará tus fotos al votar para
           garantizar la transparencia.
         </li>
         <li class="list-group-item">
-          <strong>Duración:</strong> El rally estará abierto desde el <strong>{{rally.fecha_inicio |
+          <strong>Duración:</strong> el rally estará abierto desde el <strong>{{rally.fecha_inicio |
             date:'dd/MM/yyyy'}}</strong> hasta <strong> {{rally.fecha_fin | date:'dd/MM/yyyy'}}</strong>. Se podrán
           votar y subir fotos hasta el <strong>{{rally.fecha_fin_votacion | date:'dd/MM/yyyy'}}</strong>.
         </li>
         <li class="list-group-item">
-          <strong>Premios:</strong> Las mejores fotos serán premiadas y destacadas en nuestras redes sociales. 📸
+          <strong>Premios:</strong> las mejores fotos serán premiadas y destacadas en nuestras redes sociales. 📸
         </li>
       </ol>
 
