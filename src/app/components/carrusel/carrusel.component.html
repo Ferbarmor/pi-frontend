@@ -1,69 +1,55 @@
 <div class="wrapper">
-    <section class="banner">
-        <div class="video-container">
-            <video autoplay loop muted playsinline class="banner-video">
-                <source src="#" type="video/mp4">
-                Tu navegador no soporta el elemento de video.
-            </video>
-        </div>
-    </section>
-
-    <!-- Fuente para los iconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+  <!-- Versión para escritorio -->
+  <div class="desktop-carousel" *ngIf="!isMobile">
     <div class="container">
-        <div class="slide">
-            <div class="item escalada">
-                <div class="content">
-                    <div class="name">Amamos la fotografía</div>
-
-
-                </div>
+      <div class="slide">
+        <!-- Mostrar solo la imagen activa -->
+       <div class="item active {{slides[currentIndex].class}}">
+          <div class="content show">
+            <div class="name" *ngIf="!slides[currentIndex].specialText">{{slides[currentIndex].title}}</div>
+            <div class="name" *ngIf="slides[currentIndex].specialText">
+              <span class="letter letter-s">S</span>
+              <span class="letter letter-n">n</span>
+              <span class="letter letter-a">a</span>
+              <span class="letter letter-p1">p</span>
+              <span class="letter letter-t">T</span>
+              <span class="letter letter-a2">a</span>
+              <span class="letter letter-p2">p</span>ea en primavera
             </div>
-            <div class="item bici">
-                <div class="content">
-                    <div class="name">Siente la pasión de la imagen</div>
-
-
-                </div>
-            </div>
-            <div class="item buceo">
-                <div class="content">
-                    <div class="name">La primavera, la sangre....</div>
-
-
-                </div>
-            </div>
-            <div class="item correr">
-                <div class="content">
-                    <div class="name">Respira hondo y mira</div>
-                </div>
-            </div>
-            <div class="item crossfit">
-                <div class="content">
-                    <div class="name">Capta la esencia</div>
-                </div>
-            </div>
-            <div class="item ninoescalada">
-                <div class="content">
-                    <div class="name">
-                        <span class="letter letter-s">S</span>
-                        <span class="letter letter-n">n</span>
-                        <span class="letter letter-a">a</span>
-                        <span class="letter letter-p1">p</span>
-                        <span class="letter letter-t">T</span>
-                        <span class="letter letter-a2">a</span>
-                        <span class="letter letter-p2">p</span>ea en primavera
-
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-        <div class="button">
-            <button class="prev" (click)="prevSlide()"><i class="bi bi-chevron-left"></i></button>
-            <button class="next" (click)="nextSlide()"><i class="bi bi-chevron-right"></i></button>
-        </div>
+      </div>
+      <div class="button">
+        <button class="prev" (click)="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+        <button class="next" (click)="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+      </div>
     </div>
+  </div>
+
+  <!-- Versión para móvil -->
+  <div class="mobile-carousel" *ngIf="isMobile">
+    <div class="slide-container" #slideContainer>
+      <div *ngFor="let slide of slides; let i = index" 
+           class="item {{slide.class}}"
+           [class.active]="i === currentIndex">
+        <div class="content">
+          <div class="name" *ngIf="!slide.specialText">{{slide.title}}</div>
+          <div class="name" *ngIf="slide.specialText">
+            <span class="letter letter-s">S</span>
+            <span class="letter letter-n">n</span>
+            <span class="letter letter-a">a</span>
+            <span class="letter letter-p1">p</span>
+            <span class="letter letter-t">T</span>
+            <span class="letter letter-a2">a</span>
+            <span class="letter letter-p2">p</span>ea en primavera
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="indicators">
+      <span *ngFor="let slide of slides; let i = index" 
+            [class.active]="i === currentIndex"
+            (click)="goToSlide(i)"></span>
+    </div>
+  </div>
 </div>

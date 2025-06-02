@@ -1,69 +1,102 @@
 <div class="wrapper">
-<div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-header header-custom text-white">
-            <h4 class="mb-0">Listado de Usuarios</h4>
-        </div>
-        <div class="card-body">
-            <!-- Mostrar formulario o tabla según el estado -->
-            @if(showDetails){
-            <app-user-details [usuario]="selectedUsuario" (detailsClosed)="handleDetailsClose($event)">
-            </app-user-details>
-            }
-            @if(showForm) {
-            <app-form-register [usuario]="selectedUsuario" (formClosed)="handleFormClose($event)">
-            </app-form-register>
-            } @else {
-            <table class="table table-hover table-bordered align-middle text-center">
-                <thead class="table-light">
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Rol</th>
-                        <th>Acciones</th>
-                        <th>Fotos pendientes revisar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (usuario of usuarios; track $index) {
-                    <tr>
-                        <td>{{ usuario.nombre }}</td>
-                        <td class="text-capitalize">{{ usuario.rol }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary me-2" (click)="verDetallesUsuario(usuario)">
-                                <i class="bi bi-info-circle"></i> Ver Detalles
-                            </button>
-                            <!-- Botón para editar -->
-                            <button class="btn btn-sm btn-warning me-2" (click)="editUsuario(usuario)">
-                                <i class="bi bi-pencil-square"></i> Editar
-                            </button>
-                            <!-- Botón para eliminar -->
-                            <button class="btn btn-sm btn-danger me-2"
-                                (click)="BorraUsuario(usuario.id, usuario.nombre)">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
-                            <!-- Botón para ver fotos -->
-                            <button class="btn btn-sm btn-info" (click)="verFotosUsuario(usuario)">
-                                <i class="bi bi-image"></i> Ver Fotos
-                            </button>
-                        </td>
-                        <td>
-                            @if (tieneFotosPendientes(usuario)) {
-                            <span class="badge bg-warning text-dark ms-2" title="Tiene fotos pendientes">
-                                <i class="bi bi-hourglass-split"></i>
-                            </span>
-                            }
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-            <div class="text-end">
-                <button class="btn btn-success" (click)="newUsuario()">
-                    <i class="bi bi-person-plus-fill"></i> Nuevo Usuario
-                </button>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-header header-custom text-white">
+                @if(usId != undefined){
+                <h4 class="mb-0">Mi perfil</h4>
+                } @else {
+                <h4 class="mb-0">Listado de Usuarios</h4>
+                }
             </div>
-            }
+            <div class="card-body">
+                <!-- Mostrar formulario o tabla según el estado -->
+                @if(showDetails){
+                <app-user-details [usuario]="selectedUsuario" (detailsClosed)="handleDetailsClose($event)">
+                </app-user-details>
+                }
+                @if(showForm) {
+                <app-form-register [usuario]="selectedUsuario" (formClosed)="handleFormClose($event)">
+                </app-form-register>
+                } @else {
+                <table class="table table-hover table-bordered align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                            @if(usId === undefined){<th>Fotos pendientes revisar</th>}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(usId === undefined){
+                        @for (usuario of usuarios; track $index) {
+                        <tr *ngIf="usuario">
+                            <td>{{ usuario.nombre }}</td>
+                            <td class="text-capitalize">{{ usuario.rol }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary me-2" (click)="verDetallesUsuario(usuario)">
+                                    <i class="bi bi-info-circle"></i> Ver Detalles
+                                </button>
+                                <!-- Botón para editar -->
+                                <button class="btn btn-sm btn-warning me-2" (click)="editUsuario(usuario)">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </button>
+                                <!-- Botón para eliminar -->
+                                <button class="btn btn-sm btn-danger me-2"
+                                    (click)="BorraUsuario(usuario.id, usuario.nombre)">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                                <!-- Botón para ver fotos -->
+                                @if(usuario?.rol != 'administrador'){
+                                <button class="btn btn-sm btn-info" (click)="verFotosUsuario(usuario)">
+                                    <i class="bi bi-image"></i> Ver Fotos
+                                </button>
+                                }
+                            </td>
+                            <td>
+                                @if (tieneFotosPendientes(usuario)) {
+                                <span class="badge bg-warning text-dark ms-2" title="Tiene fotos pendientes">
+                                    <i class="bi bi-hourglass-split"></i>
+                                </span>
+                                }
+                            </td>
+                        </tr>
+                        }
+                        }@else {
+                        <tr *ngIf="usuario">
+                            <td>{{ usuario!.nombre }}</td>
+                            <td class="text-capitalize">{{ usuario!.rol }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary me-2" (click)="verDetallesUsuario(usuario!)">
+                                    <i class="bi bi-info-circle"></i> Ver Detalles
+                                </button>
+                                <!-- Botón para editar -->
+                                <button class="btn btn-sm btn-warning me-2" (click)="editUsuario(usuario!)">
+                                    <i class="bi bi-pencil-square"></i> Editar
+                                </button>
+                                <!-- Botón para eliminar -->
+                                <button class="btn btn-sm btn-danger me-2"
+                                    (click)="BorraUsuario(usuario!.id, usuario!.nombre)">
+                                    <i class="bi bi-trash"></i> Pedir baja
+                                </button>
+                                <!-- Botón para ver fotos -->
+                                <button class="btn btn-sm btn-info" (click)="verFotosUsuario(usuario!)">
+                                    <i class="bi bi-image"></i> Ver Fotos
+                                </button>
+                            </td>
+                            }
+
+                    </tbody>
+                </table>
+                @if(usId === undefined){
+                <div class="text-end">
+                    <button class="btn btn-success" (click)="newUsuario()">
+                        <i class="bi bi-person-plus-fill"></i> Nuevo Usuario
+                    </button>
+                </div>
+                }
+                }
+            </div>
         </div>
     </div>
-</div>
 </div>

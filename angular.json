@@ -41,7 +41,7 @@
             "outputPath": "dist/pifrontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "baseHref": "./",
+            "baseHref": "/",
             "polyfills": [
               "zone.js"
             ],
@@ -64,6 +64,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.development.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -72,8 +78,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "60kB"
+                  "maximumWarning": "65kB",
+                  "maximumError": "70kB"
                 }
               ],
               "outputHashing": "all"

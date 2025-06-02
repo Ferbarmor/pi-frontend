@@ -1,42 +1,49 @@
-l 
+l
 <div class="contest-rules-wrapper" id="p1">
-<div class="container py-5 contest-rules-container">
+  <div class="container py-5 contest-rules-container">
     <div class="bg-light p-4 rounded shadow">
       <h1 class="text-center mb-4 fw-bold" style="color: #1d4ed8;">Reglas del Concurso</h1>
-      <p class="text-muted text-center mb-5" style="color: #ff9900 !important;">Asegúrate de leer bien todas las normas antes de participar. <strong>¡Queremos un concurso justo y divertido para todos!</strong></p>
-  
+      <p class="text-muted text-center mb-5" style="color: #ff9900 !important;">Asegúrate de leer bien todas las normas
+        antes de participar. <strong>¡Queremos un concurso justo y divertido para todos!</strong></p>
+
       <ol class="list-group list-group-numbered mb-4">
         <li class="list-group-item">
-          <strong>Tema del concurso:</strong> Cada participante deberá subir fotos relacionadas con el tema anunciado para el rally.
+          <strong>Tema del concurso:</strong> Cada participante deberá subir fotos relacionadas con el tema anunciado
+          para el rally.
         </li>
         <li class="list-group-item">
-          <strong>Fotos originales:</strong> Todas las fotos deben ser tomadas por el participante. No se permiten imágenes sacadas de internet ni con IA.
+          <strong>Fotos originales:</strong> Todas las fotos deben ser tomadas por el participante. No se permiten
+          imágenes sacadas de internet ni con IA.
         </li>
         <li class="list-group-item">
-          <strong>Máximo de fotos:</strong> Cada participante podrá subir un máximo de <strong>5 fotografías</strong>.
+          <strong>Máximo de fotos:</strong> Cada participante podrá subir un máximo de
+          <strong>{{rally.limite_fotos_participante}} fotografías</strong>.
         </li>
         <li class="list-group-item">
-          <strong>Formato:</strong> Las fotos deben estar en formato JPG o PNG. No deben pesar más de 5MB.
+          <strong>Formato:</strong> Las fotos deben estar en formato JPG, JPEG, PNG o JFIF. No deben pesar más de 5MB.
         </li>
         <li class="list-group-item">
-          <strong>Votación:</strong> No puedes votar por tus propias fotos. El sistema ocultará tus fotos al votar para garantizar la transparencia.
+          <strong>Votación:</strong> No puedes votar por tus propias fotos. El sistema ocultará tus fotos al votar para
+          garantizar la transparencia.
         </li>
         <li class="list-group-item">
-          <strong>Duración:</strong> El concurso estará abierto desde el <strong>1 al 15 de cada mes</strong>. Las votaciones se realizarán del 16 al 20.
+          <strong>Duración:</strong> El rally estará abierto desde el <strong>{{rally.fecha_inicio |
+            date:'dd/MM/yyyy'}}</strong> hasta <strong> {{rally.fecha_fin | date:'dd/MM/yyyy'}}</strong>. Se podrán
+          votar y subir fotos hasta el <strong>{{rally.fecha_fin_votacion | date:'dd/MM/yyyy'}}</strong>.
         </li>
         <li class="list-group-item">
           <strong>Premios:</strong> Las mejores fotos serán premiadas y destacadas en nuestras redes sociales. 📸
         </li>
       </ol>
-  
+
       <div class="alert alert-warning text-center mt-4">
         ⚠️ Cualquier intento de hacer trampa supondrá la descalificación inmediata del concurso.
       </div>
-  
+
       <div class="text-center mt-5">
         <a routerLink="/" class="btn btn-custom px-4 py-2 fw-bold">
           Volver al inicio
         </a>
       </div>
     </div>
-</div>
+  </div>

@@ -43,13 +43,41 @@
     padding-top: 100px;
     position: relative;
     min-height: calc(100vh - 100px);
-    left: 3%;
+}
+
+.text-center.mt-4 {
+    margin-top: 0.5rem !important;
+    /* Reduce el margen superior */
+}
+
+.upload-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 3px solid #ccc;
+    border-top: 3px solid #09f;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* RESPONSIVE PARA TABLETS */
 @media (max-width: 992px) {
     .login-wrapper {
-        padding-top: 200px;
+        padding-top: 150px;
         min-height: calc(100vh - 80px);
         margin: auto;
     }
@@ -62,9 +90,10 @@
 /* RESPONSIVE PARA MÓVILES */
 @media (max-width: 768px) {
     .login-wrapper {
-        padding-top: 200px;
+        padding-top: 120px;
         min-height: calc(100vh - 60px);
         margin-left: 17%;
+        padding-bottom: 800px;
     }
 
     .container.draggable {
@@ -77,9 +106,10 @@
 /* AJUSTES PARA PANTALLAS MUY PEQUEÑAS */
 @media (max-width: 576px) {
     .login-wrapper {
-        padding-top: 300px;
+        padding-top: 115px;
         min-height: calc(100vh - 60px);
         margin-right: 20%;
+        padding-bottom: 800px;
     }
 
     .container.draggable {
@@ -94,5 +124,10 @@
     .btn-customd {
         padding: 0.5rem !important;
         font-size: 0.9rem;
+    }
+
+    .text-center.mt-4 {
+        margin-top: 0.1rem !important;
+        /* Reduce el margen superior */
     }
 }

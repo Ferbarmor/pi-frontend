@@ -26,6 +26,13 @@ export class NavbarComponent {
   constructor(private serAuth: AuthService, private primeng: PrimeNG, private ruta: Router) {
   }
 
+  /**
+  * Inicializa el componente de navegación.
+  * - Activa el efecto ripple de PrimeNG.
+  * - Configura ítems comunes.
+  * - Se suscribe al `BehaviorSubject` expuesto por el servicio de autenticación
+  *   para mantenerse actualizado con los cambios en el estado del usuario.
+  */
   ngOnInit() {
     this.primeng.ripple.set(true); //Activamos el efecto de ripple en los botones de PrimeNG
     // Nos suscribimos al BehaviorSubject para obtener el nombre del usuario
@@ -40,7 +47,7 @@ export class NavbarComponent {
         label: 'Estadísticas',
         icon: 'pi pi-chart-line',
         styleClass: 'menu-estadisticas',
-        command: () => this.ruta.navigate(['/'])
+        command: () => this.ruta.navigate(['/estadisticas'])
       },
       {
         label: 'Reglas del concurso',
@@ -49,9 +56,24 @@ export class NavbarComponent {
         command: () => this.ruta.navigate(['/contest-rules'])
       }
     ];
+
+    /**
+    * Suscripción al observable del usuario expuesto como `BehaviorSubject` en `AuthService`.
+    * 
+    * ¿Por qué se usa `BehaviorSubject`?
+    * - `BehaviorSubject` permite emitir el estado actual del usuario y notificar a todos los
+    *   componentes suscritos ante cualquier cambio (login, logout, actualización).
+    * - A diferencia de un simple `Subject`, `BehaviorSubject` **mantiene el último valor emitido**
+    *   y lo entrega inmediatamente a nuevos suscriptores.
+    * - Esto es crucial en este caso, ya que `NavbarComponent` NO es hijo del componente que ejecuta el login
+    *   (`FormLoginComponent`). Por tanto, no podría enterarse del cambio si no se propaga globalmente.
+    * 
+    * `getUserObservable()` devuelve ese `BehaviorSubject` como `Observable`.
+    * Así, cada vez que el usuario cambia, se actualiza dinámicamente el menú.
+    */
     this.userSubscription = this.serAuth.getUserObservable().subscribe(user => {//Nos traemos el usuario mediante el BEhaviorSubject
-      this.items = []; //limpiar para regenerar
-      console.log("El usuario que traemsos es: ", user);
+      this.items = []; //limpiar para regenerar.
+      //console.log("El usuario que traemsos es: ", user);
 
       if (user) {
         this.userName = user.nombre;
@@ -59,37 +81,39 @@ export class NavbarComponent {
 
         this.items = [
           ...this.commonItems,
-          {
+          ...(!this.isAdmin ? [{
             label: 'Subir Foto',
             icon: 'pi pi-upload',
             styleClass: 'p-button-text p-button-lg text-white',
             command: () => this.ruta.navigate(['/upload-photo'])
-          },
+          }] : []),
           {
             label: `Bienvenido, ${this.userName}`,
             icon: 'pi pi-user',
             styleClass: 'p-menuitem-user',
             items: [
-              {
-                label: 'Mi Perfil',
+              ...(this.isAdmin ? [] : [{
+                label: 'Mis Perfil',
                 icon: 'pi pi-id-card',
-                command: () => this.ruta.navigate(['/listado-tests-photos'])
-              },
-              {
+                command: () => this.ruta.navigate(['/admin', { id: user.id }])
+              }]),
+              ...(this.isAdmin ? [] : [{
                 label: 'Votar Fotos',
                 icon: 'pi pi-star',
                 command: () => this.ruta.navigate(['/photos', { id: -1 }])
-              },
+              }]),
               ...(this.isAdmin ? [] : [{
                 label: 'Mis Fotos',
                 icon: 'pi pi-images',
                 command: () => this.ruta.navigate(['/photos', { id: user.id }])
               }]),
-              {
+
+              ...(this.isAdmin ? [{
                 label: 'Configuración',
                 icon: 'pi pi-cog',
-                command: () => this.ruta.navigate(['/configuracion'])
-              },
+                command: () => this.ruta.navigate(['/configuration'])
+              }] : []),
+
               ...(this.isAdmin ? [{
                 label: 'Panel Admin',
                 icon: 'pi pi-shield',
@@ -206,6 +230,10 @@ export class NavbarComponent {
     };*/
   }
 
+  /**
+  * Cierra la sesión del usuario actual.
+  * También limpia el nombre visible en el menú.
+  */
   logout() {
     this.serAuth.logout();
     this.userName = '';  // Limpiamos el nombre del usuario al cerrar sesión

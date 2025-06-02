@@ -1,354 +1,209 @@
-/* image-slider.component.css */
+/* Estilos base comunes */
+.wrapper {
+  width: 100%;
+  margin:auto;
+  position: relative;
+  /*box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);*/
+  
+}
 
-/* Estilo base para cada elemento del slider */
 .item {
-    width: 100px;
-    /* Ancho del elemento */
-    height: 150px;
-    /* Alto del elemento */
-    position: absolute;
-    /* Posicionamiento absoluto para posicionar los elementos dentro del contenedor */
-    top: 50%;
-    /* Centra verticalmente el elemento */
-    transform: translate(0, -50%);
-    /* Ajusta la posición exactamente al centro vertical */
-    border-radius: 20px;
-    /* Bordes redondeados */
-    box-shadow: 0 30px 50px #505050;
-    /* Sombra para dar profundidad */
-    background-position: center;
-    /* Centra la imagen de fondo */
-    background-size: cover;
-    /* Escala la imagen para cubrir completamente el elemento */
-    display: inline-block;
-    /* Permite que los elementos se coloquen en línea */
-    transition: 0.5s;
-    /* Transición suave para animaciones */
+  border-radius: 20px;
+  box-shadow: 0 10px 10px #505050;
+  background-position: center;
+  background-size: cover;
+  transition: all 0.5s ease;
 }
 
-/* Estilo para el contenedor del slide */
-.container .slide {
-    position: relative;
-    /* Importante para que los elementos absolutos se posicionen correctamente dentro de este contenedor */
-    height: 200px;
-    /* Altura del contenedor */
+.content {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  font-family: system-ui;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-/* Estilo para el contenedor principal */
-.container {
-    position: relative;
-    /* Establece un contexto de posicionamiento relativo */
-    height: 200px;
-    /* Altura del contenedor */
+.content.show {
+  opacity: 1;
 }
 
-/* Fondo específico para cada categoría (usando imágenes de fondo) */
-.escalada {
-    background-image: url(/assets/images/palo-gris.jpg);
-    /* Cambia la ruta a la imagen correspondiente */
+.name {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: rgba(46, 56, 46, 0.5);
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.bici {
-    background-image: url(/assets/images/foto-desenfocada.jpg);
+/* Estilos específicos para escritorio */
+.desktop-carousel .container {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
 }
 
-.buceo {
-    background-image: url(/assets/images/foto-chavea.jpg);
+.desktop-carousel .slide {
+  display: flex;
+  height: 100%;
 }
 
-.correr {
-    background-image: url(/assets/images/foto-calle.jpg);
+.desktop-carousel .item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: none;
+  border-radius: 0;
+  z-index: 2;
 }
 
-.crossfit {
-    background-image: url(/assets/images/foto-barca.jpg);
+.desktop-carousel .item.active {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: none;
+  border-radius: 0;
+  z-index: 2;
+}
+/*
+.desktop-carousel .item:nth-child(1) { left: 0%; }
+.desktop-carousel .item:nth-child(2) { left: 15%; }
+.desktop-carousel .item:nth-child(3) { left: 30%; }
+.desktop-carousel .item:nth-child(4) { left: 45%; }
+.desktop-carousel .item:nth-child(5) { left: 60%; }
+.desktop-carousel .item:nth-child(6) { left: 75%; }
+*/
+.desktop-carousel .button {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 3;
 }
 
-.ninoescalada {
-    background-image: url(/assets/images/Logo.png);
+.desktop-carousel .button button {
+  background: rgba(46, 56, 46, 0.7);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Estilos para posicionar los elementos dentro del slider */
-.slide .item:nth-child(1),
-.slide .item:nth-child(2) {
-    top: 0;
-    /* Posiciona los primeros dos elementos en la parte superior */
-    left: 0;
-    /* Los alinea al inicio horizontal */
-    transform: translate(0, 0);
-    /* Elimina cualquier traslación previa */
-    border-radius: 0;
-    /* Quita los bordes redondeados */
-    width: 100%;
-    /* Toma todo el ancho del contenedor */
-    height: 100%;
-    /* Toma toda la altura del contenedor */
+.desktop-carousel .button button:hover {
+  background: #50C9CE;
 }
 
-.slide .item:nth-child(3) {
-    left: 50%;
-    /* Posiciona el tercer elemento a la mitad del contenedor */
+/* Estilos específicos para móvil */
+.mobile-carousel {
+  width: 100%;
+  padding: 20px 0;
 }
 
-.slide .item:nth-child(4) {
-    left: calc(50% + 220px);
-    /* Posiciona el cuarto elemento después del tercero */
+.mobile-carousel .slide-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  gap: 15px;
+  padding: 0 20px;
+  margin-bottom: 20px;
 }
 
-.slide .item:nth-child(5) {
-    left: calc(50% + 440px);
-    /* Posiciona el quinto elemento después del cuarto */
+.mobile-carousel .item {
+  scroll-snap-align: center;
+  flex: 0 0 80%;
+  height: 200px;
+  min-width: 80%;
+  position: relative;
 }
 
-.slide .item:nth-child(n + 6) {
-    left: calc(50% + 660px);
-    /* Oculta los elementos adicionales fuera de la vista */
-    opacity: 0;
-    /* Hace que los elementos adicionales sean invisibles */
+.mobile-carousel .content {
+  opacity: 1;
+  width: calc(100% - 40px);
 }
 
-/* Estilo para el contenido dentro de cada elemento del slider */
-.item .content {
-    position: relative;
-    /* Establece un contexto de posicionamiento relativo */
-    top: 50%;
-    /* Centra verticalmente el contenido */
-    left: 100px;
-    /* Desplaza el contenido hacia la derecha */
-    width: 300px;
-    /* Ancho del contenido */
-    text-align: left;
-    /* Alinea el texto a la izquierda */
-    color: #eee;
-    /* Color del texto */
-    transform: translate(0, -50%);
-    /* Ajusta la posición vertical exactamente al centro */
-    font-family: system-ui;
-    /* Fuente del sistema */
-    display: none;
-    /* Oculta el contenido por defecto */
+.mobile-carousel .indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-/* Muestra el contenido solo en el segundo elemento */
-.slide .item:nth-child(2) .content {
-    display: block;
-    /* Muestra el contenido */
+.mobile-carousel .indicators span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Estilo para el nombre dentro del contenido */
-.content .name {
-    font-size: 40px;
-    /* Tamaño del texto */
-    text-transform: uppercase;
-    /* Convierte el texto a mayúsculas */
-    font-weight: bold;
-    /* Negrita */
-    opacity: 0;
-    /* Inicia con opacidad cero */
-    animation: animate 1s ease-in-out 1 forwards;
-    /* Aplica una animación de desvanecimiento */
-    color: white;
-    /* Color del texto */
+.mobile-carousel .indicators span.active {
+  background-color: #2E382E;
+  transform: scale(1.2);
 }
 
-/* Estilo para la descripción dentro del contenido */
-.content .des {
-    margin-top: 10px;
-    /* Espaciado superior */
-    margin-bottom: 20px;
-    /* Espaciado inferior */
-    opacity: 0;
-    /* Inicia con opacidad cero */
-    animation: animate 1s ease-in-out 0.3s 1 forwards;
-    /* Aplica una animación de desvanecimiento con retraso */
-    color: white;
-    /* Color del texto */
-    font-weight: bold;
-    /* Negrita */
-}
+/* Estilos de imágenes de fondo */
+.escalada { background-image: url('/assets/images/palo-gris.jpg'); }
+.bici { background-image: url('/assets/images/PacaYManuel.jpg'); }
+.buceo { background-image: url('/assets/images/foto-chavea.jpg'); }
+.correr { background-image: url('/assets/images/foto-calle.jpg'); }
+.crossfit { background-image: url('/assets/images/foto-barca.jpg'); }
+.ninoescalada { background-image: url('/assets/images/Logo.png'); }
 
-/* Estilo común para el nombre y la descripción */
-.content .name,
-.content .des {
-    position: relative;
-    /* Establece un contexto de posicionamiento relativo */
-    display: inline-block;
-    /* Permite que los elementos se coloquen en línea */
-    padding: 10px;
-    /* Espaciado interno */
-    background-color: rgba(46, 56, 46, 0.5);
-    /* Fondo semitransparente */
-    border-radius: 5px;
-    /* Bordes redondeados */
-}
+/* Estilos para el texto especial */
+.letter-s { color: #ff4d4d; }
+.letter-n { color: #ff9900; }
+.letter-a { color: #ffcc00; }
+.letter-p1 { color: #33cc33; }
+.letter-t { color: #3399ff; }
+.letter-a2 { color: #9966ff; }
+.letter-p2 { color: #ff66b2; }
 
-/* Estilo para el botón dentro del contenido */
-.content button {
-    padding: 10px 20px;
-    /* Espaciado interno */
-    border: none;
-    /* Sin borde */
-    cursor: pointer;
-    /* Cursor de puntero */
-    opacity: 0;
-    /* Inicia con opacidad cero */
-    animation: animate 1s ease-in-out 0.6s 1 forwards;
-    /* Aplica una animación de desvanecimiento con retraso */
-}
-
-/* Definición de la animación para mostrar elementos gradualmente */
-@keyframes animate {
-    from {
-        opacity: 0;
-        /* Opacidad inicial */
-        transform: translate(0, 100px);
-        /* Comienza desde abajo */
-        filter: blur(33px);
-        /* Aplica un efecto de desenfoque */
-    }
-
-    to {
-        opacity: 1;
-        /* Opacidad final */
-        transform: translate(0);
-        /* Regresa a la posición original */
-        filter: blur(0);
-        /* Quita el desenfoque */
-    }
-}
-
-/* Estilo para los botones de navegación */
-.button {
-    width: 100%;
-    /* Toma todo el ancho del contenedor */
-    text-align: center;
-    /* Centra el texto */
-    position: absolute;
-    /* Posicionamiento absoluto */
-    top: 90%;
-    /* Posición vertical */
-    left: 50%;
-    /* Posición horizontal */
-    transform: translate(-50%, -50%);
-    /* Centra perfectamente */
-    display: flex;
-    /* Diseño flexible */
-    justify-content: space-between;
-    /* Espacio entre los botones */
-    padding: 0 10px;
-    /* Espaciado interior */
-}
-
-/* Estilo individual para cada botón de navegación */
-.button button {
-    background: linear-gradient(135deg, #1d4ed8 0%, #9dcbd8 100%);
-    width: 50px;
-    /* Ancho del botón */
-    height: 40px;
-    /* Alto del botón */
-    border-radius: 8px;
-    /* Bordes redondeados */
-    border: none;
-    /* Sin borde */
-    cursor: pointer;
-    /* Cursor de puntero */
-    margin: 0 10px;
-    /* Espaciado entre botones */
-    border: 1px solid #000;
-    /* Borde negro */
-    transition: 0.3s;
-    /* Transición suave */
-    background-color: #2E382E;
-    /* Color de fondo */
-    color: white;
-    /* Color del texto */
-}
-
-/* Cambio de estilo al pasar el mouse sobre los botones de navegación */
-.button button:hover {
-    background: #50C9CE;
-    /* Cambia el color de fondo */
-    color: #ffffff;
-    /* Mantén el color del texto */
-}
-
-.snapTap {}
-
-.letter-s {
-    color: #ff4d4d;
-}
-
-/* rojo */
-.letter-n {
-    color: #ff9900;
-}
-
-/* naranja */
-.letter-a {
-    color: #ffcc00;
-}
-
-/* amarillo */
-.letter-p1 {
-    color: #33cc33;
-}
-
-/* verde */
-.letter-t {
-    color: #3399ff;
-}
-
-/* azul */
-.letter-a2 {
-    color: #9966ff;
-}
-
-/* violeta */
-.letter-p2 {
-    color: #ff66b2;
-}
-
-/* rosa */
-/* RESPONSIVE PARA TABLETS */
+/* Media queries para responsividad */
 @media (max-width: 992px) {
-    .wrapper {
-        padding-top: 10%;
-       
-    }
-
-    
+  .desktop-carousel .item {
+    width: 80px;
+    height: 120px;
+  }
+  
+  .desktop-carousel .container {
+    height: 350px;
+  }
+  
+  .name {
+    font-size: 10px;
+  }
 }
 
-/* RESPONSIVE PARA MÓVILES */
 @media (max-width: 768px) {
-    .wrapper {
-        padding-top: 20%;
-        
-    }
-
-    
-
-
+  .mobile-carousel .item {
+    flex: 0 0 85%;
+    min-width: 85%;
+    height: 180px;
+  }
 }
 
-/* AJUSTES PARA PANTALLAS MUY PEQUEÑAS */
 @media (max-width: 576px) {
-    .wrapper {
-        padding-top: 30%;
-        
-    }
-
-    .container.draggable {
-        padding: 0.5rem;
-    }
-
-    .card-header h1 {
-        font-size: 1.5rem !important;
-    }
-
-    .btn-custom,
-    .btn-customd {
-        padding: 0.5rem !important;
-        font-size: 0.9rem;
-    }
+  .mobile-carousel .item {
+    flex: 0 0 90%;
+    min-width: 90%;
+    height: 160px;
+  }
+  
+  .name {
+    font-size: 10px;
+  }
 }

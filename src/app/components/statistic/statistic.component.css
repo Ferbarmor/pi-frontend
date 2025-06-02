@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&family=Roboto+Slab:wght@100;300;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Holtwood+One+SC&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Holtwood+One+SC&family=Iceberg&family=Rubik+Distressed&family=Rubik+Doodle+Triangles&family=Sixtyfour&display=swap');
+
+* {
+    font-family: 'Roboto Slab', serif !important;
+}
+
+.wrapper {
+    padding-top: 100px;
+    padding-bottom: 15%;
+    position: relative;
+    min-height: calc(100vh - 100px);
+}
+
+.btn-custom {
+    background: linear-gradient(135deg, #9dcbd8 0%, #1d4ed8 100%);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #6ab7f9 0%, #1d4ed8 100%);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(29, 78, 216, 0.4);
+    color: #ffffff;
+}
+
+:host {
+    display: block;
+}
+
+.stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.title {
+    font-family: 'Holtwood One SC', serif !important;
+    color: #ff9900 !important;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stat-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    font-size: 1.1rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    color: #2d3748;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.chart-card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #2d3748;
+}
+
+.chart-wrapper {
+    position: relative;
+    min-height: 300px;
+    overflow-x: auto;
+}
+
+/* === Estilos actualizados para .top-photos === */
+
+/* Contenedor principal */
+.top-photos {
+    margin-top: 3rem;
+    padding: 1rem 0;
+}
+
+.top-photos h3 {
+    font-family: 'Holtwood One SC', serif !important;
+    color: #ff9900 !important;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Grid de fotos */
+.photos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+/* Tarjeta personalizada */
+.custom-card {
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    border: 4px solid #f39c12;
+}
+
+
+
+.custom-card img {
+    transition: transform 0.5s ease;
+    object-position: center;
+    cursor: pointer;
+}
+
+.custom-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Texto overlay */
+.overlay-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.85rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    opacity: 0;
+}
+
+.custom-card:hover .overlay-text {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Cuerpo de la tarjeta */
+.card-body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1974f2 !important;
+    /* Sobreescribe el estilo inline */
+    margin-bottom: 0.75rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #6c757d !important;
+    flex-grow: 1;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    text-align: center;
+}
+
+.pie {
+    max-width: 500px;
+    max-height: 500px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Tablet (768px - 992px) */
+@media (max-width: 992px) {
+    .wrapper {
+        padding-top: 150px;
+    }
+
+    .stats-container {
+        margin-top: 1.5rem;
+    }
+
+    .top-photos {
+        margin-top: 2.5rem;
+    }
+}
+
+/* Móvil pequeño (576px - 768px) */
+@media (max-width: 768px) {
+    .wrapper {
+        padding-top: 150px;
+    }
+
+    .stats-container {
+        margin-top: 1.25rem;
+        padding: 1rem;
+    }
+
+    .top-photos {
+        margin-top: 2rem;
+    }
+}
+
+/* Móvil muy pequeño (<576px) */
+@media (max-width: 576px) {
+    .wrapper {
+        padding-top: 150px;
+        padding-bottom: 20%;
+    }
+
+    .stats-container {
+        margin-top: 1rem;
+        padding: 0.75rem;
+    }
+
+    .top-photos {
+        margin-top: 1.5rem;
+    }
+
+    .title,
+    .top-photos h3 {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Pantallas grandes (>1200px) */
+@media (min-width: 1200px) {
+    .stats-container {
+        margin-top: 3rem;
+    }
+
+    .top-photos {
+        margin-top: 4rem;
+    }
+}
+
+/* Efecto de carga para imágenes */
+img[loading="lazy"] {
+    background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+    background-size: 200% 100%;
+    animation: 1.5s shine linear infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position-x: -200%;
+    }
+}

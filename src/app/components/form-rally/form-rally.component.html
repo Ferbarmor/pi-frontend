@@ -1,0 +1,146 @@
+<div class="login-wrapper">
+    <div class="container mt-5 ">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow" #dragTarget style="position: absolute;">
+                    <div class="card-header bg-light cursor-move text-center" #dragHandle>
+                        <h1 class="card-title mb-0"><strong>
+                                {{ rally.id === undefined || rally.id === -1 ? 'REGISTRAR RALLY' : 'EDITAR RALLY'
+                                }}</strong>
+                        </h1>
+                    </div>
+                    <div class="card-body p-4">
+
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                            <!-- Selector de Rol -->
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" formControlName="nombre" [ngClass]="{
+                                    'is-invalid': form.controls['nombre'].invalid && 
+                                                (form.controls['nombre'].dirty || form.controls['nombre'].touched)
+                                }" placeholder="nombre completo">
+
+                                @if(form.controls["nombre"].invalid && (form.controls["nombre"].dirty ||
+                                form.controls["nombre"].touched)){
+                                @if(form.controls["nombre"].errors?.["required"]){
+                                <div class="invalid-feedback">El nombre es obligatorio</div>
+                                }
+                                @if(form.controls["nombre"].errors?.["minLength"]){
+                                <div class="invalid-feedback">El nombre debe tener al menos dos caracteres</div>
+                                }
+                                }
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripción</label>
+                                <input type="text" class="form-control" id="descripcion" formControlName="descripcion"
+                                    [ngClass]="{
+                                    'is-invalid': form.controls['descripcion'].invalid && 
+                                                (form.controls['descripcion'].dirty || form.controls['descripcion'].touched)
+                                }" placeholder="Descripción del rally">
+
+                                @if(form.controls["descripcion"].invalid && (form.controls["descripcion"].dirty ||
+                                form.controls["descripcion"].touched)){
+                                @if(form.controls["descripcion"].errors?.["required"]){
+                                <div class="invalid-feedback">La descripción es obligatoria</div>
+                                }
+                                @if(form.controls["descripcion"].errors?.["minLength"]){
+                                <div class="invalid-feedback">La descripción debe tener al menos dos caracteres</div>
+                                }
+                                }
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha_inicio" class="form-label">Fecha de inicio</label>
+                                <input type="date" class="form-control" id="fecha_inicio" formControlName="fecha_inicio"
+                                    [ngClass]="{
+                                    'is-invalid': form.controls['fecha_inicio'].invalid && 
+                                                (form.controls['fecha_inicio'].dirty || form.controls['fecha_inicio'].touched)
+                                }" placeholder="Fecha de inicio del rally">
+
+                                @if(form.controls["fecha_inicio"].invalid && (form.controls["fecha_inicio"].dirty ||
+                                form.controls["fecha_inicio"].touched)){
+                                @if(form.controls["fecha_inicio"].errors?.["required"]){
+                                <div class="invalid-feedback">La fecha de inicio es obligatoria</div>
+                                }
+                                }
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha_fin" class="form-label">Fecha de fin</label>
+                                <input type="date" class="form-control" id="fecha_fin" formControlName="fecha_fin"
+                                    [ngClass]="{
+                                    'is-invalid': form.controls['fecha_fin'].invalid && 
+                                                (form.controls['fecha_fin'].dirty || form.controls['fecha_fin'].touched)
+                                }" placeholder="Fecha de fin del rally">
+
+                                @if(form.controls["fecha_fin"].invalid && (form.controls["fecha_fin"].dirty ||
+                                form.controls["fecha_fin"].touched)){
+                                @if(form.controls["fecha_fin"].errors?.["required"]){
+                                <div class="invalid-feedback">La fecha de fin es obligatoria</div>
+                                }
+                                }
+                            </div>
+                            <div class="mb-3">
+                                <label for="fecha_fin_votacion" class="form-label">Fecha fin votación</label>
+                                <input type="date" class="form-control" id="fecha_fin_votacion"
+                                    formControlName="fecha_fin_votacion" [ngClass]="{
+                                    'is-invalid': form.controls['fecha_fin_votacion'].invalid && 
+                                                (form.controls['fecha_fin_votacion'].dirty || form.controls['fecha_fin_votacion'].touched)
+                                }" placeholder="Fecha fin de votación">
+
+                                @if(form.controls["fecha_fin_votacion"].invalid &&
+                                (form.controls["fecha_fin_votacion"].dirty ||
+                                form.controls["fecha_fin_votacion"].touched)){
+                                @if(form.controls["fecha_fin_votacion"].errors?.["required"]){
+                                <div class="invalid-feedback">La fecha de fin de votación es obligatoria</div>
+                                }
+                                }
+                            </div>
+                            <div class="mb-3">
+                                <label for="limite_fotos_participante" class="form-label">Límite de votos por
+                                    participante</label>
+                                <input type="number" class="form-control" id="limite_fotos_participante"
+                                    formControlName="limite_fotos_participante" [ngClass]="{
+                                    'is-invalid': form.controls['limite_fotos_participante'].invalid && 
+                                                (form.controls['limite_fotos_participante'].dirty || form.controls['limite_fotos_participante'].touched)
+                                }" placeholder="Limite fotos participante">
+
+                                @if(form.controls["limite_fotos_participante"].invalid &&
+                                (form.controls["limite_fotos_participante"].dirty ||
+                                form.controls["limite_fotos_participante"].touched)){
+                                @if(form.controls["limite_fotos_participante"].errors?.["required"]){
+                                <div class="invalid-feedback">La descripción es obligatoria</div>
+                                }
+                                @if(form.controls["limite_fotos_participante"].errors?.["min"]){
+                                <div class="invalid-feedback">Tiene que ser al menos 1</div>
+                                }
+                                }
+                            </div>
+                            <!-- Mensaje de error para las fechas -->
+                            @if(form.errors?.['fechaInvalida'] || form.errors?.['votacionFueraDeRango']){
+                            <div class="alert alert-danger">
+                                {{ form.errors!['fechaInvalida'] || form.errors!['votacionFueraDeRango'] }}
+                            </div>
+                            }
+                            <!-- Mensaje de error -->
+                            @if (message) {
+                            <div class="alert alert-dismissible"
+                                [ngClass]="messageType === 'success' ? 'alert-success' : 'alert-danger'">
+                                {{ message }}
+                                <button type="button" class="btn-close" (click)="message = ''"></button>
+                            </div>
+                            }
+
+                            <!-- Botón de Login -->
+                            <div class="d-flex justify-content-between gap-2 mt-3 flex-wrap">
+                                <button type="submit" class="btn btn-custom btn-sm" [disabled]="!form.valid">
+                                    <i class="bi bi-check-circle"></i> {{textBottom}}
+                                </button>
+                                <button type="button" class="btn btn-customd btn-sm" (click)="onCancel()">
+                                    <i class="bi bi-x-circle"></i> Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

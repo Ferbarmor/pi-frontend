@@ -5,13 +5,13 @@ import { environment } from '../../environments/environment.development';
   providedIn: 'root'
 })
 export class TestsService {
-  private url =environment.API_URL+"/tests";//Así llamamos a la url si tener que escribirla entera
+  private url =environment.API_URL+"/tests";
   constructor(private sertests: HttpClient) { }
 
   getTests() {
     console.log("Que pasa mi jarma. Estamos en getTests");
     let body = {
-      accion: "ListarTests"//Este es el atributo que tenemos en servicio (acordarse de poner el mismo npobre del atributo al objeto que pasas)
+      accion: "ListarTests"
     };
     return this.sertests.post<any[]>(this.url,body);
 
@@ -23,8 +23,7 @@ export class TestsService {
     let body = {
       accion: "AnadeTest",
       name: "Prueba de añadir",
-      description: "Esto es tu prima en barca"
-      //Este es el atributo que tenemos en servicio (acordarse de poner el mismo npobre del atributo al objeto que pasas)
+      description: "Esto es tu amigo en barca"
     };
     return this.sertests.post<any[]>(this.url,body);
 

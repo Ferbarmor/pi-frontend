@@ -61,8 +61,8 @@ export class ListadoTestsComponent {
   }
 
   handleFormClose(result: { success: boolean, message?: string, usuario?: Usuario }) {
-    console.log("Formulario cerrado, ¿con éxito?", result.success);
-    console.log("usuario que he modificado", result.usuario);
+    //console.log("Formulario cerrado, ¿con éxito?", result.success);
+    //console.log("usuario que he modificado", result.usuario);
     this.showForm = false;
     this.selectedUsuario = <Usuario>{}
     if (result.success && result.message == "Añadiendo") {
