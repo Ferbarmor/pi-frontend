@@ -3,6 +3,7 @@
 </p>
 <h1 align="center">Manual de Instalación</h1>
 A continuación, se describen los pasos necesarios para instalar el frontend, desarrollado con Angular, de la aplicación web www.snaptap.es (rally fotográfico) en un entorno de producción en AWS y en un entorno de desarrollo utilizando un servidor local como XAMPP.
+
 ## **Instalación del Frontend (Angular en AWS S3 + CloudFront)**
 - **Paso 1**: Clonar proyecto y build 
 ````
