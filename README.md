@@ -19,7 +19,7 @@ Esto generará los archivos en dist/.
 
   - Subir los archivos del directorio dist/ al bucket.
 
-  - Establecer políticas de acceso público y permisos para el bucket.
+  - Establecer [políticas de acceso público y permisos para el bucket](https://docs.aws.amazon.com/es_es/AmazonS3/latest/userguide/creating-buckets-s3.html).
 
 - **Paso 3**: Configurar CloudFront (Si vas a usar un dominio)
   - Crear una distribución en CloudFront.
