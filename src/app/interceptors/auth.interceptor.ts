@@ -16,8 +16,8 @@ import { AuthService } from '../services/auth.service';
  * @returns La solicitud modificada (con token) o la original si no se aplica.
  */
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
-  const token = authService.getToken();
+  const authService = inject(AuthService); //Obtiene el servicio AuthService
+  const token = authService.getToken(); //Recupera el token JWT almacenado
 
   //Evita agregar el token a solicitudes de login o si no hay token disponible
   if (req.url.includes('/login') || !token) {
