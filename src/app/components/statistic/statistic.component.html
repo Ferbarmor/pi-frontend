@@ -31,24 +31,32 @@
             </div>
         </div>
 
-        @if (estadisticas?.top_fotos) {
+        @if (estadisticas?.top_fotos?.length) {
         <div class="top-photos title">
             <h3>Top 3 Fotos</h3>
             <div class="photos-grid">
-                @for (foto of estadisticas.top_fotos; track foto.id) {
+                @for (foto of estadisticas.top_fotos.slice(0, 3); track foto.id) {
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card h-100 shadow-sm custom-card d-flex flex-column">
                         <div class="overflow-hidden position-relative" style="height: 200px;">
                             <img [src]="getUrl(foto.ruta_archivo)" loading="lazy" class="w-100 h-100 object-fit-cover"
                                 alt="Foto" (click)="verFotoGrande(getUrl(foto.ruta_archivo))" />
                             <div class="overlay-text">Haz clic para ampliar la foto</div>
+
+                            <div class="position-absolute top-0 start-0 m-2 px-2 py-1 rounded-pill text-white fw-bold"
+                                [ngStyle]="{
+                  backgroundColor: $index === 0 ? '#FFD700' : $index === 1 ? '#C0C0C0' : '#CD7F32'
+                }">
+                                {{ $index === 0 ? '🥇 1°' : $index === 1 ? '🥈 2°' : '🥉 3°' }}
+                            </div>
                         </div>
 
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title text fw-bold mb-1" style="color: #3399ff;">{{ foto.titulo }}</h5>
                             <p class="card-text text-muted small flex-grow-1">{{ foto.descripcion }}</p>
                             <div class="d-flex flex-column small mt-2 mb-2">
-                                <p class="card-text text-muted small flex-grow-1 mb-1">Autor: {{ foto.usuario?.nombre }}
+                                <p class="card-text text-muted small flex-grow-1 mb-1">
+                                    Autor: {{ foto.usuario?.nombre }}
                                 </p>
                             </div>
                         </div>

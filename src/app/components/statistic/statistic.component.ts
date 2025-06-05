@@ -89,6 +89,13 @@ export class StatisticComponent {
           const data = context.chart.data.datasets[0].data as number[];
           const total = data.reduce((sum, val) => sum + val, 0);
           const percentage = ((value / total) * 100).toFixed(1);
+          const rankEmojis = ['🥇 1°', '🥈 2°', '🥉 3°'];
+          const index = context.dataIndex;
+
+          // Solo para top 3 fotos, sino solo porcentaje
+          if (index < 3) {
+            return `${rankEmojis[index]}: ${percentage}%`;
+          }
           return `${percentage}%`;
         },
         color: '#000',
