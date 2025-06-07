@@ -20,9 +20,9 @@ export class AppComponent {
   /*constructor(private router: Router, public loaderService: LoaderService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        this.loaderService.show();  // Mostrar el loader cuando empieza la navegación
+        this.loaderService.show();  //Muestra el loader cuando empieza la navegación
       } else if (event instanceof NavigationEnd || event instanceof NavigationError) {
-        this.loaderService.hide();  // Ocultar el loader cuando termine la navegación
+        this.loaderService.hide();  //Oculta el loader cuando termine la navegación
       }
     });
   }*/

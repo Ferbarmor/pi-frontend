@@ -231,6 +231,14 @@ export class NavbarComponent {
   }
 
   /**
+ * Se ejecuta al destruir el componente.
+ * Cancela la suscripción al observable para evitar fugas de memoria.
+ */
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();
+  }
+
+  /**
   * Cierra la sesión del usuario actual.
   * También limpia el nombre visible en el menú.
   */
